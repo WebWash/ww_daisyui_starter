@@ -1,0 +1,30 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Section grid
+status: stable
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: section title
+    highlight:
+      type: boolean
+      title: Highlight
+      description: Add light grey background to highlight the section
+      default: false
+    columns:
+      type: string
+      title: Columns
+      description: Grid column layout
+      default: '33-33-33'
+      examples:
+        - '33-33-33'
+      enum:
+        - '100'
+        - '50-50'
+        - '33-33-33'
+        - '25-25-25-25'
+slots:
+  grid:
+    title: Grid

@@ -1,0 +1,31 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Hero image
+status: stable
+props:
+  type: object
+  properties:
+    media:
+      $ref: json-schema-definitions://canvas.module/image
+      title: Background Image
+      description: Background image for the hero
+      type: object
+    heading_text:
+      type: string
+      title: Heading Text
+      examples:
+        - 'Heading text'
+    subtitle:
+      type: string
+      title: subtitle
+      examples:
+        - 'Subtitle text'
+    link_url:
+      type: string
+      title: Link URL
+      examples:
+        - '/path'
+    link_label:
+      type: string
+      title: Link label
+      examples:
+        - 'Click here'

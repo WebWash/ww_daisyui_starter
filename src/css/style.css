@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms" {
+  strategy: "base";
+}
+@source "../../templates/**/*.twig";
+@source "../../components/**/*.twig";
+@source "../../**/*.theme";
+
+@import "./components/buttons.css";
+@import "./components/tabs.css";
+@import "./components/typography.css";

@@ -1,0 +1,30 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Card
+status: stable
+props:
+  type: object
+  properties:
+    media:
+      $ref: json-schema-definitions://canvas.module/image
+      title: Card Media
+      description: Media and Alt for the card.
+      type: object
+    title:
+      type: string
+      title: Title
+      examples:
+        - 'Card title'
+    summary:
+      type: string
+      title: Summary
+      examples:
+        - 'Card summary'
+    link_url:
+      type: string
+      title: Link URL
+      default: 'https://www.example.com'
+      examples:
+        - 'https://www.example.com'
+    link_label:
+      type: string
+      title: Link label

@@ -1,0 +1,20 @@
+/* Tabs Component */
+@layer components {
+  .ww-canvas--tabs {
+    & ul {
+      @apply flex flex-wrap gap-2 border-b border-gray-200 mb-6;
+    }
+
+    & li {
+      @apply m-0;
+    }
+
+    & a {
+      @apply inline-block px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-t-lg transition-colors duration-200 cursor-pointer;
+    }
+
+    & a.is-active {
+      @apply text-blue-600 bg-blue-50 border-b-2 border-blue-600;
+    }
+  }
+}

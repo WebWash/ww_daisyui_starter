@@ -1,0 +1,15 @@
+name: WebWash Tailwind Starter
+type: theme
+base theme: false
+description: A flexible theme with a responsive, mobile-first layout.
+package: Custom
+core_version_requirement: ^10 || ^11
+libraries:
+  - ww_tailwind_starter/global
+regions:
+  header: 'Header'
+  primary_menu: 'Primary menu'
+  pre_content: 'Pre-content'
+  content: 'Content'
+  footer: 'Footer'
+  footer_bottom: 'Footer bottom'

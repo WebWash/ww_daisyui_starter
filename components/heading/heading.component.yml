@@ -1,0 +1,31 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Heading
+status: stable
+props:
+  type: object
+  properties:
+    heading_text:
+      type: string
+      title: Heading Text
+      default: 'Enter title'
+      examples:
+        - 'My Heading'
+    level:
+      type: number
+      title: Heading Level
+      description: The heading level (h1-h6)
+      enum: [1, 2, 3, 4, 5, 6]
+      default: 2
+      examples:
+        - 2
+    align:
+      type: string
+      title: Text Alignment
+      description: The heading alignment
+      enum:
+        - left
+        - center
+        - right
+      default: left
+      examples:
+        - left

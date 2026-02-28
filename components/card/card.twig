@@ -1,0 +1,23 @@
+<div class="flex flex-col bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+  {% if media.src is not empty %}
+    <div class="overflow-hidden">
+      {% block media %}
+        <img src="{{ media.src }}" alt="{{ media.alt }}" class="w-full" />
+      {% endblock %}
+    </div>
+  {% endif %}
+
+  <div class="p-6">
+    {% if title is not empty %}
+      <h3 class="text-xl font-semibold text-gray-800 mb-3">{{ title }}</h3>
+    {% endif %}
+
+    {% if summary is not empty %}
+      <p class="text-gray-600 mb-4">{{ summary }}</p>
+    {% endif %}
+
+    {% if link_url is not empty and link_label is not empty %}
+      <a href="{{ link_url }}" class="text-blue-600 hover:text-blue-800 font-medium">{{ link_label }}</a>
+    {% endif %}
+  </div>
+</div>
