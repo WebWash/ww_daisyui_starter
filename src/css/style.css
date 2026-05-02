@@ -2,6 +2,9 @@
 @plugin "@tailwindcss/forms" {
   strategy: "base";
 }
+@plugin "../../node_modules/daisyui/index.js" {
+  themes: light --default, dark --prefersdark;
+}
 @source "../../templates/**/*.twig";
 @source "../../components/**/*.twig";
 @source "../../src/**/*.php";
