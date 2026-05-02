@@ -21,6 +21,7 @@ props:
         - https://example.com/
     size:
       title: Size
+      description: Defaults to btn-md when omitted.
       type: string
       enum:
         - btn-xs
@@ -31,14 +32,14 @@ props:
       "meta:enum":
         btn-xs: "Extra small"
         btn-sm: Small
-        btn-md: Medium
+        btn-md: "Medium (default)"
         btn-lg: Large
         btn-xl: "Extra large"
-      default: btn-md
       examples:
         - btn-md
     color:
       title: Color
+      description: Defaults to btn-primary when omitted.
       type: string
       enum:
         - btn-neutral
@@ -51,20 +52,21 @@ props:
         - btn-error
       "meta:enum":
         btn-neutral: Neutral
-        btn-primary: Primary
+        btn-primary: "Primary (default)"
         btn-secondary: Secondary
         btn-accent: Accent
         btn-info: Info
         btn-success: Success
         btn-warning: Warning
         btn-error: Error
-      default: btn-primary
       examples:
         - btn-primary
     variant:
       title: Variant
+      description: Defaults to "default" (solid) when omitted.
       type: string
       enum:
+        - ""
         - default
         - btn-outline
         - btn-dash
@@ -72,13 +74,12 @@ props:
         - btn-ghost
         - btn-link
       "meta:enum":
-        default: Default
+        default: "Default (solid)"
         btn-outline: Outline
         btn-dash: Dashed
         btn-soft: Soft
         btn-ghost: Ghost
         btn-link: Link
-      default: default
       examples:
         - default
     icon:
@@ -89,14 +90,13 @@ props:
         - arrow-right
     icon_position:
       title: Icon position
-      description: 'Where to place the icon relative to the text (logical, RTL-aware).'
+      description: 'Where to place the icon relative to the text (logical, RTL-aware). Defaults to "start".'
       type: string
       enum:
         - start
         - end
       "meta:enum":
-        start: Start
+        start: "Start (default)"
         end: End
-      default: start
       examples:
         - start

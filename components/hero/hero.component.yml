@@ -1,0 +1,149 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Hero
+status: stable
+description: Hero component based on daisyUI. Supports text-only, side-by-side image, reverse side, and full-bleed image-with-overlay layouts. Optional CTA button via the button SDC.
+props:
+  type: object
+  properties:
+    title:
+      title: Title
+      type: string
+      examples:
+        - Hello there
+    title_heading_level:
+      title: Title heading level
+      description: Defaults to h1 when omitted.
+      type: string
+      enum:
+        - h1
+        - h2
+        - h3
+        - h4
+        - h5
+        - h6
+      "meta:enum":
+        h1: "Heading 1 (default)"
+        h2: "Heading 2"
+        h3: "Heading 3"
+        h4: "Heading 4"
+        h5: "Heading 5"
+        h6: "Heading 6"
+      examples:
+        - h1
+    subtitle:
+      title: Subtitle
+      description: Body text rendered below the title.
+      type: string
+      examples:
+        - Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem.
+    image:
+      title: Image URL
+      type: string
+      format: iri-reference
+      examples:
+        - https://picsum.photos/seed/hero/1600/900
+    image_alt:
+      title: Image alt
+      type: string
+      examples:
+        - Decorative hero image
+    layout:
+      title: Layout
+      description: Defaults to "default" (text only) when omitted.
+      type: string
+      enum:
+        - default
+        - side
+        - side-reverse
+        - overlay
+      "meta:enum":
+        default: "Default (text only)"
+        side: "Side (image left, text right)"
+        side-reverse: "Side reverse (text left, image right)"
+        overlay: "Image background with overlay"
+      examples:
+        - default
+    align:
+      title: Alignment
+      description: Defaults to "left" when omitted.
+      type: string
+      enum:
+        - left
+        - center
+      "meta:enum":
+        left: "Left (default)"
+        center: Center
+      examples:
+        - left
+    bg_color:
+      title: Background colour
+      description: Background and text colour combination. Ignored when layout is "overlay". Defaults to "default" (transparent).
+      type: string
+      enum:
+        - default
+        - base-200
+        - base-300
+        - neutral
+        - primary
+      "meta:enum":
+        default: "Default (transparent)"
+        base-200: Base 200
+        base-300: Base 300
+        neutral: Neutral
+        primary: Primary
+      examples:
+        - default
+    min_height:
+      title: Minimum height
+      description: Defaults to "md" (500px).
+      type: string
+      enum:
+        - none
+        - sm
+        - md
+        - lg
+        - screen
+      "meta:enum":
+        none: None
+        sm: "Small (300px)"
+        md: "Medium (500px, default)"
+        lg: "Large (700px)"
+        screen: "Full screen"
+      examples:
+        - md
+    cta_label:
+      title: CTA label
+      description: Optional call-to-action button label.
+      type: string
+      examples:
+        - Get started
+    cta_url:
+      title: CTA URL
+      type: string
+      format: iri-reference
+      examples:
+        - https://example.com/
+    cta_color:
+      title: CTA color
+      description: Defaults to btn-primary.
+      type: string
+      enum:
+        - btn-neutral
+        - btn-primary
+        - btn-secondary
+        - btn-accent
+        - btn-info
+        - btn-success
+        - btn-warning
+        - btn-error
+      "meta:enum":
+        btn-neutral: Neutral
+        btn-primary: "Primary (default)"
+        btn-secondary: Secondary
+        btn-accent: Accent
+        btn-info: Info
+        btn-success: Success
+        btn-warning: Warning
+        btn-error: Error
+      examples:
+        - btn-primary

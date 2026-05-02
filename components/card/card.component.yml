@@ -14,6 +14,7 @@ props:
         - Card title
     title_heading_level:
       title: Title heading level
+      description: Defaults to h3 when omitted.
       type: string
       enum:
         - h2
@@ -23,11 +24,10 @@ props:
         - h6
       "meta:enum":
         h2: "Heading 2"
-        h3: "Heading 3"
+        h3: "Heading 3 (default)"
         h4: "Heading 4"
         h5: "Heading 5"
         h6: "Heading 6"
-      default: h3
       examples:
         - h3
     body:
@@ -45,11 +45,11 @@ props:
     image_alt:
       title: Image alt
       type: string
-      default: ''
       examples:
         - Decorative image
     size:
       title: Size
+      description: Defaults to card-md when omitted.
       type: string
       enum:
         - card-xs
@@ -60,43 +60,43 @@ props:
       "meta:enum":
         card-xs: "Extra small"
         card-sm: Small
-        card-md: Medium
+        card-md: "Medium (default)"
         card-lg: Large
         card-xl: "Extra large"
-      default: card-md
       examples:
         - card-md
     border:
       title: Border
+      description: Defaults to none when omitted.
       type: string
       enum:
         - none
         - card-border
         - card-dash
       "meta:enum":
-        none: None
+        none: "None (default)"
         card-border: Border
         card-dash: Dashed
-      default: none
       examples:
         - none
     variant:
       title: Layout variant
+      description: Defaults to "default" (image on top) when omitted.
       type: string
       enum:
+        - ""
         - default
         - image-full
         - card-side
       "meta:enum":
-        default: Default (image on top)
+        default: "Default (image on top)"
         image-full: Image full (image as background)
         card-side: Card side (image beside body)
-      default: default
       examples:
         - default
     bg_color:
       title: Background colour
-      description: Sets the card background and matching text colour. Default uses base-100.
+      description: Sets the card background and matching text colour. Defaults to "default" (base-100).
       type: string
       enum:
         - default
@@ -109,7 +109,7 @@ props:
         - warning
         - error
       "meta:enum":
-        default: Default
+        default: "Default (base-100)"
         neutral: Neutral
         primary: Primary
         secondary: Secondary
@@ -118,7 +118,6 @@ props:
         success: Success
         warning: Warning
         error: Error
-      default: default
       examples:
         - default
     action_label:

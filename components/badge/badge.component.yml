@@ -21,6 +21,7 @@ props:
         - https://example.com/
     size:
       title: Size
+      description: Defaults to badge-md when omitted.
       type: string
       enum:
         - badge-xs
@@ -31,14 +32,14 @@ props:
       "meta:enum":
         badge-xs: "Extra small"
         badge-sm: Small
-        badge-md: Medium
+        badge-md: "Medium (default)"
         badge-lg: Large
         badge-xl: "Extra large"
-      default: badge-md
       examples:
         - badge-md
     color:
       title: Color
+      description: Defaults to badge-primary when omitted.
       type: string
       enum:
         - badge-neutral
@@ -51,32 +52,32 @@ props:
         - badge-error
       "meta:enum":
         badge-neutral: Neutral
-        badge-primary: Primary
+        badge-primary: "Primary (default)"
         badge-secondary: Secondary
         badge-accent: Accent
         badge-info: Info
         badge-success: Success
         badge-warning: Warning
         badge-error: Error
-      default: badge-primary
       examples:
         - badge-primary
     variant:
       title: Variant
+      description: Defaults to "default" (solid) when omitted.
       type: string
       enum:
+        - ""
         - default
         - badge-outline
         - badge-dash
         - badge-soft
         - badge-ghost
       "meta:enum":
-        default: Default
+        default: "Default (solid)"
         badge-outline: Outline
         badge-dash: Dashed
         badge-soft: Soft
         badge-ghost: Ghost
-      default: default
       examples:
         - default
     icon:
@@ -87,14 +88,13 @@ props:
         - star
     icon_position:
       title: Icon position
-      description: 'Where to place the icon relative to the text (logical, RTL-aware).'
+      description: 'Where to place the icon relative to the text (logical, RTL-aware). Defaults to "start".'
       type: string
       enum:
         - start
         - end
       "meta:enum":
-        start: Start
+        start: "Start (default)"
         end: End
-      default: start
       examples:
         - start

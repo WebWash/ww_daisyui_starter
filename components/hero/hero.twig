@@ -1,0 +1,71 @@
+{% set bg_class_map = {
+  'default':  '',
+  'base-200': 'bg-base-200',
+  'base-300': 'bg-base-300',
+  'neutral':  'bg-neutral text-neutral-content',
+  'primary':  'bg-primary text-primary-content',
+} %}
+
+{% set min_height_map = {
+  'none':   '',
+  'sm':     'min-h-[300px]',
+  'md':     'min-h-[500px]',
+  'lg':     'min-h-[700px]',
+  'screen': 'min-h-screen',
+} %}
+
+{% set layout_val = layout|default('default') %}
+{% set align_val = align|default('left') %}
+{% set has_overlay = layout_val == 'overlay' and image %}
+
+{% set classes = [
+  'hero',
+  has_overlay ? '' : (bg_class_map[bg_color|default('default')] ?? ''),
+  min_height_map[min_height|default('md')] ?? 'min-h-[500px]',
+] %}
+
+{% set content_classes = ['hero-content'] %}
+{% if layout_val == 'side' %}
+  {% set content_classes = content_classes|merge(['flex-col', 'lg:flex-row']) %}
+{% elseif layout_val == 'side-reverse' %}
+  {% set content_classes = content_classes|merge(['flex-col', 'lg:flex-row-reverse']) %}
+{% endif %}
+{% if align_val == 'center' %}
+  {% set content_classes = content_classes|merge(['text-center']) %}
+{% endif %}
+{% if has_overlay %}
+  {% set content_classes = content_classes|merge(['text-neutral-content']) %}
+{% endif %}
+
+{% set is_side = layout_val == 'side' or layout_val == 'side-reverse' %}
+{% set text_wrapper_class = is_side ? '' : 'max-w-2xl' %}
+
+{% set heading_tag = title_heading_level|default('h1') %}
+
+{% if has_overlay %}
+  <div {{ attributes.addClass(classes).setAttribute('style', 'background-image: url(' ~ image ~ ')') }}>
+    <div class="hero-overlay"></div>
+{% else %}
+  <div {{ attributes.addClass(classes) }}>
+{% endif %}
+  <div class="{{ content_classes|join(' ') }}">
+    {% if image and is_side %}
+      <img src="{{ image }}" alt="{{ image_alt|default('') }}" class="max-w-sm rounded-lg shadow-2xl" />
+    {% endif %}
+    <div class="{{ text_wrapper_class }}">
+      {% if title %}
+        <{{ heading_tag }} class="text-5xl font-bold">{{ title }}</{{ heading_tag }}>
+      {% endif %}
+      {% if subtitle %}
+        <p class="py-6">{{ subtitle }}</p>
+      {% endif %}
+      {% if cta_label %}
+        {{ include('ww_tailwind_starter:button', {
+          text: cta_label,
+          url: cta_url,
+          color: cta_color|default('btn-primary'),
+        }, with_context: false) }}
+      {% endif %}
+    </div>
+  </div>
+</div>
