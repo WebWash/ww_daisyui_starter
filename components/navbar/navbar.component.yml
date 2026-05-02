@@ -1,0 +1,19 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Navbar
+status: stable
+description: Site header built on the daisyUI navbar pattern. Slots accept the branding (logo) and main menu render arrays; placeholder markup renders when slots are empty.
+props:
+  type: object
+  properties:
+    site_name:
+      type: string
+      title: Site name
+      description: Used as the logo fallback text when the logo slot is empty.
+      default: ''
+slots:
+  logo:
+    title: Logo
+    description: Branding render array (typically the system_branding_block).
+  menu:
+    title: Main menu
+    description: Main navigation render array (typically a system_menu_block).

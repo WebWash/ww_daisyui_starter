@@ -1,0 +1,32 @@
+{% set classes = [
+  'btn',
+  size|default('btn-md'),
+  color|default('btn-primary'),
+  variant and variant != 'default' ? variant,
+] %}
+
+{% set icon_size_map = {
+  'btn-xs': 'extra-small',
+  'btn-sm': 'extra-small',
+  'btn-md': 'small',
+  'btn-lg': 'small',
+  'btn-xl': 'medium',
+} %}
+{% set resolved_icon_size = icon_size_map[size|default('btn-md')] ?? 'small' %}
+
+{% set icon_markup %}
+  {% if icon %}
+    {{ include('ww_tailwind_starter:icon', {
+      icon: icon,
+      icon_size: resolved_icon_size,
+    }, with_context: false) }}
+  {% endif %}
+{% endset %}
+
+{% set tag = url ? 'a' : 'button' %}
+
+<{{ tag }} {{ attributes.addClass(classes).setAttribute('href', url ?: false) }}>
+  {% if icon and icon_position|default('start') == 'start' %}{{ icon_markup }}{% endif %}
+  {{ text }}
+  {% if icon and icon_position|default('start') == 'end' %}{{ icon_markup }}{% endif %}
+</{{ tag }}>

@@ -1,0 +1,32 @@
+{% set classes = [
+  'badge',
+  size|default('badge-md'),
+  color|default('badge-primary'),
+  variant and variant != 'default' ? variant,
+] %}
+
+{% set icon_size_map = {
+  'badge-xs': 'extra-small',
+  'badge-sm': 'extra-small',
+  'badge-md': 'extra-small',
+  'badge-lg': 'small',
+  'badge-xl': 'small',
+} %}
+{% set resolved_icon_size = icon_size_map[size|default('badge-md')] ?? 'extra-small' %}
+
+{% set icon_markup %}
+  {% if icon %}
+    {{ include('ww_tailwind_starter:icon', {
+      icon: icon,
+      icon_size: resolved_icon_size,
+    }, with_context: false) }}
+  {% endif %}
+{% endset %}
+
+{% set tag = url ? 'a' : 'span' %}
+
+<{{ tag }} {{ attributes.addClass(classes).setAttribute('href', url ?: false) }}>
+  {% if icon and icon_position|default('start') == 'start' %}{{ icon_markup }}{% endif %}
+  {{ text }}
+  {% if icon and icon_position|default('start') == 'end' %}{{ icon_markup }}{% endif %}
+</{{ tag }}>

@@ -1,0 +1,27 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Dropdown
+status: stable
+description: daisyUI dropdown wrapper. Provide a trigger and menu items via slots.
+props:
+  type: object
+  properties:
+    align:
+      type: string
+      title: Align
+      description: Horizontal alignment of the dropdown content.
+      enum:
+        - start
+        - end
+      default: end
+    width:
+      type: string
+      title: Menu width class
+      description: Tailwind width utility for the dropdown menu (e.g. w-52, w-64).
+      default: w-52
+slots:
+  trigger:
+    title: Trigger
+    description: Clickable element that opens the dropdown. Must include role="button" and tabindex="0" for accessibility.
+  menu:
+    title: Menu
+    description: List items rendered inside the dropdown menu.

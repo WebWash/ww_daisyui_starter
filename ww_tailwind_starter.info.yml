@@ -7,9 +7,13 @@ core_version_requirement: ^10 || ^11
 libraries:
   - ww_tailwind_starter/global
 regions:
-  header: 'Header'
+  navbar_branding: 'Navbar branding'
   primary_menu: 'Primary menu'
+  header: 'Header'
+  breadcrumb: 'Breadcrumb'
   pre_content: 'Pre-content'
   content: 'Content'
-  footer: 'Footer'
+  footer_branding: 'Footer branding'
+  footer: 'Footer (links)'
+  footer_social: 'Footer social'
   footer_bottom: 'Footer bottom'

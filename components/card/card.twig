@@ -1,23 +1,47 @@
-<div class="flex flex-col bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-  {% if media.src is not empty %}
-    <div class="overflow-hidden">
-      {% block media %}
-        <img src="{{ media.src }}" alt="{{ media.alt }}" class="w-full" />
-      {% endblock %}
-    </div>
+{% set bg_class_map = {
+  'default':   'bg-base-100',
+  'neutral':   'bg-neutral text-neutral-content',
+  'primary':   'bg-primary text-primary-content',
+  'secondary': 'bg-secondary text-secondary-content',
+  'accent':    'bg-accent text-accent-content',
+  'info':      'bg-info text-info-content',
+  'success':   'bg-success text-success-content',
+  'warning':   'bg-warning text-warning-content',
+  'error':     'bg-error text-error-content',
+} %}
+{% set bg_classes = bg_class_map[bg_color|default('default')] ?? 'bg-base-100' %}
+
+{% set classes = [
+  'card',
+  'shadow-sm',
+  'overflow-hidden',
+  bg_classes,
+  size|default('card-md'),
+  border and border != 'none' ? border,
+  variant and variant != 'default' ? variant,
+] %}
+
+{% set heading_tag = title_heading_level|default('h3') %}
+
+<div {{ attributes.addClass(classes) }}>
+  {% if image %}
+    <figure>
+      <img src="{{ image }}" alt="{{ image_alt|default('') }}" />
+    </figure>
   {% endif %}
-
-  <div class="p-6">
-    {% if title is not empty %}
-      <h3 class="text-xl font-semibold text-gray-800 mb-3">{{ title }}</h3>
+  <div class="card-body">
+    <{{ heading_tag }} class="card-title">{{ title }}</{{ heading_tag }}>
+    {% if body %}
+      <p>{{ body }}</p>
     {% endif %}
-
-    {% if summary is not empty %}
-      <p class="text-gray-600 mb-4">{{ summary }}</p>
-    {% endif %}
-
-    {% if link_url is not empty and link_label is not empty %}
-      <a href="{{ link_url }}" class="text-blue-600 hover:text-blue-800 font-medium">{{ link_label }}</a>
+    {% if action_label %}
+      <div class="card-actions justify-end">
+        {{ include('ww_tailwind_starter:button', {
+          text: action_label,
+          url: action_url,
+          size: 'btn-sm',
+        }, with_context: false) }}
+      </div>
     {% endif %}
   </div>
 </div>

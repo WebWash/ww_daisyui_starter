@@ -1,0 +1,83 @@
+{% embed 'ww_tailwind_starter:drawer' with { drawer_id: 'mobile-drawer', side: 'end' } %}
+  {% block content %}
+    <header class="bg-base-100 shadow-sm">
+      <div class="navbar container mx-auto px-4 lg:px-8">
+        <div class="navbar-start">
+          {% if logo %}
+            {{ logo }}
+          {% else %}
+            <a href="/" class="btn btn-ghost text-xl font-bold">{{ site_name }}</a>
+          {% endif %}
+        </div>
+
+        <div class="navbar-center max-lg:hidden">
+          {% if menu %}
+            {{ menu }}
+          {% else %}
+            <ul class="menu menu-horizontal px-1">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="navbar-end gap-2">
+          {#
+            {% embed 'ww_tailwind_starter:dropdown' with { align: 'end' } %}
+              {% block trigger %}
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                  <div class="w-10 rounded-full">
+                    <img alt="User avatar" src="https://i.pravatar.cc/80?img=12" />
+                  </div>
+                </div>
+              {% endblock %}
+              {% block menu %}
+                <li class="menu-title px-4 py-2">
+                  <div>
+                    <p class="font-semibold">Ivan Zugec</p>
+                    <p class="text-xs opacity-60">ivan@zugec.com</p>
+                  </div>
+                </li>
+                <div class="divider my-0"></div>
+                <li><a href="#" class="justify-between">Profile <span class="badge">New</span></a></li>
+                <li><a href="#">Settings</a></li>
+                <div class="divider my-0"></div>
+                <li><a href="#" class="text-error">Sign out</a></li>
+              {% endblock %}
+            {% endembed %}
+          #}
+
+          {{ include('ww_tailwind_starter:theme_switcher', {}, with_context: false) }}
+
+          <a href="#" class="btn btn-primary">Premium</a>
+
+          <label for="mobile-drawer" tabindex="0" aria-label="open sidebar" class="btn btn-ghost btn-circle lg:hidden" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
+          </label>
+        </div>
+      </div>
+    </header>
+  {% endblock %}
+
+  {% block sidebar %}
+    <div class="flex items-center justify-between mb-8 px-4">
+      {% if logo %}
+        {{ logo }}
+      {% else %}
+        <span class="text-xl font-bold">{{ site_name }}</span>
+      {% endif %}
+      <label for="mobile-drawer" tabindex="0" aria-label="close sidebar" class="btn btn-sm btn-circle btn-ghost" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </label>
+    </div>
+
+    {% if menu %}
+      {{ menu }}
+    {% endif %}
+  {% endblock %}
+{% endembed %}

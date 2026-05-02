@@ -2,10 +2,14 @@
 @plugin "@tailwindcss/forms" {
   strategy: "base";
 }
+@plugin "../../node_modules/daisyui/index.js" {
+  themes: light --default, dark --prefersdark, cupcake, bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business, acid, lemonade, night, coffee, winter, dim, nord, sunset, caramellatte, abyss, silk;
+}
 @source "../../templates/**/*.twig";
 @source "../../components/**/*.twig";
-@source "../../**/*.theme";
+@source "../../components/**/*.yml";
+@source "../../src/**/*.php";
+@source "./tailwind-classes.txt";
 
-@import "./components/buttons.css";
 @import "./components/tabs.css";
 @import "./components/typography.css";

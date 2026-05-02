@@ -1,0 +1,27 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Drawer
+status: stable
+description: daisyUI drawer wrapper. Toggle by pointing a label[for=...] at the matching drawer_id.
+props:
+  type: object
+  properties:
+    drawer_id:
+      type: string
+      title: Drawer ID
+      description: ID of the drawer-toggle checkbox; used by the controlling label[for=...].
+      default: drawer
+    side:
+      type: string
+      title: Side
+      description: Edge the drawer slides in from.
+      enum:
+        - start
+        - end
+      default: end
+slots:
+  content:
+    title: Content
+    description: Main page content rendered alongside the drawer.
+  sidebar:
+    title: Sidebar
+    description: Off-canvas drawer panel content.
