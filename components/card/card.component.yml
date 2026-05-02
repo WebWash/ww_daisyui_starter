@@ -1,30 +1,136 @@
 '$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
 name: Card
 status: stable
+description: Card component based on daisyUI. Supports image, title, body, action link, sizes, borders, layout variants, and themed background colors with matching text colors.
 props:
   type: object
+  required:
+    - title
   properties:
-    media:
-      $ref: json-schema-definitions://canvas.module/image
-      title: Card Media
-      description: Media and Alt for the card.
-      type: object
     title:
-      type: string
       title: Title
-      examples:
-        - 'Card title'
-    summary:
       type: string
-      title: Summary
       examples:
-        - 'Card summary'
-    link_url:
+        - Card title
+    title_heading_level:
+      title: Title heading level
       type: string
-      title: Link URL
-      default: 'https://www.example.com'
+      enum:
+        - h2
+        - h3
+        - h4
+        - h5
+        - h6
+      "meta:enum":
+        h2: "Heading 2"
+        h3: "Heading 3"
+        h4: "Heading 4"
+        h5: "Heading 5"
+        h6: "Heading 6"
+      default: h3
       examples:
-        - 'https://www.example.com'
-    link_label:
+        - h3
+    body:
+      title: Body
+      description: Body text rendered below the title.
       type: string
-      title: Link label
+      examples:
+        - A short description for the card.
+    image:
+      title: Image URL
+      type: string
+      format: iri-reference
+      examples:
+        - https://picsum.photos/seed/card/640/360
+    image_alt:
+      title: Image alt
+      type: string
+      default: ''
+      examples:
+        - Decorative image
+    size:
+      title: Size
+      type: string
+      enum:
+        - card-xs
+        - card-sm
+        - card-md
+        - card-lg
+        - card-xl
+      "meta:enum":
+        card-xs: "Extra small"
+        card-sm: Small
+        card-md: Medium
+        card-lg: Large
+        card-xl: "Extra large"
+      default: card-md
+      examples:
+        - card-md
+    border:
+      title: Border
+      type: string
+      enum:
+        - none
+        - card-border
+        - card-dash
+      "meta:enum":
+        none: None
+        card-border: Border
+        card-dash: Dashed
+      default: none
+      examples:
+        - none
+    variant:
+      title: Layout variant
+      type: string
+      enum:
+        - default
+        - image-full
+        - card-side
+      "meta:enum":
+        default: Default (image on top)
+        image-full: Image full (image as background)
+        card-side: Card side (image beside body)
+      default: default
+      examples:
+        - default
+    bg_color:
+      title: Background colour
+      description: Sets the card background and matching text colour. Default uses base-100.
+      type: string
+      enum:
+        - default
+        - neutral
+        - primary
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
+      "meta:enum":
+        default: Default
+        neutral: Neutral
+        primary: Primary
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
+      default: default
+      examples:
+        - default
+    action_label:
+      title: Action label
+      description: Optional label for the action button rendered in card-actions.
+      type: string
+      examples:
+        - Read more
+    action_url:
+      title: Action URL
+      description: Optional href for the action button.
+      type: string
+      format: iri-reference
+      examples:
+        - https://example.com/

@@ -1,0 +1,100 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Badge
+status: stable
+description: Badge component based on daisyUI. Renders as an anchor when a URL is provided, otherwise as a span element.
+props:
+  type: object
+  required:
+    - text
+  properties:
+    text:
+      title: Text
+      type: string
+      examples:
+        - New
+    url:
+      title: URL
+      description: Optional href. When set the component renders as an <a>.
+      type: string
+      format: iri-reference
+      examples:
+        - https://example.com/
+    size:
+      title: Size
+      type: string
+      enum:
+        - badge-xs
+        - badge-sm
+        - badge-md
+        - badge-lg
+        - badge-xl
+      "meta:enum":
+        badge-xs: "Extra small"
+        badge-sm: Small
+        badge-md: Medium
+        badge-lg: Large
+        badge-xl: "Extra large"
+      default: badge-md
+      examples:
+        - badge-md
+    color:
+      title: Color
+      type: string
+      enum:
+        - badge-neutral
+        - badge-primary
+        - badge-secondary
+        - badge-accent
+        - badge-info
+        - badge-success
+        - badge-warning
+        - badge-error
+      "meta:enum":
+        badge-neutral: Neutral
+        badge-primary: Primary
+        badge-secondary: Secondary
+        badge-accent: Accent
+        badge-info: Info
+        badge-success: Success
+        badge-warning: Warning
+        badge-error: Error
+      default: badge-primary
+      examples:
+        - badge-primary
+    variant:
+      title: Variant
+      type: string
+      enum:
+        - default
+        - badge-outline
+        - badge-dash
+        - badge-soft
+        - badge-ghost
+      "meta:enum":
+        default: Default
+        badge-outline: Outline
+        badge-dash: Dashed
+        badge-soft: Soft
+        badge-ghost: Ghost
+      default: default
+      examples:
+        - default
+    icon:
+      title: Icon
+      description: 'Optional Phosphor icon name (e.g. "star", "check-circle"). See https://phosphoricons.com.'
+      type: string
+      examples:
+        - star
+    icon_position:
+      title: Icon position
+      description: 'Where to place the icon relative to the text (logical, RTL-aware).'
+      type: string
+      enum:
+        - start
+        - end
+      "meta:enum":
+        start: Start
+        end: End
+      default: start
+      examples:
+        - start
