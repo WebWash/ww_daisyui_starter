@@ -7,7 +7,10 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist',
-    rollupOptions: {
+    watch: {
+      exclude: ['dist/**', 'node_modules/**']
+    },
+    rolldownOptions: {
       input: 'src/css/style.css',
       output: {
         assetFileNames: '[name][extname]'
