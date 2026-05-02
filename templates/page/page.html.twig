@@ -45,7 +45,11 @@
  * @ingroup themeable
  */
 #}
-{% include 'ww_tailwind_starter:navbar' %}
+{% include 'ww_tailwind_starter:navbar' with {
+  logo: page.navbar_branding,
+  menu: page.primary_menu,
+  site_name: site_name,
+} %}
 
 {% if page.pre_content and not is_canvas_page %}
   <div class="container mx-auto p-4">

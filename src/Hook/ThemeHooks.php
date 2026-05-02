@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ww_tailwind_starter\Hook;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -14,6 +15,7 @@ final class ThemeHooks {
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
+    private readonly ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
@@ -24,6 +26,7 @@ final class ThemeHooks {
     $route_name = $this->routeMatch->getRouteName();
     $variables['is_canvas_page'] = $route_name === 'entity.canvas_page.canonical'
       || str_starts_with($route_name, 'canvas.api.layout');
+    $variables['site_name'] = $this->configFactory->get('system.site')->get('name');
   }
 
   /**
@@ -47,7 +50,7 @@ final class ThemeHooks {
    */
   #[Hook('preprocess_menu__main')]
   public function preprocessMenuMain(array &$variables): void {
-    $variables['attributes']['class'][] = 'flex space-x-6';
+    $variables['attributes']['class'][] = 'menu menu-horizontal px-1';
   }
 
 }
