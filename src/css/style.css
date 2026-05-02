@@ -4,7 +4,7 @@
 }
 @source "../../templates/**/*.twig";
 @source "../../components/**/*.twig";
-@source "../../**/*.theme";
+@source "../../src/**/*.php";
 
 @import "./components/buttons.css";
 @import "./components/tabs.css";
