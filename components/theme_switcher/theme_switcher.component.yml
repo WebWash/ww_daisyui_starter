@@ -1,0 +1,22 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Theme switcher
+status: stable
+description: daisyUI theme picker. Renders a dropdown listing every enabled theme with a small color swatch preview. Persists the chosen theme to localStorage and applies it via the data-theme attribute on <html>.
+props:
+  type: object
+  properties:
+    themes:
+      title: Themes
+      description: Ordered list of daisyUI theme names to expose in the dropdown.
+      type: array
+      items:
+        type: string
+    align:
+      title: Dropdown alignment
+      description: Defaults to "end" so the menu hangs from the right edge of the trigger.
+      type: string
+      enum:
+        - start
+        - end
+      examples:
+        - end

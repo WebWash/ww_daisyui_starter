@@ -3,3 +3,5 @@ global:
   css:
     theme:
       dist/style.css: {}
+  js:
+    js/theme-switcher.js: {}

@@ -1,0 +1,38 @@
+{% set theme_list = themes ?? [
+  'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave',
+  'retro', 'cyberpunk', 'valentine', 'halloween', 'garden', 'forest', 'aqua',
+  'lofi', 'pastel', 'fantasy', 'wireframe', 'black', 'luxury', 'dracula', 'cmyk',
+  'autumn', 'business', 'acid', 'lemonade', 'night', 'coffee', 'winter', 'dim',
+  'nord', 'sunset', 'caramellatte', 'abyss', 'silk',
+] %}
+{% set menu_align = align == 'start' ? 'dropdown-start' : 'dropdown-end' %}
+
+<div class="dropdown {{ menu_align }}" data-ww-theme-switcher>
+  <div tabindex="0" role="button" class="btn btn-ghost gap-1" aria-label="{{ 'Choose theme'|t }}">
+    <div data-theme="light" data-ww-theme-current-swatch class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm border border-base-content/10">
+      <div class="bg-base-content size-1 rounded-full"></div>
+      <div class="bg-primary size-1 rounded-full"></div>
+      <div class="bg-secondary size-1 rounded-full"></div>
+      <div class="bg-accent size-1 rounded-full"></div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 2048 2048" class="fill-current opacity-60"><path d="M1799 939l138 138-913 914-913-914l138-138l775 775l775-775z"></path></svg>
+  </div>
+
+  <ul tabindex="0" class="dropdown-content menu menu-sm flex-col flex-nowrap bg-base-100 rounded-box z-[1] mt-2 max-h-96 w-56 overflow-y-auto p-2 shadow-lg border border-base-content/10">
+    <li class="menu-title">{{ 'Theme'|t }}</li>
+    {% for theme in theme_list %}
+      <li class="w-full">
+        <button type="button" data-set-theme="{{ theme }}" class="flex w-full items-center gap-3 capitalize">
+          <div data-theme="{{ theme }}" class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm border border-base-content/10">
+            <div class="bg-base-content size-1 rounded-full"></div>
+            <div class="bg-primary size-1 rounded-full"></div>
+            <div class="bg-secondary size-1 rounded-full"></div>
+            <div class="bg-accent size-1 rounded-full"></div>
+          </div>
+          <span class="flex-1 text-left">{{ theme }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="hidden" data-ww-theme-check="{{ theme }}"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </button>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

@@ -61,4 +61,23 @@ final class ThemeHooks {
     $variables['attributes']['class'][] = 'menu lg:menu-horizontal px-1';
   }
 
+  /**
+   * Implements hook_page_attachments_alter().
+   *
+   * Applies a saved daisyUI theme from localStorage before first paint to
+   * avoid a flash of the default theme. (Themes can't implement
+   * hook_page_attachments — only the _alter variant.)
+   */
+  #[Hook('page_attachments_alter')]
+  public function pageAttachmentsAlter(array &$attachments): void {
+    $script = "(function(){try{var t=localStorage.getItem('ww-theme');if(t){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();";
+    $attachments['#attached']['html_head'][] = [
+      [
+        '#tag' => 'script',
+        '#value' => $script,
+      ],
+      'ww_tailwind_starter_theme_init',
+    ];
+  }
+
 }

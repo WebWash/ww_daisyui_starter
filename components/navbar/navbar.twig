@@ -48,6 +48,8 @@
             {% endembed %}
           #}
 
+          {{ include('ww_tailwind_starter:theme_switcher', {}, with_context: false) }}
+
           <a href="#" class="btn btn-primary">Premium</a>
 
           <label for="mobile-drawer" tabindex="0" aria-label="open sidebar" class="btn btn-ghost btn-circle lg:hidden" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }">
