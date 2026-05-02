@@ -24,8 +24,9 @@ final class ThemeHooks {
   #[Hook('preprocess_page')]
   public function preprocessPage(array &$variables): void {
     $route_name = $this->routeMatch->getRouteName();
-    $variables['is_canvas_page'] = $route_name === 'entity.canvas_page.canonical'
-      || str_starts_with($route_name, 'canvas.api.layout');
+    $variables['is_edge'] = $route_name === 'entity.canvas_page.canonical'
+      || str_starts_with((string) $route_name, 'canvas.api.layout')
+      || str_starts_with((string) $route_name, 'ww_styleguide.');
     $variables['site_name'] = $this->configFactory->get('system.site')->get('name');
 
     if (\Drupal::request()->query->get('test_alerts') === '1') {

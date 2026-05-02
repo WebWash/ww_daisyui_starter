@@ -10,6 +10,7 @@ regions:
   navbar_branding: 'Navbar branding'
   primary_menu: 'Primary menu'
   header: 'Header'
+  breadcrumb: 'Breadcrumb'
   pre_content: 'Pre-content'
   content: 'Content'
   footer_branding: 'Footer branding'
