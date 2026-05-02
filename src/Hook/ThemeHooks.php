@@ -27,6 +27,13 @@ final class ThemeHooks {
     $variables['is_canvas_page'] = $route_name === 'entity.canvas_page.canonical'
       || str_starts_with($route_name, 'canvas.api.layout');
     $variables['site_name'] = $this->configFactory->get('system.site')->get('name');
+
+    if (\Drupal::request()->query->get('test_alerts') === '1') {
+      $messenger = \Drupal::messenger();
+      $messenger->addStatus('Your changes have been saved.');
+      $messenger->addWarning('You are using a deprecated feature.');
+      $messenger->addError('Failed to connect to the upstream service.');
+    }
   }
 
   /**
@@ -50,7 +57,7 @@ final class ThemeHooks {
    */
   #[Hook('preprocess_menu__main')]
   public function preprocessMenuMain(array &$variables): void {
-    $variables['attributes']['class'][] = 'menu menu-horizontal px-1';
+    $variables['attributes']['class'][] = 'menu lg:menu-horizontal px-1';
   }
 
 }

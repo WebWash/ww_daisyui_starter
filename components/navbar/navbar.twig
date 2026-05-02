@@ -74,21 +74,8 @@
       </label>
     </div>
 
-    <ul class="menu menu-compact">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">All Posts</a></li>
-      <li>
-        <h2 class="menu-title">Categories</h2>
-        <ul>
-          <li><a href="#">Technology</a></li>
-          <li><a href="#">Travel</a></li>
-          <li><a href="#">Lifestyle</a></li>
-          <li><a href="#">Food</a></li>
-          <li><a href="#">Business</a></li>
-        </ul>
-      </li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+    {% if menu %}
+      {{ menu }}
+    {% endif %}
   {% endblock %}
 {% endembed %}
