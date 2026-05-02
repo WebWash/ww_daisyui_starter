@@ -1,0 +1,4 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Navbar
+status: stable
+description: Site header built on the daisyUI navbar pattern. Currently renders a placeholder logo, menu, and avatar dropdown.

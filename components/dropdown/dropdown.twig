@@ -1,0 +1,8 @@
+{% set align_class = align == 'start' ? 'dropdown-start' : 'dropdown-end' %}
+{% set menu_width = width|default('w-52') %}
+<div class="dropdown {{ align_class }}">
+  {% block trigger %}{{ trigger }}{% endblock %}
+  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 mt-3 {{ menu_width }} p-2 shadow">
+    {% block menu %}{{ menu }}{% endblock %}
+  </ul>
+</div>
