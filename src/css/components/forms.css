@@ -17,22 +17,22 @@
 .form-item > label,
 .form-item > .form-element--label,
 form h4 {
-  @apply label mb-1.5 block text-base-content font-medium text-base normal-case;
+  @apply label mb-1.5 block text-base font-medium text-base-content normal-case;
 }
 
 .form-item > label.form-required::after,
 .form-item > label .form-required::after {
   content: " *";
-  @apply text-error font-bold;
+  @apply font-bold text-error;
 }
 
 .form-item .description,
 .form-item--description {
-  @apply mt-1.5 text-sm text-base-content/60 leading-snug;
+  @apply mt-1.5 text-sm leading-snug text-base-content/60;
 }
 
 .form-item--error-message {
-  @apply mt-1.5 text-sm text-error font-medium;
+  @apply mt-1.5 text-sm font-medium text-error;
 }
 
 /* ---------------------------------------------------------------------------
@@ -65,7 +65,7 @@ form h4 {
 
 /* Color picker is a tiny swatch — keep its native chrome but match height. */
 .form-color {
-  @apply w-20 p-1 cursor-pointer;
+  @apply w-20 cursor-pointer p-1;
 }
 
 /* ---------------------------------------------------------------------------
@@ -111,7 +111,7 @@ form h4 {
  * Range slider → DaisyUI .range
  * ------------------------------------------------------------------------ */
 .form-range {
-  @apply range range-primary w-full;
+  @apply range w-full range-primary;
 }
 
 /* ---------------------------------------------------------------------------
@@ -135,12 +135,12 @@ form h4 {
 .js-form-type-radio > label,
 .js-form-type-checkbox label.option,
 .js-form-type-radio label.option {
-  @apply mb-0 cursor-pointer font-normal text-base-content leading-tight pt-1;
+  @apply mb-0 cursor-pointer pt-1 leading-tight font-normal text-base-content;
 }
 
 .js-form-type-checkbox .description,
 .js-form-type-radio .description {
-  @apply ml-7 mt-0 basis-full;
+  @apply mt-0 ml-7 basis-full;
 }
 
 /* Group containers (multiple checkboxes / radios under a fieldset). */
@@ -154,7 +154,7 @@ form h4 {
  * ------------------------------------------------------------------------ */
 fieldset.form-wrapper,
 fieldset.fieldgroup {
-  @apply fieldset mb-5 rounded-box border border-base-300 bg-base-100 p-4;
+  @apply mb-5 fieldset rounded-box border border-base-300 bg-base-100 p-4;
 }
 
 fieldset.form-wrapper > legend,

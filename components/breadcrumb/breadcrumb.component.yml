@@ -1,4 +1,4 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
 name: Breadcrumb
 status: stable
 description: Breadcrumb component based on daisyUI. Accepts a list of items each with text and optional url.
@@ -9,7 +9,7 @@ props:
   properties:
     items:
       title: Items
-      description: 'Array of items. Each item: { text: string, url?: string }.'
+      description: "Array of items. Each item: { text: string, url?: string }."
       type: array
       items:
         type: object

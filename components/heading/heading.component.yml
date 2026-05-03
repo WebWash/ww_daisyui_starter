@@ -1,4 +1,4 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
 name: Heading
 status: stable
 props:
@@ -7,9 +7,9 @@ props:
     heading_text:
       type: string
       title: Heading Text
-      default: 'Enter title'
+      default: "Enter title"
       examples:
-        - 'My Heading'
+        - "My Heading"
     level:
       type: number
       title: Heading Level

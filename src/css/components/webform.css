@@ -135,7 +135,7 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 }
 
 .webform-flex--container > .webform-flex {
-  @apply flex-1 min-w-[12rem];
+  @apply min-w-[12rem] flex-1;
 }
 
 /* ---------------------------------------------------------------------------
@@ -151,11 +151,11 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 }
 
 .webform-progress-tracker .progress-step {
-  @apply flex flex-col items-center text-center text-sm text-base-content/60 relative flex-1 min-w-[5rem];
+  @apply relative flex min-w-[5rem] flex-1 flex-col items-center text-center text-sm text-base-content/60;
 }
 
 .webform-progress-tracker .progress-marker {
-  @apply flex items-center justify-center w-8 h-8 rounded-full bg-base-300 text-base-content/70 font-medium mb-1;
+  @apply mb-1 flex h-8 w-8 items-center justify-center rounded-full bg-base-300 font-medium text-base-content/70;
 }
 
 .webform-progress-tracker .is-active .progress-marker,
@@ -170,11 +170,11 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 
 .webform-progress-tracker .is-active,
 .webform-progress-tracker .progress-step.is-active {
-  @apply text-base-content font-semibold;
+  @apply font-semibold text-base-content;
 }
 
 .webform-progress-bar {
-  @apply h-2 rounded-full bg-base-300 overflow-hidden mb-3;
+  @apply mb-3 h-2 overflow-hidden rounded-full bg-base-300;
 }
 
 .webform-progress-bar__bar {
@@ -190,7 +190,7 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 .fieldset-legend .form-required::after,
 legend .form-required::after {
   content: " *";
-  @apply text-error font-bold;
+  @apply font-bold text-error;
 }
 
 /* ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
 name: Section grid
 status: stable
 props:
@@ -17,14 +17,14 @@ props:
       type: string
       title: Columns
       description: Grid column layout
-      default: '33-33-33'
+      default: "33-33-33"
       examples:
-        - '33-33-33'
+        - "33-33-33"
       enum:
-        - '100'
-        - '50-50'
-        - '33-33-33'
-        - '25-25-25-25'
+        - "100"
+        - "50-50"
+        - "33-33-33"
+        - "25-25-25-25"
 slots:
   grid:
     title: Grid

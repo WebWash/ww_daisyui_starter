@@ -1,4 +1,4 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
 name: Theme switcher
 status: stable
 description: daisyUI theme picker. Renders a dropdown listing every enabled theme with a small color swatch preview. Persists the chosen theme to localStorage and applies it via the data-theme attribute on <html>.

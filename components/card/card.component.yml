@@ -1,4 +1,4 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
 name: Card
 status: stable
 description: Card component based on daisyUI. Supports image, title, body, action link, sizes, borders, layout variants, and themed background colors with matching text colors.

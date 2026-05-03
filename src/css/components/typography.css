@@ -9,34 +9,34 @@
  */
 @layer base {
   h1 {
-    @apply text-5xl font-bold leading-tight;
+    @apply text-5xl leading-tight font-bold;
   }
 
   h2 {
-    @apply text-4xl font-bold leading-tight;
+    @apply text-4xl leading-tight font-bold;
   }
 
   h3 {
-    @apply text-3xl font-semibold leading-snug;
+    @apply text-3xl leading-snug font-semibold;
   }
 
   h4 {
-    @apply text-2xl font-semibold leading-snug;
+    @apply text-2xl leading-snug font-semibold;
   }
 
   h5 {
-    @apply text-xl font-medium leading-normal;
+    @apply text-xl leading-normal font-medium;
   }
 
   h6 {
-    @apply text-lg font-medium leading-normal;
+    @apply text-lg leading-normal font-medium;
   }
 
   /* Tables are styled site-wide with the daisyUI table component so any
      <table> (Views output, admin pages, editor-authored, etc.) renders
      consistently — not only inside prose. */
   table {
-    @apply table table-zebra w-full;
+    @apply table w-full table-zebra;
   }
 }
 
@@ -52,7 +52,7 @@
 .prose,
 .field--type-text-long,
 .field--type-text-with-summary {
-  @apply text-base-content leading-relaxed;
+  @apply leading-relaxed text-base-content;
 
   /* Block-level rhythm. Every direct child gets top spacing except the first;
      subsequent siblings can override (e.g. headings get a bigger gap). */
@@ -67,24 +67,36 @@
 
   /* Headings inside prose: tighter top, looser top before headings,
      so a new section starts visually. */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold text-base-content;
   }
 
-  > h1 + *, > h2 + *, > h3 + *,
-  > h4 + *, > h5 + *, > h6 + * {
+  > h1 + *,
+  > h2 + *,
+  > h3 + *,
+  > h4 + *,
+  > h5 + *,
+  > h6 + * {
     @apply mt-3;
   }
 
-  > * + h1, > * + h2 {
+  > * + h1,
+  > * + h2 {
     @apply mt-10;
   }
 
-  > * + h3, > * + h4 {
+  > * + h3,
+  > * + h4 {
     @apply mt-8;
   }
 
-  > * + h5, > * + h6 {
+  > * + h5,
+  > * + h6 {
     @apply mt-6;
   }
 
@@ -95,15 +107,15 @@
 
   /* Lists */
   ul {
-    @apply list-disc list-outside ml-6 space-y-2;
+    @apply ml-6 list-outside list-disc space-y-2;
   }
 
   ol {
-    @apply list-decimal list-outside ml-6 space-y-2;
+    @apply ml-6 list-outside list-decimal space-y-2;
   }
 
   li {
-    @apply leading-relaxed pl-1;
+    @apply pl-1 leading-relaxed;
   }
 
   li > ul,
@@ -130,7 +142,7 @@
 
   /* Blockquote */
   blockquote {
-    @apply border-l-4 border-primary bg-base-200/50 pl-4 pr-3 py-3 italic text-base-content/80 rounded-r;
+    @apply rounded-r border-l-4 border-primary bg-base-200/50 py-3 pr-3 pl-4 text-base-content/80 italic;
   }
 
   blockquote p {
@@ -138,20 +150,20 @@
   }
 
   blockquote cite {
-    @apply block mt-2 text-sm not-italic text-base-content/60;
+    @apply mt-2 block text-sm text-base-content/60 not-italic;
   }
 
   /* Inline + block code */
   code {
-    @apply bg-base-200 text-base-content rounded px-1.5 py-0.5 font-mono text-sm;
+    @apply rounded bg-base-200 px-1.5 py-0.5 font-mono text-sm text-base-content;
   }
 
   pre {
-    @apply bg-base-300 text-base-content rounded-box p-4 overflow-x-auto font-mono text-sm leading-snug;
+    @apply overflow-x-auto rounded-box bg-base-300 p-4 font-mono text-sm leading-snug text-base-content;
   }
 
   pre code {
-    @apply bg-transparent p-0 rounded-none text-inherit;
+    @apply rounded-none bg-transparent p-0 text-inherit;
   }
 
   /* Keyboard / mark / sup / sub */
@@ -160,21 +172,22 @@
   }
 
   mark {
-    @apply bg-warning/30 text-base-content px-1 rounded;
+    @apply rounded bg-warning/30 px-1 text-base-content;
   }
 
-  sup, sub {
+  sup,
+  sub {
     @apply text-xs;
   }
 
   /* Horizontal rule */
   hr {
-    @apply border-0 border-t border-base-300 my-8;
+    @apply my-8 border-0 border-t border-base-300;
   }
 
   /* Images & figures */
   img {
-    @apply rounded-box max-w-full h-auto;
+    @apply h-auto max-w-full rounded-box;
   }
 
   figure {
@@ -186,7 +199,7 @@
   }
 
   figcaption {
-    @apply text-sm text-base-content/60 mt-2 text-center italic;
+    @apply mt-2 text-center text-sm text-base-content/60 italic;
   }
 
   /* Tables get their daisyUI styling at the base layer (see top of file)
@@ -198,11 +211,11 @@
 
   /* Details / summary → daisyUI collapse */
   details {
-    @apply collapse collapse-arrow border border-base-300 bg-base-100;
+    @apply collapse-arrow collapse border border-base-300 bg-base-100;
   }
 
   details > summary {
-    @apply collapse-title font-medium cursor-pointer;
+    @apply collapse-title cursor-pointer font-medium;
   }
 
   details[open] > summary ~ * {
@@ -211,7 +224,7 @@
 
   /* Abbreviations */
   abbr[title] {
-    @apply underline decoration-dotted decoration-base-content/40 cursor-help;
+    @apply cursor-help underline decoration-base-content/40 decoration-dotted;
   }
 
   /* Last child kills its bottom spacing so prose blocks don't add stray gaps. */

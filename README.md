@@ -21,6 +21,7 @@ This theme requires Node.js v22.14.0. If you use nvm (Node Version Manager), the
 ### Installation
 
 1. Use the correct Node.js version:
+
    ```bash
    nvm use
    ```
@@ -33,6 +34,7 @@ This theme requires Node.js v22.14.0. If you use nvm (Node Version Manager), the
 ### Development
 
 Run the development build with watch mode (automatically rebuilds on file changes):
+
 ```bash
 npm run dev
 ```
@@ -40,6 +42,7 @@ npm run dev
 ### Production Build
 
 Create an optimized production build:
+
 ```bash
 npm run build
 ```
@@ -47,6 +50,7 @@ npm run build
 ## Single Directory Components (SDC)
 
 This theme uses Drupal's Single Directory Components architecture. Each component is self-contained in its own directory with:
+
 - Component definition (`.component.yml`)
 - Twig template (`.twig`)
 - Styles (imported into Vite build)

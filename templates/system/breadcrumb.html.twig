@@ -8,7 +8,13 @@
  */
 #}
 {% if breadcrumb %}
-  {{ include('ww_tailwind_starter:breadcrumb', {
-    items: breadcrumb,
-  }, with_context: false) }}
+  {{
+    include(
+      'ww_tailwind_starter:breadcrumb',
+      {
+        items: breadcrumb
+      },
+      with_context: false
+    )
+  }}
 {% endif %}

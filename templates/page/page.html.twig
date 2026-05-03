@@ -14,7 +14,7 @@
 {% include 'ww_tailwind_starter:navbar' with {
   logo: page.navbar_branding,
   menu: page.primary_menu,
-  site_name: site_name,
+  site_name: site_name
 } %}
 
 {% if page.breadcrumb %}
@@ -44,11 +44,17 @@
 </main>
 
 {% if page.footer_branding or page.footer or page.footer_social or page.footer_bottom %}
-  {{ include('ww_tailwind_starter:footer', {
-    branding: page.footer_branding,
-    links: page.footer,
-    social: page.footer_social,
-    bottom: page.footer_bottom,
-    bg_color: 'dark',
-  }, with_context: false) }}
+  {{
+    include(
+      'ww_tailwind_starter:footer',
+      {
+        branding: page.footer_branding,
+        links: page.footer,
+        social: page.footer_social,
+        bottom: page.footer_bottom,
+        bg_color: 'dark'
+      },
+      with_context: false
+    )
+  }}
 {% endif %}
