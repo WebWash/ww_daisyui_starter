@@ -1,43 +1,221 @@
-/* Typography Components */
+/**
+ * Base typography (site-wide).
+ *
+ * Headings keep their sizes globally so that components (hero, card, section
+ * titles, etc.) can use bare h1–h6 and look right out of the box. Anything
+ * richer (links, lists, blockquote, tables, code, images, …) is scoped to the
+ * prose container below so it never leaks into navbars, buttons, footers, or
+ * arbitrary block markup.
+ */
 @layer base {
   h1 {
-    @apply text-5xl font-bold leading-tight mb-6;
+    @apply text-5xl font-bold leading-tight;
   }
 
   h2 {
-    @apply text-4xl font-bold leading-tight mb-5;
+    @apply text-4xl font-bold leading-tight;
   }
 
   h3 {
-    @apply text-3xl font-semibold leading-snug mb-4;
+    @apply text-3xl font-semibold leading-snug;
   }
 
   h4 {
-    @apply text-2xl font-semibold leading-snug mb-4;
+    @apply text-2xl font-semibold leading-snug;
   }
 
   h5 {
-    @apply text-xl font-medium leading-normal mb-3;
+    @apply text-xl font-medium leading-normal;
   }
 
   h6 {
-    @apply text-lg font-medium leading-normal mb-3;
+    @apply text-lg font-medium leading-normal;
   }
 
-  a {
-    @apply text-blue-600 underline hover:text-blue-800 transition-colors;
+  /* Tables are styled site-wide with the daisyUI table component so any
+     <table> (Views output, admin pages, editor-authored, etc.) renders
+     consistently — not only inside prose. */
+  table {
+    @apply table table-zebra w-full;
+  }
+}
 
-    .text-white &,
-    [class*="text-white"] & {
-      @apply text-white hover:text-gray-200;
-    }
+/**
+ * Prose / rich-text scope.
+ *
+ * Drupal renders body fields with stable wrapper classes
+ * (.field--type-text-long for basic page body, .field--type-text-with-summary
+ * for article body), so we hook off those — no template overrides needed.
+ * The .prose class is also exposed for opt-in use (styleguide pages, Canvas
+ * blocks, anywhere arbitrary HTML lives outside a body field).
+ */
+.prose,
+.field--type-text-long,
+.field--type-text-with-summary {
+  @apply text-base-content leading-relaxed;
+
+  /* Block-level rhythm. Every direct child gets top spacing except the first;
+     subsequent siblings can override (e.g. headings get a bigger gap). */
+  > * + * {
+    @apply mt-4;
   }
 
+  /* Paragraphs */
   p {
-    @apply mb-4 leading-relaxed;
+    @apply leading-relaxed;
+  }
 
-    &:last-child {
-      @apply mb-0;
-    }
+  /* Headings inside prose: tighter top, looser top before headings,
+     so a new section starts visually. */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-base-content;
+  }
+
+  > h1 + *, > h2 + *, > h3 + *,
+  > h4 + *, > h5 + *, > h6 + * {
+    @apply mt-3;
+  }
+
+  > * + h1, > * + h2 {
+    @apply mt-10;
+  }
+
+  > * + h3, > * + h4 {
+    @apply mt-8;
+  }
+
+  > * + h5, > * + h6 {
+    @apply mt-6;
+  }
+
+  /* Links inside prose → daisyUI link */
+  a:not(.btn):not(.link) {
+    @apply link link-primary;
+  }
+
+  /* Lists */
+  ul {
+    @apply list-disc list-outside ml-6 space-y-2;
+  }
+
+  ol {
+    @apply list-decimal list-outside ml-6 space-y-2;
+  }
+
+  li {
+    @apply leading-relaxed pl-1;
+  }
+
+  li > ul,
+  li > ol {
+    @apply mt-2 mb-0;
+  }
+
+  li > p {
+    @apply mb-0;
+  }
+
+  /* Definition list */
+  dl {
+    @apply space-y-2;
+  }
+
+  dt {
+    @apply font-semibold text-base-content;
+  }
+
+  dd {
+    @apply ml-4 text-base-content/80;
+  }
+
+  /* Blockquote */
+  blockquote {
+    @apply border-l-4 border-primary bg-base-200/50 pl-4 pr-3 py-3 italic text-base-content/80 rounded-r;
+  }
+
+  blockquote p {
+    @apply mb-0;
+  }
+
+  blockquote cite {
+    @apply block mt-2 text-sm not-italic text-base-content/60;
+  }
+
+  /* Inline + block code */
+  code {
+    @apply bg-base-200 text-base-content rounded px-1.5 py-0.5 font-mono text-sm;
+  }
+
+  pre {
+    @apply bg-base-300 text-base-content rounded-box p-4 overflow-x-auto font-mono text-sm leading-snug;
+  }
+
+  pre code {
+    @apply bg-transparent p-0 rounded-none text-inherit;
+  }
+
+  /* Keyboard / mark / sup / sub */
+  kbd {
+    @apply kbd kbd-sm;
+  }
+
+  mark {
+    @apply bg-warning/30 text-base-content px-1 rounded;
+  }
+
+  sup, sub {
+    @apply text-xs;
+  }
+
+  /* Horizontal rule */
+  hr {
+    @apply border-0 border-t border-base-300 my-8;
+  }
+
+  /* Images & figures */
+  img {
+    @apply rounded-box max-w-full h-auto;
+  }
+
+  figure {
+    @apply my-2;
+  }
+
+  figure img {
+    @apply mx-auto;
+  }
+
+  figcaption {
+    @apply text-sm text-base-content/60 mt-2 text-center italic;
+  }
+
+  /* Tables get their daisyUI styling at the base layer (see top of file)
+     so we don't need to redeclare here — but ensure heading cells inherit
+     the right colour inside prose. */
+  thead th {
+    @apply text-base-content;
+  }
+
+  /* Details / summary → daisyUI collapse */
+  details {
+    @apply collapse collapse-arrow border border-base-300 bg-base-100;
+  }
+
+  details > summary {
+    @apply collapse-title font-medium cursor-pointer;
+  }
+
+  details[open] > summary ~ * {
+    @apply collapse-content;
+  }
+
+  /* Abbreviations */
+  abbr[title] {
+    @apply underline decoration-dotted decoration-base-content/40 cursor-help;
+  }
+
+  /* Last child kills its bottom spacing so prose blocks don't add stray gaps. */
+  > *:last-child {
+    @apply mb-0;
   }
 }
