@@ -1,0 +1,131 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
+name: Section
+status: stable
+group: Layout
+description: |
+  Top-level wrapper used to compose pages. Controls vertical padding,
+  background colour, and inner width. Place a Grid (or any other
+  components) inside the content slot.
+props:
+  type: object
+  properties:
+    bg:
+      title: Background colour
+      description: |
+        Uses daisyUI semantic tokens so the section adapts to the active
+        theme. "Default" leaves the surrounding page background showing.
+      type: string
+      default: default
+      enum:
+        - default
+        - base-100
+        - base-200
+        - base-300
+        - primary
+        - secondary
+        - accent
+        - neutral
+      "meta:enum":
+        default: "Default (transparent)"
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
+        primary: "Primary"
+        secondary: "Secondary"
+        accent: "Accent"
+        neutral: "Neutral"
+    padding:
+      title: Vertical padding
+      description: |
+        Standardised vertical rhythm. "Medium" is the everyday default;
+        use "Large/XL" for hero-feel sections, "Small" for tight stacks.
+      type: string
+      default: md
+      enum:
+        - none
+        - sm
+        - md
+        - lg
+        - xl
+      "meta:enum":
+        none: "None"
+        sm: "Small (py-8)"
+        md: "Medium — default (py-16)"
+        lg: "Large (py-24)"
+        xl: "Extra large (py-32)"
+    margin:
+      title: Vertical margin
+      description: |
+        Outer spacing applied to the section as a whole. Defaults to
+        none — sections normally butt up against each other and you
+        control breathing room via padding. Use this when you need a
+        gap between two coloured sections, or to detach a section from
+        the page edge.
+      type: string
+      default: none
+      enum:
+        - none
+        - sm
+        - md
+        - lg
+        - xl
+      "meta:enum":
+        none: "None — default"
+        sm: "Small (my-8)"
+        md: "Medium (my-16)"
+        lg: "Large (my-24)"
+        xl: "Extra large (my-32)"
+    width:
+      title: Inner width
+      description: |
+        Controls the max-width of the content area. "Full" goes
+        edge-to-edge with no container.
+      type: string
+      default: container
+      enum:
+        - narrow
+        - container
+        - wide
+        - full
+      "meta:enum":
+        narrow: "Narrow (max-w-3xl, ~prose)"
+        container: "Container — default (max-w-7xl)"
+        wide: "Wide (max-w-screen-2xl)"
+        full: "Full bleed (no max-width)"
+    title:
+      title: Title
+      description: Optional section title rendered above the content.
+      type: string
+    title_heading_level:
+      title: Title heading level
+      description: Defaults to h2.
+      type: string
+      default: h2
+      enum:
+        - h1
+        - h2
+        - h3
+        - h4
+      "meta:enum":
+        h1: "H1"
+        h2: "H2 (default)"
+        h3: "H3"
+        h4: "H4"
+    intro:
+      title: Intro
+      description: Optional lead paragraph rendered under the title.
+      type: string
+    align:
+      title: Title/intro alignment
+      type: string
+      default: left
+      enum:
+        - left
+        - center
+      "meta:enum":
+        left: "Left (default)"
+        center: "Centered"
+slots:
+  content:
+    title: Content
+    description: Drop a Grid, cards, or any components inside.

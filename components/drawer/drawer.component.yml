@@ -1,6 +1,9 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Drawer
 status: stable
+# Theme-only page-shell primitive — wired up by the page template, not
+# meant to be dropped into a Canvas page.
+noUi: true
 description: daisyUI drawer wrapper. Toggle by pointing a label[for=...] at the matching drawer_id.
 props:
   type: object
@@ -17,6 +20,9 @@ props:
       enum:
         - start
         - end
+      "meta:enum":
+        start: Start
+        end: "End (default)"
       default: end
 slots:
   content:

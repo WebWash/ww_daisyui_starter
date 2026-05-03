@@ -1,23 +1,17 @@
 {% set bg_class_map = {
-  'default':  '',
+  default: '',
   'base-200': 'bg-base-200 text-base-content',
   'base-300': 'bg-base-300 text-base-content',
-  'neutral':  'bg-neutral text-neutral-content',
-  'primary':  'bg-primary text-primary-content',
-  'dark':     'bg-gray-900 text-gray-200',
+  neutral: 'bg-neutral text-neutral-content',
+  primary: 'bg-primary text-primary-content',
+  dark: 'bg-gray-900 text-gray-200'
 } %}
 {% set bg_classes = bg_class_map[bg_color|default('base-200')] ?? bg_class_map['base-200'] %}
 
-{% set variant_val = variant|default('default') %}
+{% set style_val = style|default('default') %}
 {% set padding_val = padding|default('p-10') %}
 
-{% set top_classes = [
-  'footer',
-  variant_val == 'center' ? 'footer-center' : 'sm:footer-horizontal',
-  'container',
-  'mx-auto',
-  padding_val,
-] %}
+{% set top_classes = ['footer', style_val == 'center' ? 'footer-center' : 'sm:footer-horizontal', 'container', 'mx-auto', padding_val] %}
 
 {% set has_top = branding or links or social %}
 
@@ -25,7 +19,9 @@
   {% if has_top %}
     <div class="{{ top_classes|join(' ') }}">
       {% if branding %}
-        <aside>{{ branding }}</aside>
+        <aside>
+          {{ branding }}
+        </aside>
       {% endif %}
       {{ links }}
       {{ social }}
@@ -34,7 +30,7 @@
 
   {% if bottom %}
     <div class="{{ has_top ? 'border-t border-base-content/10' }}">
-      <div class="footer footer-center container mx-auto p-4">
+      <div class="footer-center container mx-auto footer p-4">
         {{ bottom }}
       </div>
     </div>

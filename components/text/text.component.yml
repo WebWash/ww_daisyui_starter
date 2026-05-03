@@ -1,15 +1,22 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Text
 status: stable
+group: Content
 props:
   type: object
   properties:
     text:
       type: string
       title: Text
+      description: |
+        Rich-text content authored via Canvas's CKEditor. Supports
+        block-level elements — paragraphs, headings, lists,
+        blockquotes, links, etc. The rendered output picks up the
+        theme's prose styling automatically.
       contentMediaType: text/html
+      x-formatting-context: block
       examples:
-        - <p>This is some text.</p>
+        - "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo lacus at sodales sodales.</p>"
     align:
       type: string
       title: Text Alignment
@@ -18,6 +25,10 @@ props:
         - left
         - center
         - right
+      "meta:enum":
+        left: "Left (default)"
+        center: Center
+        right: Right
       default: left
       examples:
         - left

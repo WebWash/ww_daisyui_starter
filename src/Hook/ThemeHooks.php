@@ -62,6 +62,23 @@ final class ThemeHooks {
   }
 
   /**
+   * Implements hook_preprocess_HOOK() for field templates.
+   *
+   * Adds the `prose` class to long-text body fields (text_long,
+   * text_with_summary, text) so editor-authored HTML automatically picks up
+   * the prose styling defined in `src/css/components/typography.css`.
+   * Drupal core doesn't add `field--type-*` classes by default, so we tag
+   * these fields explicitly rather than relying on selectors that aren't there.
+   */
+  #[Hook('preprocess_field')]
+  public function preprocessField(array &$variables): void {
+    $proseFieldTypes = ['text_long', 'text_with_summary', 'text'];
+    if (in_array($variables['field_type'] ?? '', $proseFieldTypes, TRUE)) {
+      $variables['attributes']['class'][] = 'prose';
+    }
+  }
+
+  /**
    * Implements hook_page_attachments_alter().
    *
    * Applies a saved daisyUI theme from localStorage before first paint to

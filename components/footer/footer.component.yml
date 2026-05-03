@@ -1,6 +1,9 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Footer
 status: stable
+# Theme-only component: branding/links/social/bottom slots expect
+# Drupal block render arrays that the Canvas editor cannot supply.
+noUi: true
 description: Footer component based on daisyUI. Uses slots for branding, link columns, social icons, and a bottom copyright row.
 slots:
   branding:
@@ -18,17 +21,22 @@ slots:
 props:
   type: object
   properties:
-    variant:
-      title: Variant
+    # Renamed from `variant` because Drupal core's ComponentElement render
+    # element auto-injects an empty-string `#variant` into `props['variant']`
+    # whenever a caller omits it (see ComponentElement::preRenderComponent
+    # and getInfo defaults), which collides with our enum and prevents
+    # removing the empty-string entry that Canvas refuses.
+    style:
+      title: Style
       description: Defaults to "default" (horizontal columns from sm up) when omitted.
       type: string
       enum:
-        - ""
         - default
         - center
       "meta:enum":
         default: "Default (horizontal columns from sm up)"
         center: "Center (single centered column)"
+      default: default
       examples:
         - default
     bg_color:

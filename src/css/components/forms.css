@@ -1,0 +1,257 @@
+/**
+ * Maps Drupal core form markup to DaisyUI components.
+ *
+ * Drupal renders form elements with stable, semantic classes
+ * (.form-text, .form-select, .form-checkbox, etc). We @apply
+ * the matching DaisyUI utilities so authors get a DaisyUI look
+ * without hand-adding classes to every Form API element.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Form item wrapper + label + description
+ * ------------------------------------------------------------------------ */
+.form-item {
+  @apply mb-5;
+}
+
+.form-item > label,
+.form-item > .form-element--label,
+form h4 {
+  @apply label mb-1.5 block text-base font-medium text-base-content normal-case;
+}
+
+.form-item > label.form-required::after,
+.form-item > label .form-required::after {
+  content: " *";
+  @apply font-bold text-error;
+}
+
+.form-item .description,
+.form-item--description {
+  @apply mt-1.5 text-sm leading-snug text-base-content/60;
+}
+
+.form-item--error-message {
+  @apply mt-1.5 text-sm font-medium text-error;
+}
+
+/* ---------------------------------------------------------------------------
+ * Text-style inputs → DaisyUI .input
+ * ------------------------------------------------------------------------ */
+.form-text,
+.form-email,
+.form-tel,
+.form-url,
+.form-search,
+.form-number,
+.form-date,
+.form-time,
+.form-datetime,
+.form-color {
+  @apply input w-full;
+}
+
+.form-text[aria-invalid="true"],
+.form-email[aria-invalid="true"],
+.form-tel[aria-invalid="true"],
+.form-url[aria-invalid="true"],
+.form-search[aria-invalid="true"],
+.form-number[aria-invalid="true"],
+.form-date[aria-invalid="true"],
+.form-time[aria-invalid="true"],
+.form-datetime[aria-invalid="true"] {
+  @apply input-error;
+}
+
+/* Color picker is a tiny swatch — keep its native chrome but match height. */
+.form-color {
+  @apply w-20 cursor-pointer p-1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Textarea → DaisyUI .textarea
+ * ------------------------------------------------------------------------ */
+.form-textarea {
+  @apply textarea w-full leading-relaxed;
+}
+
+.form-textarea[aria-invalid="true"] {
+  @apply textarea-error;
+}
+
+/* ---------------------------------------------------------------------------
+ * Select → DaisyUI .select
+ * ------------------------------------------------------------------------ */
+.form-select {
+  @apply select w-full;
+}
+
+.form-select[aria-invalid="true"] {
+  @apply select-error;
+}
+
+/* Multi-selects need real height (the .select component is height-locked). */
+.form-select[multiple] {
+  @apply h-auto py-2;
+}
+
+/* ---------------------------------------------------------------------------
+ * File input → DaisyUI .file-input
+ * ------------------------------------------------------------------------ */
+.form-file {
+  @apply file-input w-full;
+}
+
+/* Managed file widget already wraps in a flex row — give it some breathing room. */
+.form-managed-file {
+  @apply flex flex-wrap items-center gap-3;
+}
+
+/* ---------------------------------------------------------------------------
+ * Range slider → DaisyUI .range
+ * ------------------------------------------------------------------------ */
+.form-range {
+  @apply range w-full range-primary;
+}
+
+/* ---------------------------------------------------------------------------
+ * Checkboxes & radios → DaisyUI .checkbox / .radio
+ * ------------------------------------------------------------------------ */
+.form-checkbox {
+  @apply checkbox checkbox-primary;
+}
+
+.form-radio {
+  @apply radio radio-primary;
+}
+
+/* Inline layout: input on the left, label hugging it. */
+.js-form-type-checkbox,
+.js-form-type-radio {
+  @apply mb-2 flex flex-wrap items-start gap-x-2 gap-y-1;
+}
+
+.js-form-type-checkbox > label,
+.js-form-type-radio > label,
+.js-form-type-checkbox label.option,
+.js-form-type-radio label.option {
+  @apply mb-0 cursor-pointer pt-1 leading-tight font-normal text-base-content;
+}
+
+.js-form-type-checkbox .description,
+.js-form-type-radio .description {
+  @apply mt-0 ml-7 basis-full;
+}
+
+/* Group containers (multiple checkboxes / radios under a fieldset). */
+.form-checkboxes,
+.form-radios {
+  @apply space-y-2;
+}
+
+/* ---------------------------------------------------------------------------
+ * Fieldsets → DaisyUI .fieldset
+ * ------------------------------------------------------------------------ */
+fieldset.form-wrapper,
+fieldset.fieldgroup {
+  @apply mb-5 fieldset rounded-box border border-base-300 bg-base-100 p-4;
+}
+
+fieldset.form-wrapper > legend,
+fieldset.fieldgroup > legend {
+  @apply px-1;
+}
+
+.fieldset-legend {
+  @apply fieldset-legend text-base-content;
+}
+
+.fieldset-wrapper {
+  @apply mt-2;
+}
+
+/* When a fieldset has its own description, surface it under the legend. */
+fieldset.form-wrapper > .description,
+fieldset.fieldgroup > .description {
+  @apply -mt-1 mb-3;
+}
+
+/* ---------------------------------------------------------------------------
+ * Form actions → DaisyUI .btn
+ * ------------------------------------------------------------------------ */
+.form-actions {
+  @apply mt-6 flex flex-wrap items-center gap-3;
+}
+
+/* Default any Drupal button to .btn (neutral surface). */
+.button {
+  @apply btn;
+}
+
+/* Drupal's main form submit is the primary action by default. */
+.form-submit {
+  @apply btn btn-primary;
+}
+
+/* Explicit modifiers (added by Drupal or by authors) override the default. */
+.button--primary {
+  @apply btn-primary;
+}
+
+.button--secondary {
+  @apply btn-neutral;
+}
+
+.button--danger {
+  @apply btn-error;
+}
+
+.button--small {
+  @apply btn-sm;
+}
+
+/* Drupal hides utility submit buttons (e.g. managed file upload trigger)
+   with .js-hide; preserve that. */
+.js-hide {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * Password confirm widget
+ * ------------------------------------------------------------------------ */
+.password-confirm,
+.password-strength {
+  @apply mt-1 text-sm text-base-content/70;
+}
+
+.password-strength__title {
+  @apply font-medium;
+}
+
+.password-strength__meter {
+  @apply mt-1 h-2 w-full overflow-hidden rounded bg-base-200;
+}
+
+.password-strength__indicator {
+  @apply block h-full bg-primary transition-all;
+}
+
+.password-confirm-match {
+  @apply mt-1 text-sm;
+}
+
+/* ---------------------------------------------------------------------------
+ * Form item layout helpers
+ * ------------------------------------------------------------------------ */
+.form-no-label {
+  /* Drupal sets this when there's no label — don't add label spacing. */
+}
+
+/* Make sure inline form elements (e.g. exposed filters) wrap nicely. */
+.form--inline {
+  @apply flex flex-wrap items-end gap-4;
+}
+
+.form--inline .form-item {
+  @apply mb-0;
+}

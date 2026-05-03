@@ -1,6 +1,10 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Navbar
 status: stable
+# Theme-only component: slots expect Drupal block render arrays
+# (system_branding_block, system_menu_block) that the Canvas editor
+# cannot supply, so hide it from the component picker.
+noUi: true
 description: Site header built on the daisyUI navbar pattern. Slots accept the branding (logo) and main menu render arrays; placeholder markup renders when slots are empty.
 props:
   type: object
@@ -9,7 +13,7 @@ props:
       type: string
       title: Site name
       description: Used as the logo fallback text when the logo slot is empty.
-      default: ''
+      default: ""
 slots:
   logo:
     title: Logo

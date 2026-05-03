@@ -1,6 +1,7 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Dropdown
 status: stable
+group: Interactive
 description: daisyUI dropdown wrapper. Provide a trigger and menu items via slots.
 props:
   type: object
@@ -12,6 +13,9 @@ props:
       enum:
         - start
         - end
+      "meta:enum":
+        start: Start
+        end: "End (default)"
       default: end
     width:
       type: string

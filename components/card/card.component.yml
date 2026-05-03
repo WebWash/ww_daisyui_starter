@@ -1,6 +1,7 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Card
 status: stable
+group: Content
 description: Card component based on daisyUI. Supports image, title, body, action link, sizes, borders, layout variants, and themed background colors with matching text colors.
 props:
   type: object
@@ -37,16 +38,12 @@ props:
       examples:
         - A short description for the card.
     image:
-      title: Image URL
-      type: string
-      format: iri-reference
+      title: Image
+      description: Optional image rendered above the card body (or as the background for the image-full layout).
+      "$ref": "json-schema-definitions://canvas.module/image"
       examples:
-        - https://picsum.photos/seed/card/640/360
-    image_alt:
-      title: Image alt
-      type: string
-      examples:
-        - Decorative image
+        - src: https://picsum.photos/seed/card/640/360
+          alt: Decorative image
     size:
       title: Size
       description: Defaults to card-md when omitted.
@@ -79,12 +76,16 @@ props:
         card-dash: Dashed
       examples:
         - none
-    variant:
-      title: Layout variant
+    # Renamed from `variant` because Drupal core's ComponentElement render
+    # element auto-injects an empty-string `#variant` into `props['variant']`
+    # whenever a caller omits it (see ComponentElement::preRenderComponent
+    # and getInfo defaults), which collides with our enum and prevents
+    # removing the empty-string entry that Canvas refuses.
+    style:
+      title: Layout style
       description: Defaults to "default" (image on top) when omitted.
       type: string
       enum:
-        - ""
         - default
         - image-full
         - card-side
@@ -92,6 +93,7 @@ props:
         default: "Default (image on top)"
         image-full: Image full (image as background)
         card-side: Card side (image beside body)
+      default: default
       examples:
         - default
     bg_color:

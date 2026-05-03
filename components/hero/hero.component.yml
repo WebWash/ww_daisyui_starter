@@ -1,68 +1,40 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Hero
 status: stable
-description: Hero component based on daisyUI. Supports text-only, side-by-side image, reverse side, and full-bleed image-with-overlay layouts. Optional CTA button via the button SDC.
+group: Content
+description: |
+  Hero based on daisyUI. Editors compose the inside via three slots —
+  drop a Heading SDC into the heading slot, a Text SDC (rich-text) into
+  content, and a Button SDC into cta. Image is supplied as a prop and
+  is used as a side panel for side / side-reverse layouts and as the
+  background for the overlay layout.
 props:
   type: object
   properties:
-    title:
-      title: Title
-      type: string
-      examples:
-        - Hello there
-    title_heading_level:
-      title: Title heading level
-      description: Defaults to h1 when omitted.
-      type: string
-      enum:
-        - h1
-        - h2
-        - h3
-        - h4
-        - h5
-        - h6
-      "meta:enum":
-        h1: "Heading 1 (default)"
-        h2: "Heading 2"
-        h3: "Heading 3"
-        h4: "Heading 4"
-        h5: "Heading 5"
-        h6: "Heading 6"
-      examples:
-        - h1
-    subtitle:
-      title: Subtitle
-      description: Body text rendered below the title.
-      type: string
-      examples:
-        - Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem.
     image:
-      title: Image URL
-      type: string
-      format: iri-reference
+      title: Image
+      description: Optional image. Used as the side panel for the side / side-reverse layouts and as the background for the overlay layout.
+      "$ref": "json-schema-definitions://canvas.module/image"
       examples:
-        - https://picsum.photos/seed/hero/1600/900
-    image_alt:
-      title: Image alt
-      type: string
-      examples:
-        - Decorative hero image
+        - src: https://picsum.photos/seed/hero/1600/900
+          alt: Decorative hero image
     layout:
-      title: Layout
-      description: Defaults to "default" (text only) when omitted.
+      title: Hero Layout
+      description: Defaults to "text only" when omitted.
       type: string
       enum:
-        - default
+        - text_only
         - side
         - side-reverse
         - overlay
       "meta:enum":
-        default: "Default (text only)"
+        text_only: "Text only"
         side: "Side (image left, text right)"
         side-reverse: "Side reverse (text left, image right)"
         overlay: "Image background with overlay"
+      default: text_only
       examples:
-        - default
+        - text_only
     align:
       title: Alignment
       description: Defaults to "left" when omitted.
@@ -70,29 +42,52 @@ props:
       enum:
         - left
         - center
+        - right
       "meta:enum":
         left: "Left (default)"
         center: Center
+        right: Right
+      default: left
       examples:
         - left
-    bg_color:
-      title: Background colour
-      description: Background and text colour combination. Ignored when layout is "overlay". Defaults to "default" (transparent).
+    palettes:
+      title: Palette
+      description: |
+        daisyUI palette to apply to the hero. Each palette pairs the
+        background with its matching content (text) colour so dropped-in
+        components inherit a readable foreground. Ignored when layout is
+        "overlay". Defaults to "none" (transparent — let the surrounding
+        page background show through).
       type: string
       enum:
-        - default
+        - none
+        - base-100
         - base-200
         - base-300
         - neutral
         - primary
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
       "meta:enum":
-        default: "Default (transparent)"
-        base-200: Base 200
-        base-300: Base 300
+        none: "None (transparent)"
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
         neutral: Neutral
         primary: Primary
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
+      default: none
       examples:
-        - default
+        - none
     min_height:
       title: Minimum height
       description: Defaults to "md" (500px).
@@ -109,41 +104,18 @@ props:
         md: "Medium (500px, default)"
         lg: "Large (700px)"
         screen: "Full screen"
+      default: md
       examples:
         - md
-    cta_label:
-      title: CTA label
-      description: Optional call-to-action button label.
-      type: string
-      examples:
-        - Get started
-    cta_url:
-      title: CTA URL
-      type: string
-      format: iri-reference
-      examples:
-        - https://example.com/
-    cta_color:
-      title: CTA color
-      description: Defaults to btn-primary.
-      type: string
-      enum:
-        - btn-neutral
-        - btn-primary
-        - btn-secondary
-        - btn-accent
-        - btn-info
-        - btn-success
-        - btn-warning
-        - btn-error
-      "meta:enum":
-        btn-neutral: Neutral
-        btn-primary: "Primary (default)"
-        btn-secondary: Secondary
-        btn-accent: Accent
-        btn-info: Info
-        btn-success: Success
-        btn-warning: Warning
-        btn-error: Error
-      examples:
-        - btn-primary
+slots:
+  heading:
+    title: Heading
+    description: Drop a Heading SDC (or any heading-shaped component) here. This is the hero's primary title.
+  content:
+    title: Content
+    description: Rich-text intro / supporting copy. Drop a Text SDC for an editor-friendly rich-text experience.
+  actions:
+    title: Action items
+    description: |
+      Drop one or more Button SDCs (or any clickable components) here.
+      Multiple items wrap and lay out side by side with spacing.
