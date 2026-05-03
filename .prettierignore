@@ -1,0 +1,28 @@
+# Vite build output — compiled, do not format.
+dist/
+
+# Dependencies.
+node_modules/
+
+# Lock file.
+package-lock.json
+
+# Drupal coding standards indent JSON differently.
+composer.json
+
+# Agent / IDE files.
+CLAUDE.md
+.claude/
+
+# The @zackad/prettier-plugin-twig (Melody) parser cannot handle dynamic
+# element tags (e.g. `<{{ heading_tag }}>`) or conditional element wrappers
+# (e.g. `{% if url %}<a>{% else %}<span>{% endif %}`). These templates use
+# those patterns intentionally, so skip them.
+components/badge/badge.twig
+components/breadcrumb/breadcrumb.twig
+components/button/button.twig
+components/card/card.twig
+components/heading/heading.twig
+components/hero/hero.twig
+components/section/section.twig
+templates/menu/menu--main.html.twig
