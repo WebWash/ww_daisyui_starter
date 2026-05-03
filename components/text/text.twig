@@ -1,11 +1,14 @@
+{# When align is omitted, emit no text-* class so the text inherits
+   alignment from its container (e.g. a hero with align: center).
+   The `prose` class brings in the theme's typography scope (paragraph
+   rhythm, list styling, link colours, blockquote, code, etc.) so
+   editor-authored HTML renders correctly. #}
 {% set align_class = {
   left: 'text-left',
   center: 'text-center',
   right: 'text-right'
-}[align]
-  ?? 'text-left'
-%}
+}[align] ?? '' %}
 
-<div class="text-content {{ align_class }}">
+<div class="prose {{ align_class }}">
   {{ text|raw }}
 </div>

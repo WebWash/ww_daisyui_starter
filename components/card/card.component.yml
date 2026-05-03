@@ -38,16 +38,12 @@ props:
       examples:
         - A short description for the card.
     image:
-      title: Image URL
-      type: string
-      format: iri-reference
+      title: Image
+      description: Optional image rendered above the card body (or as the background for the image-full layout).
+      "$ref": "json-schema-definitions://canvas.module/image"
       examples:
-        - https://picsum.photos/seed/card/640/360
-    image_alt:
-      title: Image alt
-      type: string
-      examples:
-        - Decorative image
+        - src: https://picsum.photos/seed/card/640/360
+          alt: Decorative image
     size:
       title: Size
       description: Defaults to card-md when omitted.

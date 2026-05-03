@@ -8,9 +8,15 @@ props:
     text:
       type: string
       title: Text
+      description: |
+        Rich-text content authored via Canvas's CKEditor. Supports
+        block-level elements — paragraphs, headings, lists,
+        blockquotes, links, etc. The rendered output picks up the
+        theme's prose styling automatically.
       contentMediaType: text/html
+      x-formatting-context: block
       examples:
-        - <p>This is some text.</p>
+        - "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo lacus at sodales sodales.</p>"
     align:
       type: string
       title: Text Alignment

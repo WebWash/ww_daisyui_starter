@@ -1,11 +1,14 @@
+{# When align is omitted, emit no text-* class so the heading inherits
+   alignment from its container (e.g. a hero with align: center). Only
+   the three explicit values force their own alignment. #}
 {% set align_class = {
   'left':   'text-left',
   'center': 'text-center',
   'right':  'text-right',
-}[align] ?? 'text-left' %}
+}[align] ?? '' %}
 
 {% set level = level|default(2) %}
 
-<h{{ level }} class="{{ align_class }}">
+<h{{ level }}{% if align_class %} class="{{ align_class }}"{% endif %}>
   {{ heading_text }}
 </h{{ level }}>

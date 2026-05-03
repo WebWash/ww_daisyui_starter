@@ -27,9 +27,9 @@
 {% set heading_tag = title_heading_level|default('h3') %}
 
 <div {{ attributes.addClass(classes) }}>
-  {% if image %}
+  {% if image.src %}
     <figure>
-      <img src="{{ image }}" alt="{{ image_alt|default('') }}" />
+      <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" />
     </figure>
   {% endif %}
   <div class="card-body">

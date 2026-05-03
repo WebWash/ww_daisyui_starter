@@ -1,9 +1,18 @@
+{# Pair every palette with its matching text token so dropped-in
+   components (heading / text / button) inherit a readable foreground. #}
 {% set bg_class_map = {
-  'default':  '',
-  'base-200': 'bg-base-200',
-  'base-300': 'bg-base-300',
-  'neutral':  'bg-neutral text-neutral-content',
-  'primary':  'bg-primary text-primary-content',
+  'none':      '',
+  'base-100':  'bg-base-100 text-base-content',
+  'base-200':  'bg-base-200 text-base-content',
+  'base-300':  'bg-base-300 text-base-content',
+  'neutral':   'bg-neutral text-neutral-content',
+  'primary':   'bg-primary text-primary-content',
+  'secondary': 'bg-secondary text-secondary-content',
+  'accent':    'bg-accent text-accent-content',
+  'info':      'bg-info text-info-content',
+  'success':   'bg-success text-success-content',
+  'warning':   'bg-warning text-warning-content',
+  'error':     'bg-error text-error-content',
 } %}
 
 {% set min_height_map = {
@@ -14,13 +23,13 @@
   'screen': 'min-h-screen',
 } %}
 
-{% set layout_val = layout|default('default') %}
+{% set layout_val = layout|default('text_only') %}
 {% set align_val = align|default('left') %}
-{% set has_overlay = layout_val == 'overlay' and image %}
+{% set has_overlay = layout_val == 'overlay' and image.src %}
 
 {% set classes = [
   'hero',
-  has_overlay ? '' : (bg_class_map[bg_color|default('default')] ?? ''),
+  has_overlay ? '' : (bg_class_map[palettes|default('none')] ?? ''),
   min_height_map[min_height|default('md')] ?? 'min-h-[500px]',
 ] %}
 
@@ -32,6 +41,8 @@
 {% endif %}
 {% if align_val == 'center' %}
   {% set content_classes = content_classes|merge(['text-center']) %}
+{% elseif align_val == 'right' %}
+  {% set content_classes = content_classes|merge(['text-right']) %}
 {% endif %}
 {% if has_overlay %}
   {% set content_classes = content_classes|merge(['text-neutral-content']) %}
@@ -40,31 +51,42 @@
 {% set is_side = layout_val == 'side' or layout_val == 'side-reverse' %}
 {% set text_wrapper_class = is_side ? '' : 'max-w-2xl' %}
 
-{% set heading_tag = title_heading_level|default('h1') %}
-
 {% if has_overlay %}
-  <div {{ attributes.addClass(classes).setAttribute('style', 'background-image: url(' ~ image ~ ')') }}>
+  <div {{ attributes.addClass(classes).setAttribute('style', 'background-image: url(' ~ image.src ~ ')') }}>
     <div class="hero-overlay"></div>
 {% else %}
   <div {{ attributes.addClass(classes) }}>
 {% endif %}
   <div class="{{ content_classes|join(' ') }}">
-    {% if image and is_side %}
-      <img src="{{ image }}" alt="{{ image_alt|default('') }}" class="max-w-sm rounded-lg shadow-2xl" />
+    {% if image.src and is_side %}
+      <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" class="max-w-sm rounded-lg shadow-2xl" />
     {% endif %}
     <div class="{{ text_wrapper_class }}">
-      {% if title %}
-        <{{ heading_tag }} class="text-5xl font-bold">{{ title }}</{{ heading_tag }}>
+      {% block heading %}
+        {{ heading }}
+      {% endblock %}
+      {% if content is not empty %}
+        <div class="py-6">
+          {% block content %}
+            {{ content }}
+          {% endblock %}
+        </div>
       {% endif %}
-      {% if subtitle %}
-        <p class="py-6">{{ subtitle }}</p>
-      {% endif %}
-      {% if cta_label %}
-        {{ include('ww_tailwind_starter:button', {
-          text: cta_label,
-          url: cta_url,
-          color: cta_color|default('btn-primary'),
-        }, with_context: false) }}
+      {% if actions is not empty %}
+        {# Wrap in flex so multiple Button (or other clickable) SDCs
+           dropped into the slot lay out side by side with spacing,
+           and wrap on narrow viewports. The justify-* class mirrors
+           the hero's content alignment. #}
+        {% set actions_justify = {
+          'left':   '',
+          'center': 'justify-center',
+          'right':  'justify-end',
+        }[align_val] ?? '' %}
+        <div class="flex flex-wrap items-center gap-3 {{ actions_justify }}">
+          {% block actions %}
+            {{ actions }}
+          {% endblock %}
+        </div>
       {% endif %}
     </div>
   </div>
