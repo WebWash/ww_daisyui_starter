@@ -1,6 +1,7 @@
-"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Heading
 status: stable
+group: Content
 props:
   type: object
   properties:
@@ -11,10 +12,23 @@ props:
       examples:
         - "My Heading"
     level:
-      type: number
+      type: integer
       title: Heading Level
       description: The heading level (h1-h6)
-      enum: [1, 2, 3, 4, 5, 6]
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      "meta:enum":
+        1: H1
+        2: "H2 (default)"
+        3: H3
+        4: H4
+        5: H5
+        6: H6
       default: 2
       examples:
         - 2
@@ -26,6 +40,10 @@ props:
         - left
         - center
         - right
+      "meta:enum":
+        left: "Left (default)"
+        center: Center
+        right: Right
       default: left
       examples:
         - left

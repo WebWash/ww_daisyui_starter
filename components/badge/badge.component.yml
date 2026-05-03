@@ -1,6 +1,7 @@
-"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Badge
 status: stable
+group: Interactive
 description: Badge component based on daisyUI. Renders as an anchor when a URL is provided, otherwise as a span element.
 props:
   type: object
@@ -61,12 +62,16 @@ props:
         badge-error: Error
       examples:
         - badge-primary
-    variant:
-      title: Variant
+    # Renamed from `variant` because Drupal core's ComponentElement render
+    # element auto-injects an empty-string `#variant` into `props['variant']`
+    # whenever a caller omits it (see ComponentElement::preRenderComponent
+    # and getInfo defaults), which collides with our enum and prevents
+    # removing the empty-string entry that Canvas refuses.
+    style:
+      title: Style
       description: Defaults to "default" (solid) when omitted.
       type: string
       enum:
-        - ""
         - default
         - badge-outline
         - badge-dash
@@ -78,6 +83,7 @@ props:
         badge-dash: Dashed
         badge-soft: Soft
         badge-ghost: Ghost
+      default: default
       examples:
         - default
     icon:

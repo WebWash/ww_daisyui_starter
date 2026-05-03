@@ -8,10 +8,10 @@
 } %}
 {% set bg_classes = bg_class_map[bg_color|default('base-200')] ?? bg_class_map['base-200'] %}
 
-{% set variant_val = variant|default('default') %}
+{% set style_val = style|default('default') %}
 {% set padding_val = padding|default('p-10') %}
 
-{% set top_classes = ['footer', variant_val == 'center' ? 'footer-center' : 'sm:footer-horizontal', 'container', 'mx-auto', padding_val] %}
+{% set top_classes = ['footer', style_val == 'center' ? 'footer-center' : 'sm:footer-horizontal', 'container', 'mx-auto', padding_val] %}
 
 {% set has_top = branding or links or social %}
 

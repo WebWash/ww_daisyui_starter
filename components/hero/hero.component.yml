@@ -1,6 +1,7 @@
-"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Hero
 status: stable
+group: Content
 description: Hero component based on daisyUI. Supports text-only, side-by-side image, reverse side, and full-bleed image-with-overlay layouts. Optional CTA button via the button SDC.
 props:
   type: object

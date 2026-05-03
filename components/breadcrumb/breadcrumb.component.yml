@@ -1,6 +1,11 @@
-"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Breadcrumb
 status: stable
+# Items are an array of objects ({text, url}) which Canvas does not
+# yet support as an editable prop shape. The component is fed by
+# Drupal's breadcrumb builder via the breadcrumb template — opt out
+# of the editor.
+noUi: true
 description: Breadcrumb component based on daisyUI. Accepts a list of items each with text and optional url.
 props:
   type: object
