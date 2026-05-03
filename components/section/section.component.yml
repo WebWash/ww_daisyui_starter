@@ -53,6 +53,28 @@ props:
         md: "Medium — default (py-16)"
         lg: "Large (py-24)"
         xl: "Extra large (py-32)"
+    margin:
+      title: Vertical margin
+      description: |
+        Outer spacing applied to the section as a whole. Defaults to
+        none — sections normally butt up against each other and you
+        control breathing room via padding. Use this when you need a
+        gap between two coloured sections, or to detach a section from
+        the page edge.
+      type: string
+      default: none
+      enum:
+        - none
+        - sm
+        - md
+        - lg
+        - xl
+      "meta:enum":
+        none: "None — default"
+        sm: "Small (my-8)"
+        md: "Medium (my-16)"
+        lg: "Large (my-24)"
+        xl: "Extra large (my-32)"
     width:
       title: Inner width
       description: |

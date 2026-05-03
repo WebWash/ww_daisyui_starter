@@ -26,6 +26,14 @@
   'xl':   'py-32',
 }[padding|default('md')] %}
 
+{% set margin_class = {
+  'none': '',
+  'sm':   'my-8',
+  'md':   'my-16',
+  'lg':   'my-24',
+  'xl':   'my-32',
+}[margin|default('none')] %}
+
 {% set width_class = {
   'narrow':    'max-w-3xl mx-auto px-4',
   'container': 'max-w-7xl mx-auto px-4',
@@ -36,7 +44,7 @@
 {% set heading_tag = title_heading_level|default('h2') %}
 {% set align_class = align|default('left') == 'center' ? 'text-center mx-auto max-w-3xl' : '' %}
 
-<section class="{{ bg_class }} {{ padding_class }}">
+<section class="{{ bg_class }} {{ padding_class }} {{ margin_class }}">
   <div class="{{ width_class }}">
     {% if title or intro %}
       <header class="mb-10 {{ align_class }}">
