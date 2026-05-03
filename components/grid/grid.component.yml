@@ -1,0 +1,46 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Grid
+status: stable
+group: Layout
+description: |
+  Responsive grid for laying out cards, teasers, or any uniform items.
+  Stacks to one column on mobile, halves on tablet, and reaches the
+  configured column count on desktop.
+props:
+  type: object
+  properties:
+    cols:
+      title: Columns (desktop)
+      description: |
+        Maximum column count once the viewport is wide enough.
+        Mobile is always 1 column; tablet (md) is half (2 cols when
+        targeting 3 or 4, otherwise the same as desktop).
+      type: integer
+      default: 3
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      "meta:enum":
+        1: "1 column"
+        2: "2 columns"
+        3: "3 columns (default)"
+        4: "4 columns"
+    gap:
+      title: Gap
+      description: Space between grid items.
+      type: string
+      default: md
+      enum:
+        - sm
+        - md
+        - lg
+      "meta:enum":
+        sm: "Small (gap-3)"
+        md: "Medium — default (gap-6)"
+        lg: "Large (gap-10)"
+slots:
+  items:
+    title: Items
+    description: Drop cards or any other components inside.

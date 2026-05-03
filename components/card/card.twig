@@ -1,5 +1,8 @@
+{# Pair every bg with its matching text token explicitly so cards stay
+   readable when nested inside coloured sections (otherwise the parent's
+   text-*-content inherits into the card body). #}
 {% set bg_class_map = {
-  'default':   'bg-base-100',
+  'default':   'bg-base-100 text-base-content',
   'neutral':   'bg-neutral text-neutral-content',
   'primary':   'bg-primary text-primary-content',
   'secondary': 'bg-secondary text-secondary-content',

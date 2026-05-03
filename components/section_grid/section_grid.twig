@@ -5,9 +5,9 @@
   '25-25-25-25': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
 }[columns] ?? 'grid-cols-1 lg:grid-cols-3' %}
 
-<section class="py-16 {{ highlight ? 'bg-gray-300' : '' }}">
+<section class="py-16 {{ highlight ? 'bg-base-200 text-base-content' : '' }}">
   <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">{{ title }}</h2>
+    <h2 class="text-3xl font-bold mb-8 text-center">{{ title }}</h2>
 
     <div class="grid {{ grid_class }} gap-6">
       {% block grid %}
