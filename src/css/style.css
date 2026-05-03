@@ -9,5 +9,6 @@
 @source "./tailwind-classes.txt";
 
 @import "./components/forms.css";
+@import "./components/webform.css";
 @import "./components/tabs.css";
 @import "./components/typography.css";

@@ -1,0 +1,231 @@
+/**
+ * Webform-specific tweaks.
+ *
+ * Webform renders many of its widgets with its own wrappers and class
+ * conventions that core Form API doesn't use (e.g. .webform-options-display-*-
+ * columns, .js-webform-type-*, composite elements). The DaisyUI mappings in
+ * forms.css cover everything that uses core's selectors; this file targets
+ * the gaps so webform-rendered forms stay polished.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Fieldsets used by webform composites and grouped checkbox/radio sets.
+ *
+ * Webform tags these with .fieldgroup + .form-composite + .webform-composite-*.
+ * forms.css already matches `fieldset.fieldgroup` for the daisyUI border/box,
+ * but webform's legend wraps its label in a <span class="fieldset-legend">
+ * with no built-in spacing — give it presence and breathing room.
+ * ------------------------------------------------------------------------ */
+fieldset.fieldgroup > legend,
+fieldset.form-composite > legend,
+fieldset.webform-composite-visible-title > legend {
+  @apply mb-3;
+}
+
+fieldset.fieldgroup > legend .fieldset-legend,
+fieldset.form-composite > legend .fieldset-legend,
+fieldset.webform-composite-visible-title > legend .fieldset-legend {
+  @apply text-base font-semibold text-base-content;
+}
+
+/* When a webform fieldset has its own description, surface it under the
+   legend with a subtle look. */
+fieldset.fieldgroup > .description,
+fieldset.form-composite > .description,
+fieldset.webform-composite-visible-title > .description {
+  @apply -mt-2 mb-3 text-sm text-base-content/60;
+}
+
+/* The webform fieldset wrapper has no padding by default — the items inside
+   end up flush against the legend. Add a little space. */
+fieldset.fieldgroup > .fieldset-wrapper,
+fieldset.form-composite > .fieldset-wrapper,
+fieldset.webform-composite-visible-title > .fieldset-wrapper {
+  @apply mt-1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Webform option lists — checkboxes/radios that webform may lay out in
+ * one, two, three or four columns via CSS columns.
+ *
+ * Each row inside is a `.js-webform-type-checkbox` / `.js-webform-type-radio`
+ * (in addition to the core `.js-form-type-checkbox` already styled in
+ * forms.css). Webform's own CSS strips the bottom margin on these in
+ * column displays, which makes the rows sit flush against each other —
+ * give them explicit breathing room.
+ * ------------------------------------------------------------------------ */
+/* Multi-column layouts use CSS columns. */
+.webform-options-display-two-columns {
+  column-count: 2;
+  column-gap: 1.5rem;
+}
+
+.webform-options-display-three-columns {
+  column-count: 3;
+  column-gap: 1.5rem;
+}
+
+.webform-options-display-four-columns {
+  column-count: 4;
+  column-gap: 1.5rem;
+}
+
+/* Webform's own webform.element.css ships with
+     .webform-options-display-two-columns div.form-item,
+     .webform-options-display-three-columns div.form-item { margin: 0 }
+   (specificity 0,2,1) which forces every option row flush against the
+   next. We match that qualifier so our override actually wins, and
+   re-introduce a sensible mb-3 rhythm. The `:last-child` rule keeps the
+   final row from adding a trailing gap inside the fieldset. */
+.webform-options-display-one-column div.form-item,
+.webform-options-display-two-columns div.form-item,
+.webform-options-display-three-columns div.form-item,
+.webform-options-display-four-columns div.form-item {
+  @apply mb-3;
+  break-inside: avoid;
+}
+
+.webform-options-display-one-column div.form-item:last-child,
+.webform-options-display-two-columns div.form-item:last-child,
+.webform-options-display-three-columns div.form-item:last-child,
+.webform-options-display-four-columns div.form-item:last-child {
+  @apply mb-0;
+}
+
+/* Webform tags every single checkbox/radio with `.js-webform-type-checkbox`
+   / `.js-webform-type-radio`. forms.css gives the bare core class mb-2
+   (tight by design for stacked lists). Webform forms commonly mix in
+   single standalone checkboxes — bump those up to the regular .form-item
+   rhythm so they don't visually merge with the next field. */
+.js-webform-type-checkbox,
+.js-webform-type-radio {
+  @apply mb-5;
+}
+
+/* Single-row layouts (inline). */
+.webform-options-display-one-column-inline,
+.webform-options-display-two-columns-inline,
+.webform-options-display-three-columns-inline,
+.webform-options-display-four-columns-inline {
+  @apply flex flex-wrap gap-x-6 gap-y-2;
+}
+
+.webform-options-display-buttons,
+.webform-options-display-buttons-horizontal {
+  @apply flex flex-wrap gap-2;
+}
+
+/* ---------------------------------------------------------------------------
+ * Webform composites (address, name, contact, etc.) — these render multiple
+ * fields side by side using a sub-fieldset + flexbox. Tighten the row
+ * spacing so a composite doesn't dominate the form vertically.
+ * ------------------------------------------------------------------------ */
+.webform-composite-visible-title .form-item,
+.form-composite .form-item {
+  @apply mb-3;
+}
+
+/* Webform flex rows (used by composites and `webform_flexbox` element). */
+.webform-flex {
+  @apply min-w-0;
+}
+
+.webform-flex--container {
+  @apply flex flex-wrap gap-4;
+}
+
+.webform-flex--container > .webform-flex {
+  @apply flex-1 min-w-[12rem];
+}
+
+/* ---------------------------------------------------------------------------
+ * Wizard / progress — webform multi-step uses .webform-progress with either
+ * a tracker (numbered steps), a bar, or both. Give it daisyUI feel.
+ * ------------------------------------------------------------------------ */
+.webform-progress {
+  @apply mb-8;
+}
+
+.webform-progress-tracker {
+  @apply flex flex-wrap items-start justify-between gap-2;
+}
+
+.webform-progress-tracker .progress-step {
+  @apply flex flex-col items-center text-center text-sm text-base-content/60 relative flex-1 min-w-[5rem];
+}
+
+.webform-progress-tracker .progress-marker {
+  @apply flex items-center justify-center w-8 h-8 rounded-full bg-base-300 text-base-content/70 font-medium mb-1;
+}
+
+.webform-progress-tracker .is-active .progress-marker,
+.webform-progress-tracker .progress-step.is-active .progress-marker {
+  @apply bg-primary text-primary-content;
+}
+
+.webform-progress-tracker .is-complete .progress-marker,
+.webform-progress-tracker .progress-step.is-complete .progress-marker {
+  @apply bg-success text-success-content;
+}
+
+.webform-progress-tracker .is-active,
+.webform-progress-tracker .progress-step.is-active {
+  @apply text-base-content font-semibold;
+}
+
+.webform-progress-bar {
+  @apply h-2 rounded-full bg-base-300 overflow-hidden mb-3;
+}
+
+.webform-progress-bar__bar {
+  @apply h-full bg-primary transition-all;
+}
+
+/* ---------------------------------------------------------------------------
+ * Required asterisk inside a webform `.fieldset-legend`. Webform places
+ * `<span class="form-required">` inside the legend's span, which our base
+ * `.form-required::after` rule covers — but only when it's a direct child of
+ * a `<label>`. Mirror the same treatment for legend wrappers.
+ * ------------------------------------------------------------------------ */
+.fieldset-legend .form-required::after,
+legend .form-required::after {
+  content: " *";
+  @apply text-error font-bold;
+}
+
+/* ---------------------------------------------------------------------------
+ * Confirmation message rendered after a successful submit.
+ * ------------------------------------------------------------------------ */
+.webform-confirmation {
+  @apply alert alert-success;
+}
+
+.webform-confirmation__message {
+  @apply mb-2;
+}
+
+.webform-confirmation__back {
+  @apply mt-2;
+}
+
+/* ---------------------------------------------------------------------------
+ * Webform's own "actions" container — keep it consistent with .form-actions.
+ * ------------------------------------------------------------------------ */
+.webform-actions {
+  @apply mt-6 flex flex-wrap items-center gap-3;
+}
+
+/* ---------------------------------------------------------------------------
+ * "Likert" tables — used by the likert element type. Already styled by the
+ * base table component; just tighten cell padding and make the input cells
+ * align centre.
+ * ------------------------------------------------------------------------ */
+.webform-likert-table th,
+.webform-likert-table td {
+  @apply text-center align-middle;
+}
+
+.webform-likert-table th:first-child,
+.webform-likert-table td:first-child {
+  @apply text-left;
+}
