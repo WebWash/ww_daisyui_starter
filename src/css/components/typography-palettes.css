@@ -3,24 +3,50 @@
  *
  * Most prose styling uses `currentColor` so it inherits from the surrounding
  * container — but a handful of daisyUI helper classes (`link link-primary`,
- * `.kbd`, `.table-zebra`) hardcode references to base-palette tokens
- * (`--color-primary`, `--color-base-100`, `--color-base-200`). On a section
- * with `bg-primary text-primary-content` (or any non-base palette), those
- * helpers stop pairing with their container — links can vanish, kbd loses
- * contrast, table zebra rows clash with the section colour.
+ * `.kbd`, `.table` thead/zebra) hardcode references to base-palette tokens
+ * (`--color-base-content`, `--color-base-100`, `--color-base-200`). On a
+ * section with `bg-primary text-primary-content` (or any non-base palette),
+ * those helpers stop pairing with their container — links can vanish, kbd
+ * loses contrast, table headings disappear, zebra rows clash.
  *
- * To keep the base experience untouched (blue links, light kbd, zebra rows
- * on a normal white page), we don't change the prose defaults — instead we
- * scope overrides under the coloured palette wrappers below. Each block is
- * deliberately small and self-contained so adjusting one palette never leaks
- * into the others. To tune a palette, edit only its block.
+ * Strategy: redefine the daisyUI base-palette CSS variables locally on the
+ * coloured palette wrappers. Anywhere daisyUI internally calls
+ * `var(--color-base-content)` etc., it now resolves to the section's
+ * inherited text colour — adapting tables, code blocks, hr, divider lines,
+ * and any future daisyUI components without per-component selectors.
  *
- * Selector pattern: any element carrying `.bg-<palette>` (the section SDC
- * applies these via its `bg` prop) cascades into nested `.prose` content.
+ * On top of that, a small set of explicit overrides for `a` / `kbd` because
+ * those use the `link link-primary` and `.kbd` daisyUI utility classes that
+ * pin to `--color-primary` / `--color-base-100`, which the variable redirect
+ * alone won't fix.
+ *
+ * Selector: any element carrying `.bg-<palette>` (the section SDC applies
+ * these via its `bg` prop) cascades into nested `.prose` content. To add a
+ * palette, append its `.bg-<name>` class to both blocks below. To tune one
+ * palette in isolation, pull it out into its own block.
+ *
+ * NOTE: Drupal's CSS asset aggregator caches the compiled stylesheet. After
+ * editing this file, run `npm run build` AND clear Drupal's CSS cache
+ * (`ddev drush eval "\Drupal::service('asset.css.collection_optimizer')->deleteAll();"`)
+ * — `drush cr` alone won't refresh the aggregated bundle.
  */
 
-/* Shared override mixin via :is() so each palette only needs to list its
-   wrapper class once. Add a palette by appending its `.bg-<name>` selector. */
+/* Variable redirect: daisyUI's component CSS reads --color-base-* directly,
+   so redefining them here makes thead, table borders, divider lines, etc.
+   adapt automatically. */
+.bg-primary,
+.bg-secondary,
+.bg-accent,
+.bg-neutral,
+.bg-base-300 {
+  --color-base-content: currentColor;
+  --color-base-100: rgb(from currentColor r g b / 0.05);
+  --color-base-200: rgb(from currentColor r g b / 0.1);
+  --color-base-300: rgb(from currentColor r g b / 0.15);
+}
+
+/* Explicit overrides for utilities that don't go through --color-base-*
+   (links use --color-primary; kbd has its own bg/border declarations). */
 :is(.bg-primary, .bg-secondary, .bg-accent, .bg-neutral, .bg-base-300) {
   /* Links: switch from `link-primary` (which collides with bg-primary and
      reads harshly on bg-secondary/accent) to a currentColor underline that
@@ -38,26 +64,12 @@
     opacity: 0.85;
   }
 
-  /* kbd: daisyUI's `.kbd` uses --color-base-100 for its background, which
-     is invisible on light palettes (bg-base-100/200/300) and fights coloured
-     ones. Replace with a currentColor tint that always reads. */
+  /* kbd: daisyUI's `.kbd` uses --color-base-100 for its background, but its
+     border/text colour come from separate declarations that the variable
+     redirect doesn't reach. Pin them to currentColor for guaranteed pairing. */
   :where(.prose) kbd {
     background-color: rgb(from currentColor r g b / 0.15);
     border-color: rgb(from currentColor r g b / 0.3);
     color: currentColor;
-  }
-
-  /* Table zebra: daisyUI's `.table-zebra` paints even rows with
-     --color-base-200, which clashes with any non-base palette. Replace with
-     a tint of the current text colour so striping survives any palette. */
-  :where(.prose) table tbody tr:nth-child(even),
-  :where(.prose) table tbody tr:nth-child(even) :where(td, th) {
-    background-color: rgb(from currentColor r g b / 0.08);
-  }
-
-  /* Table row borders also use --color-base-content in daisyUI; prose
-     already inherits `currentColor`, so just lighten the divider. */
-  :where(.prose) table tr {
-    border-bottom-color: rgb(from currentColor r g b / 0.15);
   }
 }
