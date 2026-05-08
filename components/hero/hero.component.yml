@@ -15,7 +15,7 @@ props:
       type: string
       title: Heading text
       examples:
-        - "My Heading"
+        - "Hero Heading"
     heading_level:
       type: integer
       title: Heading level
@@ -33,7 +33,7 @@ props:
       contentMediaType: text/html
       x-formatting-context: block
       examples:
-        - "<p>Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem assumenda.</p>"
+        - "<p>Hero content goes here...</p>"
     image:
       title: Image
       description: Optional image. Used as the side panel for the side / side-reverse layouts and as the background for the overlay layout.
@@ -55,7 +55,7 @@ props:
         side-reverse: "Side reverse (text left, image right)"
         overlay: "Image background with overlay"
       examples:
-        - text_only
+        - side
     align:
       title: Alignment
       type: string
@@ -110,12 +110,10 @@ props:
         - sm
         - md
         - lg
-        - screen
       "meta:enum":
         sm: "Small (300px)"
         md: "Medium (500px)"
         lg: "Large (700px)"
-        screen: "Full screen"
       examples:
         - md
 slots:
