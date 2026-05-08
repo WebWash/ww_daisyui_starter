@@ -3,14 +3,37 @@ name: Hero
 status: stable
 group: Content
 description: |
-  Hero based on daisyUI. Editors compose the inside via three slots —
-  drop a Heading SDC into the heading slot, a Text SDC (rich-text) into
-  content, and a Button SDC into cta. Image is supplied as a prop and
-  is used as a side panel for side / side-reverse layouts and as the
-  background for the overlay layout.
+  Hero based on daisyUI. Heading and supporting copy are supplied as
+  props (rich-text via the content prop); editors compose the actions
+  by dropping Button SDCs into the actions slot. Image is supplied as
+  a prop and is used as a side panel for side / side-reverse layouts
+  and as the background for the overlay layout.
 props:
   type: object
   properties:
+    heading_text:
+      type: string
+      title: Heading text
+      examples:
+        - "My Heading"
+    heading_level:
+      type: integer
+      title: Heading level
+      enum: [1, 2, 3, 4, 5, 6]
+      examples:
+        - 2
+    content:
+      type: string
+      title: Content
+      description: |
+        Rich-text supporting copy authored via Canvas's CKEditor.
+        Supports block-level elements — paragraphs, headings, lists,
+        blockquotes, links, etc. The rendered output picks up the
+        theme's prose styling automatically.
+      contentMediaType: text/html
+      x-formatting-context: block
+      examples:
+        - "<p>Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem assumenda.</p>"
     image:
       title: Image
       description: Optional image. Used as the side panel for the side / side-reverse layouts and as the background for the overlay layout.
@@ -20,7 +43,6 @@ props:
           alt: Decorative hero image
     layout:
       title: Hero Layout
-      description: Defaults to "text only" when omitted.
       type: string
       enum:
         - text_only
@@ -32,35 +54,30 @@ props:
         side: "Side (image left, text right)"
         side-reverse: "Side reverse (text left, image right)"
         overlay: "Image background with overlay"
-      default: text_only
       examples:
         - text_only
     align:
       title: Alignment
-      description: Defaults to "left" when omitted.
       type: string
       enum:
         - left
         - center
         - right
       "meta:enum":
-        left: "Left (default)"
+        left: Left
         center: Center
         right: Right
-      default: left
       examples:
         - left
-    palettes:
-      title: Palette
+    color_palette:
+      title: Color palette
       description: |
         daisyUI palette to apply to the hero. Each palette pairs the
         background with its matching content (text) colour so dropped-in
         components inherit a readable foreground. Ignored when layout is
-        "overlay". Defaults to "none" (transparent — let the surrounding
-        page background show through).
+        "overlay".
       type: string
       enum:
-        - none
         - base-100
         - base-200
         - base-300
@@ -73,7 +90,6 @@ props:
         - warning
         - error
       "meta:enum":
-        none: "None (transparent)"
         base-100: "Base 100 (page surface)"
         base-200: "Base 200 (subtle)"
         base-300: "Base 300 (sunken)"
@@ -85,35 +101,24 @@ props:
         success: Success
         warning: Warning
         error: Error
-      default: none
       examples:
-        - none
+        - base-100
     min_height:
       title: Minimum height
-      description: Defaults to "md" (500px).
       type: string
       enum:
-        - none
         - sm
         - md
         - lg
         - screen
       "meta:enum":
-        none: None
         sm: "Small (300px)"
-        md: "Medium (500px, default)"
+        md: "Medium (500px)"
         lg: "Large (700px)"
         screen: "Full screen"
-      default: md
       examples:
         - md
 slots:
-  heading:
-    title: Heading
-    description: Drop a Heading SDC (or any heading-shaped component) here. This is the hero's primary title.
-  content:
-    title: Content
-    description: Rich-text intro / supporting copy. Drop a Text SDC for an editor-friendly rich-text experience.
   actions:
     title: Action items
     description: |

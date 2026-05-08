@@ -1,7 +1,6 @@
 {# Pair every palette with its matching text token so dropped-in
    components (heading / text / button) inherit a readable foreground. #}
 {% set bg_class_map = {
-  'none':      '',
   'base-100':  'bg-base-100 text-base-content',
   'base-200':  'bg-base-200 text-base-content',
   'base-300':  'bg-base-300 text-base-content',
@@ -16,7 +15,6 @@
 } %}
 
 {% set min_height_map = {
-  'none':   '',
   'sm':     'min-h-[300px]',
   'md':     'min-h-[500px]',
   'lg':     'min-h-[700px]',
@@ -29,7 +27,7 @@
 
 {% set classes = [
   'hero',
-  has_overlay ? '' : (bg_class_map[palettes|default('none')] ?? ''),
+  has_overlay ? '' : (bg_class_map[color_palette|default('base-100')] ?? 'bg-base-100 text-base-content'),
   min_height_map[min_height|default('md')] ?? 'min-h-[500px]',
 ] %}
 
@@ -62,14 +60,13 @@
       <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" class="max-w-sm rounded-lg shadow-2xl" />
     {% endif %}
     <div class="{{ text_wrapper_class }}">
-      {% block heading %}
-        {{ heading }}
-      {% endblock %}
-      {% if content is not empty %}
+      {% if heading_text %}
+        {% set h_level = heading_level|default(2) %}
+        <h{{ h_level }}>{{ heading_text }}</h{{ h_level }}>
+      {% endif %}
+      {% if content %}
         <div class="py-6">
-          {% block content %}
-            {{ content }}
-          {% endblock %}
+          {{ content }}
         </div>
       {% endif %}
       {% if actions is not empty %}
