@@ -1,0 +1,75 @@
+/**
+ * Prose overrides per daisyUI palette.
+ *
+ * Most prose styling uses `currentColor` so it inherits from the surrounding
+ * container — but a handful of daisyUI helper classes (`link link-primary`,
+ * `.kbd`, `.table` thead/zebra) hardcode references to base-palette tokens
+ * (`--color-base-content`, `--color-base-100`, `--color-base-200`). On a
+ * section with `bg-primary text-primary-content` (or any non-base palette),
+ * those helpers stop pairing with their container — links can vanish, kbd
+ * loses contrast, table headings disappear, zebra rows clash.
+ *
+ * Strategy: redefine the daisyUI base-palette CSS variables locally on the
+ * coloured palette wrappers. Anywhere daisyUI internally calls
+ * `var(--color-base-content)` etc., it now resolves to the section's
+ * inherited text colour — adapting tables, code blocks, hr, divider lines,
+ * and any future daisyUI components without per-component selectors.
+ *
+ * On top of that, a small set of explicit overrides for `a` / `kbd` because
+ * those use the `link link-primary` and `.kbd` daisyUI utility classes that
+ * pin to `--color-primary` / `--color-base-100`, which the variable redirect
+ * alone won't fix.
+ *
+ * Selector: any element carrying `.bg-<palette>` (the section SDC applies
+ * these via its `bg` prop) cascades into nested `.prose` content. To add a
+ * palette, append its `.bg-<name>` class to both blocks below. To tune one
+ * palette in isolation, pull it out into its own block.
+ *
+ * NOTE: Drupal's CSS asset aggregator caches the compiled stylesheet. After
+ * editing this file, run `npm run build` AND clear Drupal's CSS cache
+ * (`ddev drush eval "\Drupal::service('asset.css.collection_optimizer')->deleteAll();"`)
+ * — `drush cr` alone won't refresh the aggregated bundle.
+ */
+
+/* Variable redirect: daisyUI's component CSS reads --color-base-* directly,
+   so redefining them here makes thead, table borders, divider lines, etc.
+   adapt automatically. */
+.bg-primary,
+.bg-secondary,
+.bg-accent,
+.bg-neutral,
+.bg-base-300 {
+  --color-base-content: currentColor;
+  --color-base-100: rgb(from currentColor r g b / 0.05);
+  --color-base-200: rgb(from currentColor r g b / 0.1);
+  --color-base-300: rgb(from currentColor r g b / 0.15);
+}
+
+/* Explicit overrides for utilities that don't go through --color-base-*
+   (links use --color-primary; kbd has its own bg/border declarations). */
+:is(.bg-primary, .bg-secondary, .bg-accent, .bg-neutral, .bg-base-300) {
+  /* Links: switch from `link-primary` (which collides with bg-primary and
+     reads harshly on bg-secondary/accent) to a currentColor underline that
+     always pairs with the surrounding text colour. */
+  :where(.prose) a:not(.btn):not(.link) {
+    color: currentColor;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    font-weight: 500;
+  }
+
+  :where(.prose) a:not(.btn):not(.link):hover {
+    text-decoration-thickness: 2px;
+    opacity: 0.85;
+  }
+
+  /* kbd: daisyUI's `.kbd` uses --color-base-100 for its background, but its
+     border/text colour come from separate declarations that the variable
+     redirect doesn't reach. Pin them to currentColor for guaranteed pairing. */
+  :where(.prose) kbd {
+    background-color: rgb(from currentColor r g b / 0.15);
+    border-color: rgb(from currentColor r g b / 0.3);
+    color: currentColor;
+  }
+}

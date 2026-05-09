@@ -1,91 +1,136 @@
-{# Pair every palette with its matching text token so dropped-in
-   components (heading / text / button) inherit a readable foreground. #}
-{% set bg_class_map = {
-  'none':      '',
-  'base-100':  'bg-base-100 text-base-content',
-  'base-200':  'bg-base-200 text-base-content',
-  'base-300':  'bg-base-300 text-base-content',
-  'neutral':   'bg-neutral text-neutral-content',
-  'primary':   'bg-primary text-primary-content',
-  'secondary': 'bg-secondary text-secondary-content',
-  'accent':    'bg-accent text-accent-content',
-  'info':      'bg-info text-info-content',
-  'success':   'bg-success text-success-content',
-  'warning':   'bg-warning text-warning-content',
-  'error':     'bg-error text-error-content',
-} %}
-
-{% set min_height_map = {
-  'none':   '',
-  'sm':     'min-h-[300px]',
-  'md':     'min-h-[500px]',
-  'lg':     'min-h-[700px]',
-  'screen': 'min-h-screen',
-} %}
-
 {% set layout_val = layout|default('text_only') %}
-{% set align_val = align|default('left') %}
+{% set align_val  = align|default('left') %}
 {% set has_overlay = layout_val == 'overlay' and image.src %}
 
-{% set classes = [
-  'hero',
-  has_overlay ? '' : (bg_class_map[palettes|default('none')] ?? ''),
-  min_height_map[min_height|default('md')] ?? 'min-h-[500px]',
-] %}
+{% set hero = html_cva(
+  base: ['hero'],
+  variants: {
+    colorPalette: {
+      'base-100':  'bg-base-100 text-base-content',
+      'base-200':  'bg-base-200 text-base-content',
+      'base-300':  'bg-base-300 text-base-content',
+      'neutral':   'bg-neutral text-neutral-content',
+      'primary':   'bg-primary text-primary-content',
+      'secondary': 'bg-secondary text-secondary-content',
+      'accent':    'bg-accent text-accent-content',
+      'info':      'bg-info text-info-content',
+      'success':   'bg-success text-success-content',
+      'warning':   'bg-warning text-warning-content',
+      'error':     'bg-error text-error-content',
+    },
+    minHeight: {
+      'sm': 'min-h-[300px]',
+      'md': 'min-h-[500px]',
+      'lg': 'min-h-[700px]',
+    },
+    marginBlockStart: {
+      '0':   'mt-0',
+      '8':   'mt-2',
+      '20':  'mt-5',
+      '32':  'mt-6 md:mt-7 xl:mt-8',
+      '48':  'mt-8 md:mt-10 xl:mt-12',
+      '64':  'mt-10 md:mt-13 xl:mt-16',
+      '96':  'mt-16 md:mt-20 xl:mt-24',
+      '128': 'mt-20 md:mt-24 xl:mt-32',
+    },
+    marginBlockEnd: {
+      '0':   'mb-0',
+      '8':   'mb-2',
+      '20':  'mb-5',
+      '32':  'mb-6 md:mb-7 xl:mb-8',
+      '48':  'mb-8 md:mb-10 xl:mb-12',
+      '64':  'mb-10 md:mb-13 xl:mb-16',
+      '96':  'mb-16 md:mb-20 xl:mb-24',
+      '128': 'mb-20 md:mb-24 xl:mb-32',
+    },
+    paddingBlockStart: {
+      '0':   'pt-0',
+      '8':   'pt-2',
+      '20':  'pt-5',
+      '32':  'pt-6 md:pt-7 xl:pt-8',
+      '48':  'pt-8 md:pt-10 xl:pt-12',
+      '64':  'pt-10 md:pt-13 xl:pt-16',
+      '96':  'pt-16 md:pt-20 xl:pt-24',
+      '128': 'pt-20 md:pt-24 xl:pt-32',
+    },
+    paddingBlockEnd: {
+      '0':   'pb-0',
+      '8':   'pb-2',
+      '20':  'pb-5',
+      '32':  'pb-6 md:pb-7 xl:pb-8',
+      '48':  'pb-8 md:pb-10 xl:pb-12',
+      '64':  'pb-10 md:pb-13 xl:pb-16',
+      '96':  'pb-16 md:pb-20 xl:pb-24',
+      '128': 'pb-20 md:pb-24 xl:pb-32',
+    },
+  }
+) %}
 
-{% set content_classes = ['hero-content'] %}
-{% if layout_val == 'side' %}
-  {% set content_classes = content_classes|merge(['flex-col', 'lg:flex-row']) %}
-{% elseif layout_val == 'side-reverse' %}
-  {% set content_classes = content_classes|merge(['flex-col', 'lg:flex-row-reverse']) %}
-{% endif %}
-{% if align_val == 'center' %}
-  {% set content_classes = content_classes|merge(['text-center']) %}
-{% elseif align_val == 'right' %}
-  {% set content_classes = content_classes|merge(['text-right']) %}
-{% endif %}
-{% if has_overlay %}
-  {% set content_classes = content_classes|merge(['text-neutral-content']) %}
-{% endif %}
+{% set hero_classes = hero.apply({
+  colorPalette:      has_overlay ? null : (color_palette|default('base-100')),
+  minHeight:         min_height,
+  marginBlockStart:  margin_block_start|default('0'),
+  marginBlockEnd:    margin_block_end|default('0'),
+  paddingBlockStart: padding_block_start|default('0'),
+  paddingBlockEnd:   padding_block_end|default('0'),
+}) %}
+
+{% set hero_content = html_cva(
+  base: ['hero-content'],
+  variants: {
+    layout: {
+      'text_only':    '',
+      'side':         'flex-col lg:flex-row',
+      'side-reverse': 'flex-col lg:flex-row-reverse',
+      'overlay':      '',
+    },
+    align: {
+      'left':   '',
+      'center': 'text-center',
+      'right':  'text-right',
+    },
+    overlayText: {
+      'yes': 'text-neutral-content',
+      'no':  '',
+    },
+  }
+) %}
+
+{% set content_classes = hero_content.apply({
+  layout:      layout_val,
+  align:       align_val,
+  overlayText: has_overlay ? 'yes' : 'no',
+}) %}
 
 {% set is_side = layout_val == 'side' or layout_val == 'side-reverse' %}
 {% set text_wrapper_class = is_side ? '' : 'max-w-2xl' %}
+{% set actions_justify = {
+  'left':   '',
+  'center': 'justify-center',
+  'right':  'justify-end',
+}[align_val] ?? '' %}
 
 {% if has_overlay %}
-  <div {{ attributes.addClass(classes).setAttribute('style', 'background-image: url(' ~ image.src ~ ')') }}>
+  <div {{ attributes.addClass(hero_classes|split(' ')).setAttribute('style', 'background-image: url(' ~ image.src ~ ')') }}>
     <div class="hero-overlay"></div>
 {% else %}
-  <div {{ attributes.addClass(classes) }}>
+  <div {{ attributes.addClass(hero_classes|split(' ')) }}>
 {% endif %}
-  <div class="{{ content_classes|join(' ') }}">
+  <div class="{{ content_classes }}">
     {% if image.src and is_side %}
       <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" class="max-w-sm rounded-lg shadow-2xl" />
     {% endif %}
     <div class="{{ text_wrapper_class }}">
-      {% block heading %}
-        {{ heading }}
-      {% endblock %}
-      {% if content is not empty %}
-        <div class="py-6">
-          {% block content %}
-            {{ content }}
-          {% endblock %}
-        </div>
+      {% if heading_text %}
+        {% set h_level = heading_level|default(2) %}
+        <h{{ h_level }}>{{ heading_text }}</h{{ h_level }}>
+      {% endif %}
+      {% if content %}
+        <div class="py-6">{{ content }}</div>
       {% endif %}
       {% if actions is not empty %}
-        {# Wrap in flex so multiple Button (or other clickable) SDCs
-           dropped into the slot lay out side by side with spacing,
-           and wrap on narrow viewports. The justify-* class mirrors
-           the hero's content alignment. #}
-        {% set actions_justify = {
-          'left':   '',
-          'center': 'justify-center',
-          'right':  'justify-end',
-        }[align_val] ?? '' %}
         <div class="flex flex-wrap items-center gap-3 {{ actions_justify }}">
-          {% block actions %}
-            {{ actions }}
-          {% endblock %}
+          {% block actions %}{{ actions }}{% endblock %}
         </div>
       {% endif %}
     </div>

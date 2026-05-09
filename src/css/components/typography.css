@@ -71,7 +71,10 @@
 .text-formatted,
 .js-webform-type-webform-markup,
 .js-webform-type-processed-text {
-  @apply leading-relaxed text-base-content;
+  /* Inherit text colour from the surrounding container so prose adapts
+     to whatever daisyUI palette is in scope (e.g. a hero on bg-primary
+     sets text-primary-content; nested prose picks that up automatically). */
+  @apply leading-relaxed;
 
   /* Block-level rhythm. Every direct child gets top spacing except the first;
      subsequent siblings can override (e.g. headings get a bigger gap). */
@@ -92,7 +95,7 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold text-base-content;
+    @apply font-semibold;
   }
 
   > h1 + *,
@@ -152,16 +155,16 @@
   }
 
   dt {
-    @apply font-semibold text-base-content;
+    @apply font-semibold;
   }
 
   dd {
-    @apply ml-4 text-base-content/80;
+    @apply ml-4 text-current/80;
   }
 
   /* Blockquote */
   blockquote {
-    @apply rounded-r border-l-4 border-primary bg-base-200/50 py-3 pr-3 pl-4 text-base-content/80 italic;
+    @apply rounded-r border-l-4 border-current/30 bg-current/5 py-3 pr-3 pl-4 text-current/80 italic;
   }
 
   blockquote p {
@@ -169,29 +172,25 @@
   }
 
   blockquote cite {
-    @apply mt-2 block text-sm text-base-content/60 not-italic;
+    @apply mt-2 block text-sm text-current/60 not-italic;
   }
 
   /* Inline + block code */
   code {
-    @apply rounded bg-base-200 px-1.5 py-0.5 font-mono text-sm text-base-content;
+    @apply rounded bg-current/10 px-1.5 py-0.5 font-mono text-sm;
   }
 
   pre {
-    @apply overflow-x-auto rounded-box bg-base-300 p-4 font-mono text-sm leading-snug text-base-content;
+    @apply overflow-x-auto rounded-box bg-current/15 p-4 font-mono text-sm leading-snug;
   }
 
   pre code {
     @apply rounded-none bg-transparent p-0 text-inherit;
   }
 
-  /* Keyboard / mark / sup / sub */
+  /* Keyboard / sup / sub */
   kbd {
     @apply kbd kbd-sm;
-  }
-
-  mark {
-    @apply rounded bg-warning/30 px-1 text-base-content;
   }
 
   sup,
@@ -201,7 +200,7 @@
 
   /* Horizontal rule */
   hr {
-    @apply my-8 border-0 border-t border-base-300;
+    @apply my-8 border-0 border-t border-current/20;
   }
 
   /* Images & figures */
@@ -218,19 +217,16 @@
   }
 
   figcaption {
-    @apply mt-2 text-center text-sm text-base-content/60 italic;
+    @apply mt-2 text-center text-sm text-current/60 italic;
   }
 
   /* Tables get their daisyUI styling at the base layer (see top of file)
-     so we don't need to redeclare here — but ensure heading cells inherit
-     the right colour inside prose. */
-  thead th {
-    @apply text-base-content;
-  }
+     so we don't need to redeclare colours here — heading cells inherit
+     from the surrounding container automatically. */
 
   /* Details / summary → daisyUI collapse */
   details {
-    @apply collapse-arrow collapse border border-base-300 bg-base-100;
+    @apply collapse-arrow collapse border border-current/30;
   }
 
   details > summary {
@@ -243,7 +239,7 @@
 
   /* Abbreviations */
   abbr[title] {
-    @apply cursor-help underline decoration-base-content/40 decoration-dotted;
+    @apply cursor-help underline decoration-current/40 decoration-dotted;
   }
 
   /* Last child kills its bottom spacing so prose blocks don't add stray gaps. */
