@@ -2,7 +2,7 @@
  * Base typography (site-wide).
  *
  * Headings keep their sizes globally so that components (hero, card, section
- * titles, etc.) can use bare h1–h6 and look right out of the box. Anything
+ * titles, etc.) can use bare h1-h6 and look right out of the box. Anything
  * richer (links, lists, blockquote, tables, code, images, …) is scoped to the
  * prose container below so it never leaks into navbars, buttons, footers, or
  * arbitrary block markup.
@@ -34,7 +34,7 @@
 
   /* Tables are styled site-wide with the daisyUI table component so any
      <table> (Views output, admin pages, editor-authored, etc.) renders
-     consistently — not only inside prose. */
+     consistently - not only inside prose. */
   table {
     @apply table w-full table-zebra;
   }
@@ -44,21 +44,21 @@
  * Prose / rich-text scope.
  *
  * Anywhere editor-authored HTML lands in the page should pick up these styles
- * automatically — no manual `.prose` opt-in. We hook off the stable wrapper
+ * automatically - no manual `.prose` opt-in. We hook off the stable wrapper
  * classes that Drupal core, the Field API and webform render around rich-text
  * output, plus expose `.prose` for explicit use (styleguide, Canvas blocks,
  * arbitrary HTML).
  *
  * Wrappers covered:
- * - `.field--type-text-long`           — basic page body
- * - `.field--type-text-with-summary`   — article body
- * - `.field--type-text`                — short formatted text
- * - `.text-formatted`                  — generic text-format wrapper added by
+ * - `.field--type-text-long`           - basic page body
+ * - `.field--type-text-with-summary`   - article body
+ * - `.field--type-text`                - short formatted text
+ * - `.text-formatted`                  - generic text-format wrapper added by
  *                                        Drupal core when rendering filtered
  *                                        text outside the Field API
- * - `.js-webform-type-webform-markup`  — webform "Markup" element (rich-text
+ * - `.js-webform-type-webform-markup`  - webform "Markup" element (rich-text
  *                                        intros, descriptions, etc.)
- * - `.js-webform-type-processed-text`  — webform "Processed text" element
+ * - `.js-webform-type-processed-text`  - webform "Processed text" element
  *
  * Block-level rhythm: every direct child gets a top margin except the first
  * (`> * + *`); the last child resets its bottom margin so a prose container
@@ -221,7 +221,7 @@
   }
 
   /* Tables get their daisyUI styling at the base layer (see top of file)
-     so we don't need to redeclare colours here — heading cells inherit
+     so we don't need to redeclare colours here - heading cells inherit
      from the surrounding container automatically. */
 
   /* Details / summary → daisyUI collapse */

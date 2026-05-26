@@ -28,6 +28,13 @@ props:
         "50%": "50%"
       examples:
         - "100%"
+    restrict_width:
+      type: boolean
+      title: Restrict width
+      description: When off, the section can break out to the full container-query width, matching Haven's cq-full behavior.
+      examples:
+        - false
+      default: false
     columns:
       title: Grid layout
       description: Layout selected applies on desktop and tablet.
@@ -135,11 +142,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
     padding_block_end:
@@ -159,11 +166,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
     margin_block_start:
@@ -183,11 +190,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
     margin_block_end:
@@ -207,11 +214,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
     section_header:

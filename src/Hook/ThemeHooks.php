@@ -83,7 +83,7 @@ final class ThemeHooks {
    *
    * Applies a saved daisyUI theme from localStorage before first paint to
    * avoid a flash of the default theme. (Themes can't implement
-   * hook_page_attachments — only the _alter variant.)
+   * hook_page_attachments - only the _alter variant.)
    */
   #[Hook('page_attachments_alter')]
   public function pageAttachmentsAlter(array &$attachments): void {

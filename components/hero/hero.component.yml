@@ -27,7 +27,7 @@ props:
       title: Content
       description: |
         Rich-text supporting copy authored via Canvas's CKEditor.
-        Supports block-level elements — paragraphs, headings, lists,
+        Supports block-level elements - paragraphs, headings, lists,
         blockquotes, links, etc. The rendered output picks up the
         theme's prose styling automatically.
       contentMediaType: text/html
@@ -133,11 +133,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
     margin_block_end:
@@ -157,11 +157,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
     padding_block_start:
@@ -181,11 +181,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
     padding_block_end:
@@ -205,11 +205,11 @@ props:
         "0": "0 (None)"
         "8": "8 (8px)"
         "20": "20 (20px)"
-        "32": "32 (24–32px)"
-        "48": "48 (32–48px)"
-        "64": "64 (40–64px)"
-        "96": "96 (64–96px)"
-        "128": "128 (80–128px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
         - "0"
 slots:

@@ -1,93 +1,92 @@
 "$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
-name: Grid
+name: Group
 group: Layout
 status: stable
 description: |
-  Responsive grid wrapper for laying out cards, teasers, or any
-  uniform items. Uses the same spacing scale and daisyUI colour palette
-  options as the Section component.
+  Flex group for stacking or aligning child components. Uses the same
+  spacing scale and daisyUI colour palette options as the Section component.
 props:
   type: object
   required:
-    - columns
-    - mobile_columns
-    - width
+    - flex_direction
+    - flex_align
+    - items_align
   properties:
-    width:
+    flex_direction:
       type: string
-      title: Grid width
+      title: Item direction
       enum:
-        - "100%"
-        - "90%"
-        - "80%"
-        - "70%"
-        - "60%"
-        - "50%"
-      default: "100%"
+        - column
+        - row
+      meta:enum:
+        column: Vertical
+        row: Horizontal
+      default: "column"
       examples:
-        - "100%"
-    columns:
+        - "column"
+    flex_gap:
       type: string
-      title: Columns
-      description: Layout selected applies on desktop and tablet.
+      title: Space between items
       enum:
-        - "1 column"
-        - "2 columns"
-        - "3 columns"
-        - "4 columns"
-        - "5 columns"
-        - "6 columns"
-        - "2 columns 75%-25%"
-        - "2 columns 25%-75%"
-        - "2 columns 67%-33%"
-        - "2 columns 33%-67%"
-        - "3 columns 50%-25%-25%"
-        - "3 columns 25%-25%-50%"
-      examples:
-        - "2 columns"
-      default: "2 columns"
-    mobile_columns:
-      type: string
-      title: Columns on mobile
-      enum:
-        - "1"
-        - "2"
-        - "3"
-      examples:
-        - "1"
-    reverse_mobile:
-      type: boolean
-      title: Reverse direction on mobile
-      description: Swap the order of the first and last items on mobile.
-      examples:
-        - false
-      default: false
-    gap:
-      type: string
-      title: Gap
-      description: Space between grid items.
-      enum:
-        - none
-        - xs
         - sm
         - md
         - lg
         - xl
-      "meta:enum":
-        none: "None"
-        xs: "Extra small"
-        sm: "Small"
-        md: "Medium"
-        lg: "Large"
-        xl: "Extra large"
+      meta:enum:
+        sm: Small
+        md: Medium
+        lg: Large
+        xl: Extra-Large
       examples:
         - md
-      default: md
+    items_align:
+      type: string
+      title: Alignment within group
+      enum:
+        - start
+        - center
+        - end
+      meta:enum:
+        start: Start
+        center: Center
+        end: End
+      default: "start"
+      examples:
+        - "start"
+    flex_align:
+      type: string
+      title: Alignment within parent
+      enum:
+        - start
+        - center
+        - end
+      meta:enum:
+        start: Start
+        center: Center
+        end: End
+      default: "center"
+      examples:
+        - "center"
+    radius:
+      type: string
+      title: Rounded corners
+      enum:
+        - sm
+        - md
+        - lg
+        - xl
+      meta:enum:
+        sm: Small
+        md: Medium
+        lg: Large
+        xl: Extra-Large
+      examples:
+        - sm
     color_palette:
       title: Color palette
       description: |
-        daisyUI palette to apply to the grid wrapper. Each palette pairs
-        the background with its matching content (text) colour so dropped-in
+        daisyUI palette to apply to the group. Each palette pairs the
+        background with its matching content (text) colour so dropped-in
         components inherit a readable foreground.
       type: string
       enum:
@@ -119,7 +118,7 @@ props:
     padding_block_start:
       type: string
       title: "Padding top"
-      description: "Inner space at the top of the grid. Scales up at tablet/desktop breakpoints."
+      description: "Inner space at the top of the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -143,7 +142,7 @@ props:
     padding_block_end:
       type: string
       title: "Padding bottom"
-      description: "Inner space at the bottom of the grid. Scales up at tablet/desktop breakpoints."
+      description: "Inner space at the bottom of the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -167,7 +166,7 @@ props:
     margin_block_start:
       type: string
       title: "Margin top"
-      description: "Outer space above the grid. Scales up at tablet/desktop breakpoints."
+      description: "Outer space above the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -191,7 +190,7 @@ props:
     margin_block_end:
       type: string
       title: "Margin bottom"
-      description: "Outer space below the grid. Scales up at tablet/desktop breakpoints."
+      description: "Outer space below the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -212,7 +211,49 @@ props:
         "128": "128 (80-128px)"
       examples:
         - "0"
+    stretch:
+      type: boolean
+      title: Stretch group to fit container
+      examples:
+        - false
+      default: false
+    animation:
+      type: string
+      title: Animation
+      enum:
+        - fade_up
+        - fade_down
+        - fade_left
+        - fade_right
+      meta:enum:
+        fade_up: Fade up
+        fade_down: Fade down
+        fade_left: Fade left
+        fade_right: Fade right
+    animation_duration:
+      type: string
+      title: Animation duration
+      description: The amount of time (in milliseconds) the animation will take to complete.
+      enum:
+        - "150"
+        - "300"
+        - "600"
+      meta:enum:
+        150: Fast
+        300: Standard
+        600: Slow
+      default: "300"
+    animation_delay:
+      type: string
+      title: Animation delay
+      description: The amount of time (in milliseconds) to wait before starting the animation.
+      enum:
+        - "300"
+        - "600"
+      meta:enum:
+        300: Short
+        600: Long
 
 slots:
-  main_slot:
-    title: "Grid"
+  group_slot:
+    title: "Group items"

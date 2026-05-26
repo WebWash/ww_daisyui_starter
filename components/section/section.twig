@@ -1,6 +1,6 @@
 {% set section =
   html_cva(
-    base: ['relative mx-auto flex flex-col items-stretch'],
+    base: ['@container relative mx-auto flex w-full flex-col items-stretch'],
     variants: {
       width: {
         '100%': 'lg:max-w-full',
@@ -63,9 +63,15 @@
         '96': 'pb-16 md:pb-20 xl:pb-24',
         '128': 'pb-20 md:pb-24 xl:pb-32',
       },
+      restrictedWidth: {
+        no: 'cq-full',
+        yes: '',
+      },
     }
   )
 %}
+
+{% set is_restricted = restrict_width ? 'yes' : 'no' %}
 
 {% set section_classes =
   section.apply({
@@ -74,6 +80,7 @@
     marginBlockEnd: margin_block_end|default('0'),
     paddingBlockStart: padding_block_start|default('0'),
     paddingBlockEnd: padding_block_end|default('0'),
+    restrictedWidth: is_restricted,
   })
 %}
 
@@ -82,6 +89,8 @@
     width: width|default('100%'),
   })
 %}
+
+{% set content_container_classes = 'w-full container [&_.cq-full]:mx-0 [&_.cq-full]:w-full' %}
 
 {% set grid =
   html_cva(
@@ -148,7 +157,7 @@
     </div>
   {% endif %}
 
-  <div class="container mx-auto px-4">
+  <div class="{{ content_container_classes }}">
     <div class="{{ section_content_classes }}">
       {% if section_header %}
         {% set header_content %}
