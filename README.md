@@ -1,4 +1,4 @@
-# WebWash Tailwind Starter Theme
+# WebWash DaisyUI Starter Theme
 
 This is a starterkit theme and is totally experimental for now.
 
@@ -28,7 +28,7 @@ This theme requires Node.js v22.14.0. If you use nvm (Node Version Manager), the
 
 2. Install dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 
 ### Development
@@ -36,7 +36,7 @@ This theme requires Node.js v22.14.0. If you use nvm (Node Version Manager), the
 Run the development build with watch mode (automatically rebuilds on file changes):
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ### Production Build
@@ -44,7 +44,7 @@ npm run dev
 Create an optimized production build:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ## Single Directory Components (SDC)
