@@ -2,17 +2,17 @@
  * Prose overrides per daisyUI palette.
  *
  * Most prose styling uses `currentColor` so it inherits from the surrounding
- * container — but a handful of daisyUI helper classes (`link link-primary`,
+ * container - but a handful of daisyUI helper classes (`link link-primary`,
  * `.kbd`, `.table` thead/zebra) hardcode references to base-palette tokens
  * (`--color-base-content`, `--color-base-100`, `--color-base-200`). On a
  * section with `bg-primary text-primary-content` (or any non-base palette),
- * those helpers stop pairing with their container — links can vanish, kbd
+ * those helpers stop pairing with their container - links can vanish, kbd
  * loses contrast, table headings disappear, zebra rows clash.
  *
  * Strategy: redefine the daisyUI base-palette CSS variables locally on the
  * coloured palette wrappers. Anywhere daisyUI internally calls
  * `var(--color-base-content)` etc., it now resolves to the section's
- * inherited text colour — adapting tables, code blocks, hr, divider lines,
+ * inherited text colour - adapting tables, code blocks, hr, divider lines,
  * and any future daisyUI components without per-component selectors.
  *
  * On top of that, a small set of explicit overrides for `a` / `kbd` because
@@ -28,7 +28,7 @@
  * NOTE: Drupal's CSS asset aggregator caches the compiled stylesheet. After
  * editing this file, run `npm run build` AND clear Drupal's CSS cache
  * (`ddev drush eval "\Drupal::service('asset.css.collection_optimizer')->deleteAll();"`)
- * — `drush cr` alone won't refresh the aggregated bundle.
+ * - `drush cr` alone won't refresh the aggregated bundle.
  */
 
 /* Variable redirect: daisyUI's component CSS reads --color-base-* directly,

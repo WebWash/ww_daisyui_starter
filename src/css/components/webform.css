@@ -14,7 +14,7 @@
  * Webform tags these with .fieldgroup + .form-composite + .webform-composite-*.
  * forms.css already matches `fieldset.fieldgroup` for the daisyUI border/box,
  * but webform's legend wraps its label in a <span class="fieldset-legend">
- * with no built-in spacing — give it presence and breathing room.
+ * with no built-in spacing - give it presence and breathing room.
  * ------------------------------------------------------------------------ */
 fieldset.fieldgroup > legend,
 fieldset.form-composite > legend,
@@ -36,7 +36,7 @@ fieldset.webform-composite-visible-title > .description {
   @apply -mt-2 mb-3 text-sm text-base-content/60;
 }
 
-/* The webform fieldset wrapper has no padding by default — the items inside
+/* The webform fieldset wrapper has no padding by default - the items inside
    end up flush against the legend. Add a little space. */
 fieldset.fieldgroup > .fieldset-wrapper,
 fieldset.form-composite > .fieldset-wrapper,
@@ -45,13 +45,13 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 }
 
 /* ---------------------------------------------------------------------------
- * Webform option lists — checkboxes/radios that webform may lay out in
+ * Webform option lists - checkboxes/radios that webform may lay out in
  * one, two, three or four columns via CSS columns.
  *
  * Each row inside is a `.js-webform-type-checkbox` / `.js-webform-type-radio`
  * (in addition to the core `.js-form-type-checkbox` already styled in
  * forms.css). Webform's own CSS strips the bottom margin on these in
- * column displays, which makes the rows sit flush against each other —
+ * column displays, which makes the rows sit flush against each other -
  * give them explicit breathing room.
  * ------------------------------------------------------------------------ */
 /* Multi-column layouts use CSS columns. */
@@ -95,7 +95,7 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 /* Webform tags every single checkbox/radio with `.js-webform-type-checkbox`
    / `.js-webform-type-radio`. forms.css gives the bare core class mb-2
    (tight by design for stacked lists). Webform forms commonly mix in
-   single standalone checkboxes — bump those up to the regular .form-item
+   single standalone checkboxes - bump those up to the regular .form-item
    rhythm so they don't visually merge with the next field. */
 .js-webform-type-checkbox,
 .js-webform-type-radio {
@@ -116,7 +116,7 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 }
 
 /* ---------------------------------------------------------------------------
- * Webform composites (address, name, contact, etc.) — these render multiple
+ * Webform composites (address, name, contact, etc.) - these render multiple
  * fields side by side using a sub-fieldset + flexbox. Tighten the row
  * spacing so a composite doesn't dominate the form vertically.
  * ------------------------------------------------------------------------ */
@@ -139,7 +139,7 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 }
 
 /* ---------------------------------------------------------------------------
- * Wizard / progress — webform multi-step uses .webform-progress with either
+ * Wizard / progress - webform multi-step uses .webform-progress with either
  * a tracker (numbered steps), a bar, or both. Give it daisyUI feel.
  * ------------------------------------------------------------------------ */
 .webform-progress {
@@ -184,7 +184,7 @@ fieldset.webform-composite-visible-title > .fieldset-wrapper {
 /* ---------------------------------------------------------------------------
  * Required asterisk inside a webform `.fieldset-legend`. Webform places
  * `<span class="form-required">` inside the legend's span, which our base
- * `.form-required::after` rule covers — but only when it's a direct child of
+ * `.form-required::after` rule covers - but only when it's a direct child of
  * a `<label>`. Mirror the same treatment for legend wrappers.
  * ------------------------------------------------------------------------ */
 .fieldset-legend .form-required::after,
@@ -209,14 +209,14 @@ legend .form-required::after {
 }
 
 /* ---------------------------------------------------------------------------
- * Webform's own "actions" container — keep it consistent with .form-actions.
+ * Webform's own "actions" container - keep it consistent with .form-actions.
  * ------------------------------------------------------------------------ */
 .webform-actions {
   @apply mt-6 flex flex-wrap items-center gap-3;
 }
 
 /* ---------------------------------------------------------------------------
- * "Likert" tables — used by the likert element type. Already styled by the
+ * "Likert" tables - used by the likert element type. Already styled by the
  * base table component; just tighten cell padding and make the input cells
  * align centre.
  * ------------------------------------------------------------------------ */

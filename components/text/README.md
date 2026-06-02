@@ -10,7 +10,7 @@ Displays formatted HTML text content with alignment options.
 ## Usage
 
 ```twig
-{% include 'ww_tailwind_starter:text' with {
+{% include 'webwash_daisyui_starter:text' with {
   text: '<p>This is some formatted text with <strong>bold</strong> and <em>italic</em> content.</p>',
   align: 'center'
 } %}

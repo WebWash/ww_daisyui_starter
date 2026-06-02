@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Drupal\ww_tailwind_starter\Hook;
+namespace Drupal\webwash_daisyui_starter\Hook;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Contains hook implementations for the WebWash Tailwind Starter theme.
+ * Contains hook implementations for the WebWash DaisyUI Starter theme.
  */
 final class ThemeHooks {
 
@@ -83,7 +83,7 @@ final class ThemeHooks {
    *
    * Applies a saved daisyUI theme from localStorage before first paint to
    * avoid a flash of the default theme. (Themes can't implement
-   * hook_page_attachments — only the _alter variant.)
+   * hook_page_attachments - only the _alter variant.)
    */
   #[Hook('page_attachments_alter')]
   public function pageAttachmentsAlter(array &$attachments): void {
@@ -93,7 +93,7 @@ final class ThemeHooks {
         '#tag' => 'script',
         '#value' => $script,
       ],
-      'ww_tailwind_starter_theme_init',
+      'webwash_daisyui_starter_theme_init',
     ];
   }
 

@@ -8,10 +8,10 @@
  *   Currently set for Canvas-rendered pages and any /ww-demo/* styleguide route.
  * - site_name: The site name from system.site config.
  *
- * @see \Drupal\ww_tailwind_starter\Hook\ThemeHooks::preprocessPage()
+ * @see \Drupal\webwash_daisyui_starter\Hook\ThemeHooks::preprocessPage()
  */
 #}
-{% include 'ww_tailwind_starter:navbar' with {
+{% include 'webwash_daisyui_starter:navbar' with {
   logo: page.navbar_branding,
   menu: page.primary_menu,
   site_name: site_name
@@ -32,7 +32,7 @@
 {% set section_classes = is_edge ? 'p-0' : 'p-4' %}
 {% set container_classes = is_edge ? '' : 'container mx-auto px-4' %}
 
-<main>
+<main class="layout-content">
   <a id="main-content" tabindex="-1"></a>
   <section class="{{ section_classes }}">
     <div class="{{ container_classes }}">
@@ -46,7 +46,7 @@
 {% if page.footer_branding or page.footer or page.footer_social or page.footer_bottom %}
   {{
     include(
-      'ww_tailwind_starter:footer',
+      'webwash_daisyui_starter:footer',
       {
         branding: page.footer_branding,
         links: page.footer,

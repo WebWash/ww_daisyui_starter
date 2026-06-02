@@ -10,7 +10,7 @@ props:
       title: Text
       description: |
         Rich-text content authored via Canvas's CKEditor. Supports
-        block-level elements — paragraphs, headings, lists,
+        block-level elements - paragraphs, headings, lists,
         blockquotes, links, etc. The rendered output picks up the
         theme's prose styling automatically.
       contentMediaType: text/html

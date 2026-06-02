@@ -11,7 +11,7 @@ Renders a configurable heading (h1-h6) with alignment options.
 ## Usage
 
 ```twig
-{% include 'ww_tailwind_starter:heading' with {
+{% include 'webwash_daisyui_starter:heading' with {
   heading_text: 'My Page Title',
   level: 1,
   align: 'center'

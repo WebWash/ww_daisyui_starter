@@ -1,13 +1,13 @@
-name: WebWash Tailwind Starter
+name: WebWash DaisyUI Starter
 type: theme
 base theme: false
 description: A flexible theme with a responsive, mobile-first layout.
 package: Custom
 core_version_requirement: ^10 || ^11
 dependencies:
-  - 'cva:cva'
+  - "cva:cva"
 libraries:
-  - ww_tailwind_starter/global
+  - webwash_daisyui_starter/global
 regions:
   navbar_branding: "Navbar branding"
   primary_menu: "Primary menu"

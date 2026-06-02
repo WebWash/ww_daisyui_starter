@@ -13,7 +13,7 @@ Displays content in a card layout with optional image, title, summary, and link.
 ## Usage
 
 ```twig
-{% include 'ww_tailwind_starter:card' with {
+{% include 'webwash_daisyui_starter:card' with {
   media: {
     src: '/path/to/image.jpg',
     alt: 'Image description'

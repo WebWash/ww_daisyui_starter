@@ -1,4 +1,4 @@
-{% embed 'ww_tailwind_starter:drawer'
+{% embed 'webwash_daisyui_starter:drawer'
   with {
     drawer_id: 'mobile-drawer',
     side: 'end'
@@ -29,7 +29,7 @@
 
         <div class="navbar-end gap-2">
           {#
-            {% embed 'ww_tailwind_starter:dropdown' with { align: 'end' } %}
+            {% embed 'webwash_daisyui_starter:dropdown' with { align: 'end' } %}
               {% block trigger %}
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                   <div class="w-10 rounded-full">
@@ -53,7 +53,7 @@
             {% endembed %}
           #}
 
-          {{ include('ww_tailwind_starter:theme_switcher', {}, with_context: false) }}
+          {{ include('webwash_daisyui_starter:theme_switcher', {}, with_context: false) }}
 
           <a href="#" class="btn btn-primary">Premium</a>
 

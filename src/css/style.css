@@ -43,6 +43,23 @@
 @source "../../src/**/*.php";
 @source "./tailwind-classes.txt";
 
+/* Strip the default responsive max-width so width is governed by the
+   per-section `width` prop and the .cq-full breakout, not the container. */
+@utility container {
+  @apply mx-auto px-4 md:px-6;
+}
+
+@layer utilities {
+  .layout-content {
+    container-type: inline-size;
+  }
+
+  .cq-full {
+    width: 100cqw;
+    margin-inline: calc(-50cqw + 50%);
+  }
+}
+
 @import "./components/forms.css";
 @import "./components/webform.css";
 @import "./components/tabs.css";
