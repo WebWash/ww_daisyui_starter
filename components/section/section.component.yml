@@ -28,13 +28,6 @@ props:
         "50%": "50%"
       examples:
         - "100%"
-    restrict_width:
-      type: boolean
-      title: Restrict width
-      description: When off, the section can break out to the full container-query width, matching Haven's cq-full behavior.
-      examples:
-        - false
-      default: false
     columns:
       title: Grid layout
       description: Layout selected applies on desktop and tablet.

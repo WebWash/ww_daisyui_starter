@@ -1,6 +1,6 @@
 {% set section =
   html_cva(
-    base: ['@container relative mx-auto flex w-full flex-col items-stretch'],
+    base: ['@container relative mx-auto flex flex-col items-stretch'],
     variants: {
       width: {
         '100%': 'lg:max-w-full',
@@ -63,24 +63,20 @@
         '96': 'pb-16 md:pb-20 xl:pb-24',
         '128': 'pb-20 md:pb-24 xl:pb-32',
       },
-      restrictedWidth: {
-        no: 'cq-full',
-        yes: '',
-      },
     }
   )
 %}
 
-{% set is_restricted = restrict_width ? 'yes' : 'no' %}
+{% set has_background_image = background_media is not empty and background_media.src is not empty %}
+{% set effective_palette = has_background_image ? 'none' : color_palette|default('none') %}
 
 {% set section_classes =
   section.apply({
-    colorPalette: color_palette|default('none'),
+    colorPalette: effective_palette,
     marginBlockStart: margin_block_start|default('0'),
     marginBlockEnd: margin_block_end|default('0'),
     paddingBlockStart: padding_block_start|default('0'),
     paddingBlockEnd: padding_block_end|default('0'),
-    restrictedWidth: is_restricted,
   })
 %}
 
@@ -90,13 +86,13 @@
   })
 %}
 
-{% set content_container_classes = 'w-full container [&_.cq-full]:mx-0 [&_.cq-full]:w-full' %}
+{% set content_container_classes = 'container mx-auto px-4 [&_.cq-full]:mx-0 [&_.cq-full]:w-full' %}
 
 {% set grid =
   html_cva(
     base: [
       'grid w-full min-w-0',
-      'gap-4 md:gap-6 xl:gap-8',
+      'gap-4 @sm:gap-6 @3xl:gap-8',
       '[&>*]:w-full [&>*]:min-w-0',
       '[&_.view-content]:grid [&_.view-content]:w-full [&_.view-content]:min-w-0',
       '[&_.view-content]:gap-4 [&_.view-content]:md:gap-6 [&_.view-content]:xl:gap-8',
@@ -144,7 +140,7 @@
   })
 %}
 
-<section class="{{ section_classes }}">
+<section class="{{ section_classes }} cq-full">
   {% if background_media is not empty and background_media.src is not empty %}
     <div class="absolute inset-0 z-[-1]">
       {% include 'canvas:image' ignore missing with {
