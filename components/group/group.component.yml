@@ -85,9 +85,7 @@ props:
     color_palette:
       title: Color palette
       description: |
-        daisyUI palette to apply to the group. Each palette pairs the
-        background with its matching content (text) colour so dropped-in
-        components inherit a readable foreground.
+        daisyUI palette to apply to the group.
       type: string
       enum:
         - base-100
@@ -113,12 +111,9 @@ props:
         success: Success
         warning: Warning
         error: Error
-      examples:
-        - base-100
     padding_block_start:
       type: string
       title: "Padding top"
-      description: "Inner space at the top of the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -129,7 +124,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -142,7 +137,6 @@ props:
     padding_block_end:
       type: string
       title: "Padding bottom"
-      description: "Inner space at the bottom of the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -153,7 +147,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -166,7 +160,6 @@ props:
     margin_block_start:
       type: string
       title: "Margin top"
-      description: "Outer space above the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -177,7 +170,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -190,7 +183,6 @@ props:
     margin_block_end:
       type: string
       title: "Margin bottom"
-      description: "Outer space below the group. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -201,7 +193,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -217,42 +209,6 @@ props:
       examples:
         - false
       default: false
-    animation:
-      type: string
-      title: Animation
-      enum:
-        - fade_up
-        - fade_down
-        - fade_left
-        - fade_right
-      meta:enum:
-        fade_up: Fade up
-        fade_down: Fade down
-        fade_left: Fade left
-        fade_right: Fade right
-    animation_duration:
-      type: string
-      title: Animation duration
-      description: The amount of time (in milliseconds) the animation will take to complete.
-      enum:
-        - "150"
-        - "300"
-        - "600"
-      meta:enum:
-        150: Fast
-        300: Standard
-        600: Slow
-      default: "300"
-    animation_delay:
-      type: string
-      title: Animation delay
-      description: The amount of time (in milliseconds) to wait before starting the animation.
-      enum:
-        - "300"
-        - "600"
-      meta:enum:
-        300: Short
-        600: Long
 
 slots:
   group_slot:
