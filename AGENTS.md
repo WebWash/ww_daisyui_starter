@@ -120,31 +120,20 @@ clickable: { yes: 'group cursor-pointer', no: '' }
 **❌ Bad:**
 
 ```twig
-variant: {
-  primary: 'border-[var(--hgc-btn-border)] bg-[var(--hgc-btn-bg)] text-[var(--hgc-btn-label)] hover:border-[var(--hgc-btn-border-hover)] hover:bg-[var(--hgc-btn-bg-hover)] hover:text-[var(--hgc-btn-label-hover)] focus:border-[var(--hgc-btn-border-hover)] focus:bg-[var(--hgc-btn-bg-hover)] focus:text-[var(--hgc-btn-label-hover)] disabled:cursor-default disabled:border-[var(--hgc-btn-border-disabled)] disabled:bg-[var(--hgc-btn-bg-disabled)] disabled:text-[var(--hgc-btn-label-disabled)]'
-}
+variant: { primary: 'border-[var(--hgc-btn-border)] bg-[var(--hgc-btn-bg)] text-[var(--hgc-btn-label)] hover:border-[var(--hgc-btn-border-hover)]
+hover:bg-[var(--hgc-btn-bg-hover)] hover:text-[var(--hgc-btn-label-hover)] focus:border-[var(--hgc-btn-border-hover)]
+focus:bg-[var(--hgc-btn-bg-hover)] focus:text-[var(--hgc-btn-label-hover)] disabled:cursor-default disabled:border-[var(--hgc-btn-border-disabled)]
+disabled:bg-[var(--hgc-btn-bg-disabled)] disabled:text-[var(--hgc-btn-label-disabled)]' }
 ```
 
 **✅ Good:**
 
 ```twig
-variant: {
-  primary: [
-    'border-[var(--hgc-btn-border)]',
-    'bg-[var(--hgc-btn-bg)]',
-    'text-[var(--hgc-btn-label)]',
-    'hover:border-[var(--hgc-btn-border-hover)]',
-    'hover:bg-[var(--hgc-btn-bg-hover)]',
-    'hover:text-[var(--hgc-btn-label-hover)]',
-    'focus:border-[var(--hgc-btn-border-hover)]',
-    'focus:bg-[var(--hgc-btn-bg-hover)]',
-    'focus:text-[var(--hgc-btn-label-hover)]',
-    'disabled:cursor-default',
-    'disabled:border-[var(--hgc-btn-border-disabled)]',
-    'disabled:bg-[var(--hgc-btn-bg-disabled)]',
-    'disabled:text-[var(--hgc-btn-label-disabled)]'
-  ]
-}
+variant: { primary: [ 'border-[var(--hgc-btn-border)]', 'bg-[var(--hgc-btn-bg)]', 'text-[var(--hgc-btn-label)]',
+'hover:border-[var(--hgc-btn-border-hover)]', 'hover:bg-[var(--hgc-btn-bg-hover)]', 'hover:text-[var(--hgc-btn-label-hover)]',
+'focus:border-[var(--hgc-btn-border-hover)]', 'focus:bg-[var(--hgc-btn-bg-hover)]', 'focus:text-[var(--hgc-btn-label-hover)]',
+'disabled:cursor-default', 'disabled:border-[var(--hgc-btn-border-disabled)]', 'disabled:bg-[var(--hgc-btn-bg-disabled)]',
+'disabled:text-[var(--hgc-btn-label-disabled)]' ] }
 ```
 
 **Note**: Arrays can be used directly in CVA variant definitions without needing to join them. CVA will handle the array format automatically. This makes long class strings much more readable and easier to maintain.
@@ -428,6 +417,7 @@ Or use a wrapper approach:
 ```
 
 **Note**:
+
 - Use `with_context: false` with the `include()` function syntax
 - Use `with only` with the `{% include %}` tag syntax
 - Both achieve the same result: preventing context pollution by only passing explicitly defined variables
@@ -475,6 +465,7 @@ Or use a wrapper approach:
 ```
 
 **Note**: Only pass props that are:
+
 1. Defined in the component's `component.yml` schema as configurable properties
 2. Declared or computed in the current component's template
 
@@ -532,6 +523,7 @@ pnpm run build
 ```
 
 **Note**: These commands should be run from the theme directory (`web/themes/custom/webwash_daisyui_starter/`). Running these commands ensures that:
+
 - Code follows consistent formatting standards
 - Build artifacts (compiled `dist/style.css`) are regenerated
 - The theme is ready for testing and deployment

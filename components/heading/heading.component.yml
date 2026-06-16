@@ -14,7 +14,7 @@ props:
     level:
       type: integer
       title: Heading Level
-      description: The heading level (h1-h6)
+      description: The heading level (h1-h6). Controls semantics only, not size.
       enum:
         - 1
         - 2
@@ -24,7 +24,7 @@ props:
         - 6
       "meta:enum":
         1: H1
-        2: "H2 (default)"
+        2: H2
         3: H3
         4: H4
         5: H5
@@ -32,6 +32,32 @@ props:
       default: 2
       examples:
         - 2
+    text_size:
+      type: string
+      title: Text size
+      description: |
+        Visual size, independent of the heading level. Leave unset to keep
+        the size that the chosen heading level already gets from the theme.
+      enum:
+        - lg
+        - xl
+        - 2xl
+        - 3xl
+        - 4xl
+        - 5xl
+        - 6xl
+        - 7xl
+        - 8xl
+      "meta:enum":
+        lg: "L"
+        xl: "XL"
+        2xl: "2XL"
+        3xl: "3XL"
+        4xl: "4XL"
+        5xl: "5XL"
+        6xl: "6XL"
+        7xl: "7XL"
+        8xl: "8XL"
     align:
       type: string
       title: Text Alignment
@@ -41,7 +67,7 @@ props:
         - center
         - right
       "meta:enum":
-        left: "Left (default)"
+        left: "Left"
         center: Center
         right: Right
       default: left

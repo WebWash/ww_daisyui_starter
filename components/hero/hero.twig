@@ -103,7 +103,27 @@
 }) %}
 
 {% set is_side = layout_val == 'side' or layout_val == 'side-reverse' %}
-{% set text_wrapper_class = is_side ? '' : 'max-w-2xl' %}
+{% set is_preview = canvas_is_preview ?? false %}
+
+{% set text_wrapper = html_cva(
+  base: [],
+  variants: {
+    side: {
+      'yes': '',
+      'no':  'max-w-2xl',
+    },
+    preview: {
+      'yes': 'min-w-[20rem]',
+      'no':  '',
+    },
+  }
+) %}
+
+{% set text_wrapper_class = text_wrapper.apply({
+  side:    is_side ? 'yes' : 'no',
+  preview: is_preview ? 'yes' : 'no',
+}) %}
+
 {% set actions_justify = {
   'left':   '',
   'center': 'justify-center',
@@ -121,13 +141,14 @@
       <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" class="max-w-sm rounded-lg shadow-2xl" />
     {% endif %}
     <div class="{{ text_wrapper_class }}">
-      {% if heading_text %}
-        {% set h_level = heading_level|default(2) %}
-        <h{{ h_level }}>{{ heading_text }}</h{{ h_level }}>
-      {% endif %}
-      {% if content %}
-        <div class="py-6">{{ content }}</div>
-      {% endif %}
+      <div>
+        {% block heading %}{{ heading }}{% endblock %}
+      </div>
+      <div class="py-6">
+        <div>
+          {% block content %}{{ content }}{% endblock %}
+        </div>
+      </div>
       {% if actions is not empty %}
         <div class="flex flex-wrap items-center gap-3 {{ actions_justify }}">
           {% block actions %}{{ actions }}{% endblock %}
