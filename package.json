@@ -13,12 +13,12 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@tailwindcss/vite": "^4.2.4",
+    "@tailwindcss/vite": "^4.3.1",
     "@zackad/prettier-plugin-twig": "^0.17.0",
-    "daisyui": "^5.5.19",
-    "prettier": "^3.8.3",
+    "daisyui": "^5.6.3",
+    "prettier": "^3.9.0",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "tailwindcss": "^4.2.4",
-    "vite": "^8.0.10"
+    "tailwindcss": "^4.3.1",
+    "vite": "^8.1.0"
   }
 }
