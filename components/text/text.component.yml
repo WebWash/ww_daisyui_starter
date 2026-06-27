@@ -17,6 +17,22 @@ props:
       x-formatting-context: block
       examples:
         - "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo lacus at sodales sodales.</p>"
+    text_size:
+      type: string
+      title: Text size
+      description: |
+        Body text size. Leave unset to keep the standard size. Scales
+        paragraphs and lists; headings typed inside keep their own size.
+      enum:
+        - sm
+        - lg
+        - xl
+        - 2xl
+      "meta:enum":
+        sm: "Small"
+        lg: "L"
+        xl: "XL"
+        2xl: "2XL"
     align:
       type: string
       title: Text Alignment
@@ -26,7 +42,7 @@ props:
         - center
         - right
       "meta:enum":
-        left: "Left (default)"
+        left: Left
         center: Center
         right: Right
       default: left

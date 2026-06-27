@@ -1,16 +1,29 @@
-{# When align is omitted, emit no text-* class so the text inherits
-   alignment from its container (e.g. a hero with align: center).
-   The `prose` class brings in the theme's typography scope (paragraph
-   rhythm, list styling, link colours, blockquote, code, etc.) so
-   editor-authored HTML renders correctly. #}
-{% set align_class = {
-  left: 'text-left',
-  center: 'text-center',
-  right: 'text-right'
-}[align]
-  ?? ''
+{% set text_variants =
+  html_cva(
+    base: ['prose'],
+    variants: {
+      align: {
+        left: 'text-left',
+        center: 'text-center',
+        right: 'text-right'
+      },
+      textSize: {
+        sm: 'text-sm',
+        lg: 'text-lg',
+        xl: 'text-xl',
+        '2xl': 'text-2xl'
+      }
+    }
+  )
 %}
 
-<div class="prose {{ align_class }}">
+<div
+  class="{{
+  text_variants.apply({
+    align: align,
+    textSize: text_size
+  })
+  }}"
+>
   {{ text|raw }}
 </div>

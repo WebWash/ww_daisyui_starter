@@ -28,13 +28,6 @@ props:
         "50%": "50%"
       examples:
         - "100%"
-    restrict_width:
-      type: boolean
-      title: Restrict width
-      description: When off, the section can break out to the full container-query width, matching Haven's cq-full behavior.
-      examples:
-        - false
-      default: false
     columns:
       title: Grid layout
       description: Layout selected applies on desktop and tablet.
@@ -51,16 +44,16 @@ props:
         - "25-25-50"
         - "25-25-25-25"
       "meta:enum":
-        "100": "Single column (100)"
-        "50-50": "Two equal columns (50/50)"
-        "33-33-33": "Three equal columns (33/33/33)"
-        "75-25": "Wide left, narrow right (75/25)"
-        "25-75": "Narrow left, wide right (25/75)"
-        "67-33": "Two-thirds / one-third (67/33)"
-        "33-67": "One-third / two-thirds (33/67)"
-        "50-25-25": "50 / 25 / 25"
-        "25-25-50": "25 / 25 / 50"
-        "25-25-25-25": "Four equal columns (25/25/25/25)"
+        "100": "100"
+        "50-50": "50/50"
+        "33-33-33": "33/33/33"
+        "75-25": "75/25"
+        "25-75": "25/75"
+        "67-33": "67/33"
+        "33-67": "33/67"
+        "50-25-25": "50/25/25"
+        "25-25-50": "25/25/50"
+        "25-25-25-25": "25/25/25/25"
       examples:
         - "100"
     views_columns:
@@ -86,7 +79,7 @@ props:
         - "2"
         - "3"
       "meta:enum":
-        "1": "1 (default)"
+        "1": "1"
         "2": "2"
         "3": "3"
       examples:
@@ -94,10 +87,7 @@ props:
     color_palette:
       title: Color palette
       description: |
-        daisyUI palette to apply to the section. Each palette pairs the
-        background with its matching content (text) colour so dropped-in
-        components inherit a readable foreground. When a background image
-        is also set, the image is layered on top of this palette.
+        daisyUI palette to apply to the section.
       type: string
       enum:
         - base-100
@@ -128,7 +118,6 @@ props:
     padding_block_start:
       type: string
       title: "Padding top"
-      description: "Inner space at the top of the section. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -139,7 +128,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -148,11 +137,10 @@ props:
         "96": "96 (64-96px)"
         "128": "128 (80-128px)"
       examples:
-        - "0"
+        - "32"
     padding_block_end:
       type: string
       title: "Padding bottom"
-      description: "Inner space at the bottom of the section. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -163,7 +151,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -172,11 +160,10 @@ props:
         "96": "96 (64-96px)"
         "128": "128 (80-128px)"
       examples:
-        - "0"
+        - "32"
     margin_block_start:
       type: string
       title: "Margin top"
-      description: "Outer space above the section. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -187,7 +174,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -200,7 +187,6 @@ props:
     margin_block_end:
       type: string
       title: "Margin bottom"
-      description: "Outer space below the section. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -211,7 +197,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"

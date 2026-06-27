@@ -43,17 +43,15 @@
 @source "../../src/**/*.php";
 @source "./tailwind-classes.txt";
 
-/* Strip the default responsive max-width so width is governed by the
-   per-section `width` prop and the .cq-full breakout, not the container. */
-@utility container {
-  @apply mx-auto px-4 md:px-6;
-}
-
 @layer utilities {
+  /* Container-query context for the full-bleed breakout below. */
   .layout-content {
     container-type: inline-size;
   }
 
+  /* Let a section's background break out edge-to-edge while its inner
+     `container` keeps the content aligned. Measured in cqw (not vw) so it
+     stays correct with scrollbars/sidebars. */
   .cq-full {
     width: 100cqw;
     margin-inline: calc(-50cqw + 50%);

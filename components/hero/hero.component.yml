@@ -11,29 +11,6 @@ description: |
 props:
   type: object
   properties:
-    heading_text:
-      type: string
-      title: Heading text
-      examples:
-        - "Hero Heading"
-    heading_level:
-      type: integer
-      title: Heading level
-      enum: [1, 2, 3, 4, 5, 6]
-      examples:
-        - 2
-    content:
-      type: string
-      title: Content
-      description: |
-        Rich-text supporting copy authored via Canvas's CKEditor.
-        Supports block-level elements - paragraphs, headings, lists,
-        blockquotes, links, etc. The rendered output picks up the
-        theme's prose styling automatically.
-      contentMediaType: text/html
-      x-formatting-context: block
-      examples:
-        - "<p>Hero content goes here...</p>"
     image:
       title: Image
       description: Optional image. Used as the side panel for the side / side-reverse layouts and as the background for the overlay layout.
@@ -72,10 +49,7 @@ props:
     color_palette:
       title: Color palette
       description: |
-        daisyUI palette to apply to the hero. Each palette pairs the
-        background with its matching content (text) colour so dropped-in
-        components inherit a readable foreground. Ignored when layout is
-        "overlay".
+        daisyUI palette to apply to the hero.
       type: string
       enum:
         - base-100
@@ -119,7 +93,6 @@ props:
     margin_block_start:
       type: string
       title: "Margin top"
-      description: "Outer space above the hero. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -130,7 +103,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -143,7 +116,6 @@ props:
     margin_block_end:
       type: string
       title: "Margin bottom"
-      description: "Outer space below the hero. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -154,7 +126,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -167,7 +139,6 @@ props:
     padding_block_start:
       type: string
       title: "Padding top"
-      description: "Inner space at the top of the hero. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -178,7 +149,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -191,7 +162,6 @@ props:
     padding_block_end:
       type: string
       title: "Padding bottom"
-      description: "Inner space at the bottom of the hero. Scales up at tablet/desktop breakpoints."
       enum:
         - "0"
         - "8"
@@ -202,7 +172,7 @@ props:
         - "96"
         - "128"
       "meta:enum":
-        "0": "0 (None)"
+        "0": "0"
         "8": "8 (8px)"
         "20": "20 (20px)"
         "32": "32 (24-32px)"
@@ -213,6 +183,14 @@ props:
       examples:
         - "0"
 slots:
+  heading:
+    title: Heading
+    description: |
+      Drop a Heading SDC (or any heading markup) here.
+  content:
+    title: Content
+    description: |
+      Supporting copy for the hero. Wrapped with vertical padding (py-6).
   actions:
     title: Action items
     description: |

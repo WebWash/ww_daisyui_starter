@@ -66,35 +66,16 @@
         '96': 'mb-16 md:mb-20 xl:mb-24',
         '128': 'mb-20 md:mb-24 xl:mb-32',
       },
-      paddingBlockStart: {
-        '0': 'pt-0',
-        '8': 'pt-2',
-        '20': 'pt-5',
-        '32': 'pt-6 md:pt-7 xl:pt-8',
-        '48': 'pt-8 md:pt-10 xl:pt-12',
-        '64': 'pt-10 md:pt-13 xl:pt-16',
-        '96': 'pt-16 md:pt-20 xl:pt-24',
-        '128': 'pt-20 md:pt-24 xl:pt-32',
-      },
-      paddingBlockEnd: {
-        '0': 'pb-0',
-        '8': 'pb-2',
-        '20': 'pb-5',
-        '32': 'pb-6 md:pb-7 xl:pb-8',
-        '48': 'pb-8 md:pb-10 xl:pb-12',
-        '64': 'pb-10 md:pb-13 xl:pb-16',
-        '96': 'pb-16 md:pb-20 xl:pb-24',
-        '128': 'pb-20 md:pb-24 xl:pb-32',
+      padding: {
+        sm: 'p-4',
+        md: 'p-6',
+        lg: 'p-8',
+        xl: 'p-12',
+        '2xl': 'p-16',
       },
       stretch: {
         yes: 'h-full w-full',
         no: '',
-      },
-      animation: {
-        fade_up: 'opacity-0',
-        fade_down: 'opacity-0',
-        fade_left: 'opacity-0',
-        fade_right: 'opacity-0',
       },
     }
   )
@@ -110,23 +91,14 @@
     colorPalette: color_palette|default('none'),
     marginBlockStart: margin_block_start|default('0'),
     marginBlockEnd: margin_block_end|default('0'),
-    paddingBlockStart: padding_block_start|default('0'),
-    paddingBlockEnd: padding_block_end|default('0'),
+    padding: padding|default(''),
     stretch: is_stretched|default('no'),
-    animation: animation,
   })
 %}
 
 {% set group_attributes = group_attributes|default(create_attribute()) %}
 
-<div
-  {{
-  group_attributes.addClass(group_classes).setAttribute('data-animation', animation).setAttribute('data-delay', animation_delay).setAttribute(
-    'data-duration',
-    animation_duration
-  )
-  }}
->
+<div {{ group_attributes.addClass(group_classes) }}>
   {% block group_slot %}
 
   {% endblock %}
