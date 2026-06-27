@@ -1,49 +1,111 @@
-{# Pair every bg with its matching text token explicitly so cards stay
-   readable when nested inside coloured sections (otherwise the parent's
-   text-*-content inherits into the card body). #}
-{% set bg_class_map = {
-  'default':   'bg-base-100 text-base-content',
-  'neutral':   'bg-neutral text-neutral-content',
-  'primary':   'bg-primary text-primary-content',
-  'secondary': 'bg-secondary text-secondary-content',
-  'accent':    'bg-accent text-accent-content',
-  'info':      'bg-info text-info-content',
-  'success':   'bg-success text-success-content',
-  'warning':   'bg-warning text-warning-content',
-  'error':     'bg-error text-error-content',
-} %}
-{% set bg_classes = bg_class_map[bg_color|default('default')] ?? 'bg-base-100' %}
+{% set card =
+  html_cva(
+    base: ['card', 'shadow-sm', 'overflow-hidden'],
+    variants: {
+      colorPalette: {
+        'base-100': 'bg-base-100 text-base-content',
+        'base-200': 'bg-base-200 text-base-content',
+        'base-300': 'bg-base-300 text-base-content',
+        neutral: 'bg-neutral text-neutral-content',
+        primary: 'bg-primary text-primary-content',
+        secondary: 'bg-secondary text-secondary-content',
+        accent: 'bg-accent text-accent-content',
+        info: 'bg-info text-info-content',
+        success: 'bg-success text-success-content',
+        warning: 'bg-warning text-warning-content',
+        error: 'bg-error text-error-content',
+      },
+      size: {
+        'card-xs': 'card-xs',
+        'card-sm': 'card-sm',
+        'card-md': 'card-md',
+        'card-lg': 'card-lg',
+        'card-xl': 'card-xl',
+      },
+      border: {
+        'card-border': 'card-border',
+        'card-dash': 'card-dash',
+      },
+      style: {
+        'image-full': 'image-full',
+        'card-side': 'card-side',
+      },
+    }
+  )
+%}
 
-{% set classes = [
-  'card',
-  'shadow-sm',
-  'overflow-hidden',
-  bg_classes,
-  size|default('card-md'),
-  border and border != 'none' ? border,
-  style and style != 'default' ? style,
-] %}
+{% set card_classes =
+  card.apply({
+    colorPalette: color_palette|default('base-100'),
+    size: size|default('card-md'),
+    border: border|default(''),
+    style: style|default(''),
+  })
+%}
+
+{% set body_cva =
+  html_cva(
+    base: ['card-body'],
+    variants: {
+      bodyAlignment: {
+        center: 'items-center text-center',
+      },
+    }
+  )
+%}
+
+{% set card_body_classes =
+  body_cva.apply({
+    bodyAlignment: body_alignment|default(''),
+  })
+%}
+
+{% set actions_cva =
+  html_cva(
+    base: ['card-actions'],
+    variants: {
+      actionAlignment: {
+        start: 'justify-start',
+        center: 'justify-center',
+        end: 'justify-end',
+        between: 'justify-between',
+      },
+    }
+  )
+%}
+
+{% set card_actions_classes =
+  actions_cva.apply({
+    actionAlignment: action_alignment|default(''),
+  })
+%}
 
 {% set heading_tag = title_heading_level|default('h3') %}
 
-<div {{ attributes.addClass(classes) }}>
+{% set body_content %}
+  {% block card_body %}{% endblock %}
+{% endset %}
+
+{% set action_content %}
+  {% block card_action %}{% endblock %}
+{% endset %}
+
+<div {{ attributes.addClass(card_classes) }}>
   {% if image.src %}
     <figure>
       <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" />
     </figure>
   {% endif %}
-  <div class="card-body">
-    <{{ heading_tag }} class="card-title">{{ title }}</{{ heading_tag }}>
-    {% if body %}
-      <p>{{ body }}</p>
+  <div class="{{ card_body_classes }}">
+    {% if not hide_card_title %}
+      <{{ heading_tag }} class="card-title">{{ title }}</{{ heading_tag }}>
     {% endif %}
-    {% if action_label %}
-      <div class="card-actions justify-end">
-        {{ include('ww_daisyui_starter:button', {
-          text: action_label,
-          url: action_url,
-          size: 'btn-sm',
-        }, with_context: false) }}
+    {% if body_content|trim is not empty %}
+      {{ body_content }}
+    {% endif %}
+    {% if action_content|trim is not empty %}
+      <div class="{{ card_actions_classes }}">
+        {{ action_content }}
       </div>
     {% endif %}
   </div>

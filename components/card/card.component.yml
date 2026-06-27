@@ -2,7 +2,7 @@
 name: Card
 status: stable
 group: Content
-description: Card component based on daisyUI. Supports image, title, body, action link, sizes, borders, layout variants, and themed background colors with matching text colors.
+description: Card component based on daisyUI. Supports image, title, body, an action slot, sizes, borders, layout variants, and the daisyUI colour palette with matching text colours.
 props:
   type: object
   required:
@@ -31,12 +31,10 @@ props:
         h6: "Heading 6"
       examples:
         - h3
-    body:
-      title: Body
-      description: Body text rendered below the title.
-      type: string
-      examples:
-        - A short description for the card.
+    hide_card_title:
+      title: Hide card title
+      description: When enabled, the title heading is not rendered (e.g. when placing a heading component directly in the body slot).
+      type: boolean
     image:
       title: Image
       description: Optional image rendered above the card body (or as the background for the image-full layout).
@@ -57,51 +55,41 @@ props:
       "meta:enum":
         card-xs: "Extra small"
         card-sm: Small
-        card-md: "Medium (default)"
+        card-md: Medium
         card-lg: Large
         card-xl: "Extra large"
       examples:
         - card-md
     border:
       title: Border
-      description: Defaults to none when omitted.
+      description: No border when omitted.
       type: string
       enum:
-        - none
         - card-border
         - card-dash
       "meta:enum":
-        none: "None (default)"
         card-border: Border
         card-dash: Dashed
-      examples:
-        - none
-    # Renamed from `variant` because Drupal core's ComponentElement render
-    # element auto-injects an empty-string `#variant` into `props['variant']`
-    # whenever a caller omits it (see ComponentElement::preRenderComponent
-    # and getInfo defaults), which collides with our enum and prevents
-    # removing the empty-string entry that Canvas refuses.
     style:
       title: Layout style
-      description: Defaults to "default" (image on top) when omitted.
+      description: Image on top when omitted.
       type: string
       enum:
-        - default
         - image-full
         - card-side
       "meta:enum":
-        default: "Default (image on top)"
         image-full: Image full (image as background)
         card-side: Card side (image beside body)
-      default: default
-      examples:
-        - default
-    bg_color:
-      title: Background colour
-      description: Sets the card background and matching text colour. Defaults to "default" (base-100).
+    color_palette:
+      title: Color palette
+      description: |
+        daisyUI palette to apply to the card background and matching text
+        colour. Defaults to base-100 when omitted.
       type: string
       enum:
-        - default
+        - base-100
+        - base-200
+        - base-300
         - neutral
         - primary
         - secondary
@@ -111,7 +99,9 @@ props:
         - warning
         - error
       "meta:enum":
-        default: "Default (base-100)"
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
         neutral: Neutral
         primary: Primary
         secondary: Secondary
@@ -121,17 +111,33 @@ props:
         warning: Warning
         error: Error
       examples:
-        - default
-    action_label:
-      title: Action label
-      description: Optional label for the action button rendered in card-actions.
+        - base-100
+    body_alignment:
+      title: Body alignment
+      description: Centre the card body content (title, text and actions). Left-aligned when omitted.
       type: string
-      examples:
-        - Read more
-    action_url:
-      title: Action URL
-      description: Optional href for the action button.
+      enum:
+        - center
+      "meta:enum":
+        center: Centered
+    action_alignment:
+      title: Action alignment
+      description: Horizontal alignment of the action slot within card-actions. Unaligned when omitted.
       type: string
-      format: iri-reference
-      examples:
-        - https://example.com/
+      enum:
+        - start
+        - center
+        - end
+        - between
+      "meta:enum":
+        start: Start
+        center: Center
+        end: End
+        between: "Space between"
+slots:
+  card_body:
+    title: Card body
+    description: Content rendered in the card body below the title (e.g. text or other components).
+  card_action:
+    title: Card action
+    description: Optional content rendered in the card-actions area (e.g. a button or link).
