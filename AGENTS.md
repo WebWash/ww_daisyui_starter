@@ -372,7 +372,7 @@ Or use a wrapper approach:
 ```twig
 {{
   include(
-    'webwash_daisyui_starter:icon',
+    'ww_daisyui_starter:icon',
     {
       weight: 'bold',
       icon: icon
@@ -386,7 +386,7 @@ Or use a wrapper approach:
 ```twig
 {{
   include(
-    'webwash_daisyui_starter:icon',
+    'ww_daisyui_starter:icon',
     {
       weight: 'bold',
       icon: icon
@@ -401,7 +401,7 @@ Or use a wrapper approach:
 **❌ Bad:**
 
 ```twig
-{% include 'webwash_daisyui_starter:icon' with {
+{% include 'ww_daisyui_starter:icon' with {
   weight: 'bold',
   icon: icon
 } %}
@@ -410,7 +410,7 @@ Or use a wrapper approach:
 **✅ Good:**
 
 ```twig
-{% include 'webwash_daisyui_starter:icon' with {
+{% include 'ww_daisyui_starter:icon' with {
   weight: 'bold',
   icon: icon
 } only %}
@@ -431,7 +431,7 @@ Or use a wrapper approach:
 ```twig
 {{
   include(
-    'webwash_daisyui_starter:heading',
+    'ww_daisyui_starter:heading',
     {
       heading_text: heading_text|default(''),
       level: level|default(2),
@@ -453,7 +453,7 @@ Or use a wrapper approach:
 ```twig
 {{
   include(
-    'webwash_daisyui_starter:heading',
+    'ww_daisyui_starter:heading',
     {
       heading_text: heading_text|default(''),
       level: level|default(2),
@@ -474,7 +474,7 @@ Or use a wrapper approach:
 ```twig
 {{
   include(
-    'webwash_daisyui_starter:heading',
+    'ww_daisyui_starter:heading',
     {
       heading_text: heading_text|default(''),
       level: 3,
@@ -522,7 +522,7 @@ pnpm run format
 pnpm run build
 ```
 
-**Note**: These commands should be run from the theme directory (`web/themes/custom/webwash_daisyui_starter/`). Running these commands ensures that:
+**Note**: These commands should be run from the theme directory (`web/themes/custom/ww_daisyui_starter/`). Running these commands ensures that:
 
 - Code follows consistent formatting standards
 - Build artifacts (compiled `dist/style.css`) are regenerated

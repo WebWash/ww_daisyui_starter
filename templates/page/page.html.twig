@@ -8,10 +8,10 @@
  *   Currently set for Canvas-rendered pages and any /ww-demo/* styleguide route.
  * - site_name: The site name from system.site config.
  *
- * @see \Drupal\webwash_daisyui_starter\Hook\ThemeHooks::preprocessPage()
+ * @see \Drupal\ww_daisyui_starter\Hook\ThemeHooks::preprocessPage()
  */
 #}
-{% include 'webwash_daisyui_starter:navbar' with {
+{% include 'ww_daisyui_starter:navbar' with {
   logo: page.navbar_branding,
   menu: page.primary_menu,
   site_name: site_name
@@ -46,7 +46,7 @@
 {% if page.footer_branding or page.footer or page.footer_social or page.footer_bottom %}
   {{
     include(
-      'webwash_daisyui_starter:footer',
+      'ww_daisyui_starter:footer',
       {
         branding: page.footer_branding,
         links: page.footer,

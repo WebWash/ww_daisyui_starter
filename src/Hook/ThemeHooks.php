@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\webwash_daisyui_starter\Hook;
+namespace Drupal\ww_daisyui_starter\Hook;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
@@ -93,7 +93,7 @@ final class ThemeHooks {
         '#tag' => 'script',
         '#value' => $script,
       ],
-      'webwash_daisyui_starter_theme_init',
+      'ww_daisyui_starter_theme_init',
     ];
   }
 
