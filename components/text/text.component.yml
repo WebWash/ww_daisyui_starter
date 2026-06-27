@@ -42,7 +42,7 @@ props:
         - center
         - right
       "meta:enum":
-        left: "Left"
+        left: Left
         center: Center
         right: Right
       default: left

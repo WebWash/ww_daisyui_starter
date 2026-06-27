@@ -111,52 +111,21 @@ props:
         success: Success
         warning: Warning
         error: Error
-    padding_block_start:
+    padding:
       type: string
-      title: "Padding top"
+      title: "Padding"
       enum:
-        - "0"
-        - "8"
-        - "20"
-        - "32"
-        - "48"
-        - "64"
-        - "96"
-        - "128"
+        - "sm"
+        - "md"
+        - "lg"
+        - "xl"
+        - "2xl"
       "meta:enum":
-        "0": "0"
-        "8": "8 (8px)"
-        "20": "20 (20px)"
-        "32": "32 (24-32px)"
-        "48": "48 (32-48px)"
-        "64": "64 (40-64px)"
-        "96": "96 (64-96px)"
-        "128": "128 (80-128px)"
-      examples:
-        - "0"
-    padding_block_end:
-      type: string
-      title: "Padding bottom"
-      enum:
-        - "0"
-        - "8"
-        - "20"
-        - "32"
-        - "48"
-        - "64"
-        - "96"
-        - "128"
-      "meta:enum":
-        "0": "0"
-        "8": "8 (8px)"
-        "20": "20 (20px)"
-        "32": "32 (24-32px)"
-        "48": "48 (32-48px)"
-        "64": "64 (40-64px)"
-        "96": "96 (64-96px)"
-        "128": "128 (80-128px)"
-      examples:
-        - "0"
+        "sm": "Small"
+        "md": "Medium"
+        "lg": "Large"
+        "xl": "Extra-Large"
+        "2xl": "2X-Large"
     margin_block_start:
       type: string
       title: "Margin top"
