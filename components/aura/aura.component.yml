@@ -5,7 +5,8 @@ status: stable
 description: |
   Aura is a daisyUI border-light effect that wraps around a single child
   component (a card, button or div) to highlight it. Place one component in
-  the slot and optionally choose a style, size and animation duration.
+  the slot and optionally choose a style, size, color palette, background color
+  palette and animation duration.
 props:
   type: object
   properties:
@@ -43,6 +44,68 @@ props:
         aura-md: Medium
         aura-lg: Large
         aura-xl: "Extra large"
+    color_palette:
+      title: Color palette
+      description: |
+        Optional daisyUI palette to apply to the aura light effect.
+      type: string
+      enum:
+        - base-100
+        - base-200
+        - base-300
+        - neutral
+        - primary
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
+      "meta:enum":
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
+        neutral: Neutral
+        primary: Primary
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
+      examples:
+        - primary
+    background_color_palette:
+      title: Background color palette
+      description: |
+        Optional daisyUI palette to apply to the aura wrapper background.
+      type: string
+      enum:
+        - base-100
+        - base-200
+        - base-300
+        - neutral
+        - primary
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
+      "meta:enum":
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
+        neutral: Neutral
+        primary: Primary
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
+      examples:
+        - base-200
     duration:
       title: Animation duration
       description: Aura animation speed. Default speed when omitted.

@@ -17,6 +17,32 @@
         'aura-lg': 'aura-lg',
         'aura-xl': 'aura-xl'
       },
+      colorPalette: {
+        'base-100': 'text-base-100',
+        'base-200': 'text-base-200',
+        'base-300': 'text-base-300',
+        neutral: 'text-neutral',
+        primary: 'text-primary',
+        secondary: 'text-secondary',
+        accent: 'text-accent',
+        info: 'text-info',
+        success: 'text-success',
+        warning: 'text-warning',
+        error: 'text-error'
+      },
+      backgroundColorPalette: {
+        'base-100': 'bg-[var(--color-base-100)]',
+        'base-200': 'bg-[var(--color-base-200)]',
+        'base-300': 'bg-[var(--color-base-300)]',
+        neutral: 'bg-[var(--color-neutral)]',
+        primary: 'bg-[var(--color-primary)]',
+        secondary: 'bg-[var(--color-secondary)]',
+        accent: 'bg-[var(--color-accent)]',
+        info: 'bg-[var(--color-info)]',
+        success: 'bg-[var(--color-success)]',
+        warning: 'bg-[var(--color-warning)]',
+        error: 'bg-[var(--color-error)]'
+      },
       duration: {
         'duration-1000': 'duration-1000',
         'duration-2000': 'duration-2000',
@@ -37,13 +63,25 @@
   aura.apply({
     style: style|default(''),
     size: size|default(''),
+    colorPalette: color_palette|default(''),
+    backgroundColorPalette: background_color_palette|default(''),
     duration: duration|default(''),
     padding: padding|default('')
   })
 %}
 
-<div {{ attributes.addClass(aura_classes) }}>
+{% set is_preview = canvas_is_preview ?? false %}
+
+{% set aura_content %}
   {% block aura_content %}
 
   {% endblock %}
+{% endset %}
+
+{% if is_preview and aura_content|trim is empty %}
+  {% set aura_classes = aura_classes ~ ' min-h-24 min-w-24' %}
+{% endif %}
+
+<div {{ attributes.addClass(aura_classes) }}>
+  {{ aura_content }}
 </div>
