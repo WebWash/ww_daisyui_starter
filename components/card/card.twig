@@ -60,6 +60,10 @@
   })
 %}
 
+{% set is_preview = canvas_is_preview ?? false %}
+
+{% set is_body_centered = body_alignment|default('') == 'center' %}
+
 {% set actions_cva =
   html_cva(
     base: ['card-actions'],
@@ -70,17 +74,33 @@
         end: 'justify-end',
         between: 'justify-between',
       },
+      preview: {
+        default: '',
+        full: 'w-full',
+        'full-center': 'w-full justify-center',
+      },
     }
   )
 %}
 
+{% set preview_variant = 'default' %}
+{% if is_preview %}
+  {% set preview_variant = is_body_centered ? 'full-center' : 'full' %}
+{% endif %}
+
+{% set body_preview_classes = 'w-full' %}
+{% if is_body_centered %}
+  {% set body_preview_classes = 'flex w-full flex-col items-center' %}
+{% endif %}
+
 {% set card_actions_classes =
   actions_cva.apply({
     actionAlignment: action_alignment|default(''),
+    preview: preview_variant,
   })
 %}
 
-{% set heading_tag = title_heading_level|default('h3') %}
+{% set heading_tag = title_level|default('h3') %}
 
 {% set body_content %}
   {% block card_body %}{% endblock %}
@@ -97,10 +117,14 @@
     </figure>
   {% endif %}
   <div class="{{ card_body_classes }}">
-    {% if not hide_card_title %}
+    {% if not hide_title %}
       <{{ heading_tag }} class="card-title">{{ title }}</{{ heading_tag }}>
     {% endif %}
-    {% if body_content|trim is not empty %}
+    {% if is_preview %}
+      <div class="{{ body_preview_classes }}">
+        {{ body_content }}
+      </div>
+    {% elseif body_content|trim is not empty %}
       {{ body_content }}
     {% endif %}
     {% if action_content|trim is not empty %}

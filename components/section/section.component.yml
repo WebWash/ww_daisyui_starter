@@ -54,8 +54,9 @@ props:
         "50-25-25": "50/25/25"
         "25-25-50": "25/25/50"
         "25-25-25-25": "25/25/25/25"
+      default: "50-50"
       examples:
-        - "100"
+        - "50-50"
     views_columns:
       title: Views grid
       description: |

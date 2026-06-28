@@ -8,13 +8,17 @@ props:
   required:
     - title
   properties:
+    hide_title:
+      title: Hide title
+      description: Hide the title heading.
+      type: boolean
     title:
-      title: Title
+      title: Card title
       type: string
       examples:
         - Card title
-    title_heading_level:
-      title: Title heading level
+    title_level:
+      title: Title level
       description: Defaults to h3 when omitted.
       type: string
       enum:
@@ -25,16 +29,12 @@ props:
         - h6
       "meta:enum":
         h2: "Heading 2"
-        h3: "Heading 3 (default)"
+        h3: "Heading 3"
         h4: "Heading 4"
         h5: "Heading 5"
         h6: "Heading 6"
       examples:
         - h3
-    hide_card_title:
-      title: Hide card title
-      description: When enabled, the title heading is not rendered (e.g. when placing a heading component directly in the body slot).
-      type: boolean
     image:
       title: Image
       description: Optional image rendered above the card body (or as the background for the image-full layout).

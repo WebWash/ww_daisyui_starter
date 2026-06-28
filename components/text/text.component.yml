@@ -45,6 +45,3 @@ props:
         left: Left
         center: Center
         right: Right
-      default: left
-      examples:
-        - left
