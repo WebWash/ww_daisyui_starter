@@ -1,0 +1,140 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
+name: Aura
+group: Effects
+status: stable
+description: |
+  Aura is a daisyUI border-light effect that wraps around a single child
+  component (a card, button or div) to highlight it. Place one component in
+  the slot and optionally choose a style, size, color palette, background color
+  palette and animation duration.
+props:
+  type: object
+  properties:
+    style:
+      title: Style
+      description: Aura visual style. Unstyled when omitted.
+      type: string
+      enum:
+        - aura-dual
+        - aura-rainbow
+        - aura-holo
+        - aura-gold
+        - aura-silver
+        - aura-glow
+      "meta:enum":
+        aura-dual: Dual
+        aura-rainbow: Rainbow
+        aura-holo: Holographic
+        aura-gold: Gold
+        aura-silver: Silver
+        aura-glow: Glow
+    size:
+      title: Size
+      description: Aura size. Default size when omitted.
+      type: string
+      enum:
+        - aura-xs
+        - aura-sm
+        - aura-md
+        - aura-lg
+        - aura-xl
+      "meta:enum":
+        aura-xs: "Extra small"
+        aura-sm: Small
+        aura-md: Medium
+        aura-lg: Large
+        aura-xl: "Extra large"
+    color_palette:
+      title: Color palette
+      description: |
+        Optional daisyUI palette to apply to the aura light effect.
+      type: string
+      enum:
+        - base-100
+        - base-200
+        - base-300
+        - neutral
+        - primary
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
+      "meta:enum":
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
+        neutral: Neutral
+        primary: Primary
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
+      examples:
+        - primary
+    background_color_palette:
+      title: Background color palette
+      description: |
+        Optional daisyUI palette to apply to the aura wrapper background.
+      type: string
+      enum:
+        - base-100
+        - base-200
+        - base-300
+        - neutral
+        - primary
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
+      "meta:enum":
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
+        neutral: Neutral
+        primary: Primary
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
+      examples:
+        - base-200
+    duration:
+      title: Animation duration
+      description: Aura animation speed. Default speed when omitted.
+      type: string
+      enum:
+        - duration-1000
+        - duration-2000
+        - duration-3000
+      "meta:enum":
+        duration-1000: "1 second"
+        duration-2000: "2 seconds"
+        duration-3000: "3 seconds"
+    padding:
+      title: Padding
+      description: Optional padding around the aura wrapper.
+      type: string
+      enum:
+        - sm
+        - md
+        - lg
+        - xl
+        - 2xl
+      "meta:enum":
+        sm: Small
+        md: Medium
+        lg: Large
+        xl: "Extra-Large"
+        2xl: "2X-Large"
+slots:
+  aura_content:
+    title: Aura content
+    description: The single component to highlight (e.g. a card, button or div).
