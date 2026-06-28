@@ -5,3 +5,4 @@ global:
       dist/style.css: {}
   js:
     js/theme-switcher.js: {}
+    js/megamenu.js: {}
