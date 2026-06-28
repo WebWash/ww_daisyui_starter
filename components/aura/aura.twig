@@ -1,0 +1,49 @@
+{% set aura =
+  html_cva(
+    base: ['aura'],
+    variants: {
+      style: {
+        'aura-dual': 'aura-dual',
+        'aura-rainbow': 'aura-rainbow',
+        'aura-holo': 'aura-holo',
+        'aura-gold': 'aura-gold',
+        'aura-silver': 'aura-silver',
+        'aura-glow': 'aura-glow'
+      },
+      size: {
+        'aura-xs': 'aura-xs',
+        'aura-sm': 'aura-sm',
+        'aura-md': 'aura-md',
+        'aura-lg': 'aura-lg',
+        'aura-xl': 'aura-xl'
+      },
+      duration: {
+        'duration-1000': 'duration-1000',
+        'duration-2000': 'duration-2000',
+        'duration-3000': 'duration-3000'
+      },
+      padding: {
+        sm: 'p-4',
+        md: 'p-6',
+        lg: 'p-8',
+        xl: 'p-12',
+        '2xl': 'p-16'
+      }
+    }
+  )
+%}
+
+{% set aura_classes =
+  aura.apply({
+    style: style|default(''),
+    size: size|default(''),
+    duration: duration|default(''),
+    padding: padding|default('')
+  })
+%}
+
+<div {{ attributes.addClass(aura_classes) }}>
+  {% block aura_content %}
+
+  {% endblock %}
+</div>
