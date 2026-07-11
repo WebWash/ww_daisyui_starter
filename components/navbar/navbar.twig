@@ -16,7 +16,19 @@
         </div>
 
         <div class="navbar-center max-lg:hidden">
-          {% if menu %}
+          {% if menu_items is not empty %}
+            {{
+              include(
+                'ww_daisyui_starter:megamenu',
+                {
+                  items: menu_items,
+                  id: 'navbar',
+                  width: 'wide'
+                },
+                with_context: false
+              )
+            }}
+          {% elseif menu %}
             {{ menu }}
           {% else %}
             <ul class="menu menu-horizontal px-1">
