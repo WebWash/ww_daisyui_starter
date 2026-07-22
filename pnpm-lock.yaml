@@ -14,8 +14,8 @@ importers:
         specifier: ^0.17.0
         version: 0.17.0
       daisyui:
-        specifier: ^5.6.3
-        version: 5.6.3
+        specifier: ^5.7.0
+        version: 5.7.0
       prettier:
         specifier: ^3.9.0
         version: 3.9.0
@@ -278,8 +278,8 @@ packages:
     resolution: { integrity: sha512-vEuR3vDP5ydWMTBhs7sDvsSz6Ttd5BCCO0/I9GmlFRylJ60R8aw9c0fPAHDTylw07+8RxOBjTMKlpEf+Vo9PdQ== }
     engines: { node: ">=18" }
 
-  daisyui@5.6.3:
-    resolution: { integrity: sha512-QvdtXnQ/tD5a18Y/+NJkJ1+ggwRtMF84GHTHCCAto5SNqYwZj8SUQQviKMpe1cKR7vMo/evTBDExkYd19KloBQ== }
+  daisyui@5.7.0:
+    resolution: { integrity: sha512-2/kYbxaKtv349lPrTyxMKC9SHsyA7fBULMSabJljDE82D079cjqz+UyAzsogWgy4sTs5NDvD000acfcFqbO1XA== }
 
   detect-libc@2.1.2:
     resolution: { integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ== }
@@ -737,7 +737,7 @@ snapshots:
       lodash: 4.18.1
       prettier: 3.9.0
 
-  daisyui@5.6.3: {}
+  daisyui@5.7.0: {}
 
   detect-libc@2.1.2: {}
 

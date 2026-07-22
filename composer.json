@@ -1,0 +1,24 @@
+{
+    "name": "webwash/ww_daisyui_starter",
+    "description": "A flexible Drupal theme with a responsive, mobile-first layout built on Tailwind CSS v4, daisyUI v5 and Single Directory Components.",
+    "type": "drupal-theme",
+    "keywords": [
+        "drupal",
+        "theme",
+        "tailwindcss",
+        "daisyui",
+        "sdc"
+    ],
+    "homepage": "https://github.com/WebWash/ww_daisyui_starter",
+    "license": "GPL-2.0-or-later",
+    "support": {
+        "issues": "https://github.com/WebWash/ww_daisyui_starter/issues",
+        "source": "https://github.com/WebWash/ww_daisyui_starter"
+    },
+    "require": {
+        "drupal/core": "^11"
+    },
+    "suggest": {
+        "drupal/cva": "Required on Drupal core 11.3 and earlier; html_cva() is in core as of 11.4."
+    }
+}
