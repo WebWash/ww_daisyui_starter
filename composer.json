@@ -17,5 +17,8 @@
     },
     "require": {
         "drupal/core": "^11"
+    },
+    "suggest": {
+        "drupal/cva": "Required on Drupal core 11.3 and earlier; html_cva() is in core as of 11.4."
     }
 }
