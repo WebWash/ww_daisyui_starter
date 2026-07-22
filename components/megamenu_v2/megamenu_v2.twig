@@ -1,0 +1,219 @@
+{#
+/**
+ * @file
+ * daisyUI megamenu v2 — the simplest working setup.
+ *
+ * A direct port of the daisyUI megamenu docs pattern, fed Drupal's processed
+ * menu link tree. Requires NO JavaScript: each top-level button uses the
+ * native Popover API (`popovertarget` → `[popover]`), which gives open/close
+ * on click, Esc, outside-click (light dismiss) and keyboard support for free.
+ * daisyUI's CSS handles positioning and the sliding indicator.
+ *
+ * Mapping:
+ * - L1 item with children    → <button popovertarget> + popover
+ * - L1 item without children → plain <a> link in the bar
+ * - L2 item with children    → column heading, its L3 items the links
+ * - L2 leaf items only       → single compact dropdown list
+ *
+ * daisyUI supports at most 10 popovers per megamenu.
+ */
+#}
+{% set mega =
+  html_cva(
+    base: ['megamenu', 'p-2', 'border', 'border-base-300'],
+    variants: {
+      width: {
+        default: '',
+        wide: 'megamenu-wide w-full',
+        full: 'megamenu-full w-full'
+      },
+      size: {
+        'megamenu-xs': 'megamenu-xs',
+        'megamenu-sm': 'megamenu-sm',
+        'megamenu-md': 'megamenu-md',
+        'megamenu-lg': 'megamenu-lg',
+        'megamenu-xl': 'megamenu-xl'
+      }
+    }
+  )
+%}
+
+{% set mega_classes =
+  mega.apply({
+    width: width|default('wide'),
+    size: size|default('megamenu-md')
+  })
+%}
+
+{% set instance_id = id|default('main') %}
+
+{# Active-trail emphasis for top-level buttons. Deliberately NOT the
+   `megamenu-active` class — that is daisyUI's pointer-events:none indicator
+   span and must not land on a button. #}
+{% set l1_button =
+  html_cva(
+    base: [],
+    variants: {
+      active: {
+        yes: 'font-semibold underline underline-offset-4',
+        no: ''
+      }
+    }
+  )
+%}
+
+{# Top-level plain link (childless item): match the button metrics so the bar
+   reads uniformly, and mirror the buttons' hover/focus feedback — hover fill
+   matches the sliding indicator (base-content at 10%), focus ring matches
+   daisyUI's button focus-visible outline. #}
+{% set l1_link =
+  html_cva(
+    base: [
+      'flex',
+      'items-center',
+      'px-4',
+      'h-[var(--size,2.5rem)]',
+      'text-sm',
+      'rounded-field',
+      'transition-colors',
+      'hover:bg-base-content/10',
+      'focus-visible:outline-2',
+      'focus-visible:outline-base-content',
+      'focus-visible:outline-offset-2'
+    ],
+    variants: {
+      active: {
+        yes: 'font-semibold underline underline-offset-4',
+        no: ''
+      }
+    }
+  )
+%}
+
+{% set leaf_link =
+  html_cva(
+    base: [],
+    variants: {
+      active: {
+        yes: 'menu-active',
+        no: ''
+      }
+    }
+  )
+%}
+
+{# daisyUI's wide/full modifiers use CSS anchor positioning with the global
+   name `--megamenu`, so multiple megamenus on one page all anchor their
+   popovers to the LAST container in the DOM. Scope the anchor per instance
+   (same trick as the `[anchor-name:--megamenu-x]` examples in the daisyUI
+   docs); inline styles because the value is dynamic and Tailwind arbitrary
+   classes would be purged. #}
+{% set anchor_name = '--mm2-' ~ instance_id %}
+
+<div style="anchor-name: {{ anchor_name }}" {{ attributes.addClass(mega_classes) }}>
+  {# Sliding indicator under the open/active item — pure daisyUI CSS. Pinned
+     behind the interactive items (z-0) so its resting position never
+     intercepts pointer events. #}
+  <span class="megamenu-active z-0"></span>
+
+  {% for item in items %}
+    {% if item.below is not empty %}
+      {% set popover_id = 'mm2-' ~ instance_id ~ '-' ~ loop.index %}
+      {% set button_active = item.in_active_trail ? 'yes' : 'no' %}
+
+      <button
+        type="button"
+        popovertarget="{{ popover_id }}"
+        class="{{
+        l1_button.apply({
+          active: button_active
+        })
+        }}"
+      >
+        {{ item.title }}
+      </button>
+
+      {# Shape detection: if any L2 item has children, render columns (L2 =
+         heading, L3 = links); otherwise render one compact list of links. #}
+      {% set has_columns = false %}
+      {% for column in item.below %}
+        {% if column.below is not empty %}
+          {% set has_columns = true %}
+        {% endif %}
+      {% endfor %}
+
+      <div id="{{ popover_id }}" style="position-anchor: {{ anchor_name }}" class="rounded-box border border-base-300 bg-base-100 p-2 shadow" popover>
+        {% if has_columns %}
+          <div class="flex items-start gap-6 p-2 max-sm:flex-col">
+            {% for column in item.below %}
+              <ul class="menu w-56 p-0">
+                {% if column.below is not empty %}
+                  <li class="menu-title">{{ column.title }}</li>
+                  {% for child in column.below %}
+                    {% set leaf_active = child.in_active_trail ? 'yes' : 'no' %}
+                    <li>
+                      <a
+                        href="{{ child.url }}"
+                        class="{{
+                        leaf_link.apply({
+                          active: leaf_active
+                        })
+                        }}"
+                      >
+                        {{ child.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                {% else %}
+                  {% set leaf_active = column.in_active_trail ? 'yes' : 'no' %}
+                  <li>
+                    <a
+                      href="{{ column.url }}"
+                      class="{{
+                      leaf_link.apply({
+                        active: leaf_active
+                      })
+                      }}"
+                    >
+                      {{ column.title }}
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            {% endfor %}
+          </div>
+        {% else %}
+          <ul class="menu w-56 p-0">
+            {% for child in item.below %}
+              {% set leaf_active = child.in_active_trail ? 'yes' : 'no' %}
+              <li>
+                <a
+                  href="{{ child.url }}"
+                  class="{{
+                  leaf_link.apply({
+                    active: leaf_active
+                  })
+                  }}"
+                >
+                  {{ child.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% else %}
+      {% set link_active = item.in_active_trail ? 'yes' : 'no' %}
+      <a
+        href="{{ item.url }}"
+        class="{{
+        l1_link.apply({
+          active: link_active
+        })
+        }}"
+      >
+        {{ item.title }}
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>

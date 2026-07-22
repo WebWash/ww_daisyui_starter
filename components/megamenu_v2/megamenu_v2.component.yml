@@ -1,0 +1,61 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
+name: Megamenu v2
+status: experimental
+group: Navigation
+# Theme-only component: `items` expects Drupal's processed menu link tree
+# (the `items` array from template_preprocess_menu), which the Canvas editor
+# cannot supply, so hide it from the component picker.
+noUi: true
+description: >-
+  Minimal daisyUI megamenu. Pure markup port of the daisyUI megamenu pattern
+  (button[popovertarget] + [popover]) fed Drupal's processed menu link tree.
+  Zero JavaScript: the native Popover API handles open/close, Esc,
+  outside-click and keyboard support. Popovers open on click/Enter, exactly
+  like the daisyUI docs examples.
+props:
+  type: object
+  properties:
+    items:
+      type: array
+      title: Menu items
+      description: >-
+        Drupal's processed menu link tree (the `items` array passed to
+        template_preprocess_menu). Each item has `title`, `url`, `below`
+        and `in_active_trail`.
+    id:
+      type: string
+      title: Instance id
+      description: >-
+        Unique-per-page prefix used to build popover element ids
+        (mm2-{id}-{index}). Defaults to "main".
+      default: main
+    width:
+      type: string
+      title: Width
+      description: daisyUI megamenu width modifier.
+      enum:
+        - default
+        - wide
+        - full
+      "meta:enum":
+        default: "Default (auto width)"
+        wide: "Wide (megamenu-wide)"
+        full: "Full (megamenu-full)"
+      default: wide
+    size:
+      type: string
+      title: Size
+      description: daisyUI megamenu size modifier.
+      enum:
+        - megamenu-xs
+        - megamenu-sm
+        - megamenu-md
+        - megamenu-lg
+        - megamenu-xl
+      "meta:enum":
+        megamenu-xs: "Extra small"
+        megamenu-sm: "Small"
+        megamenu-md: "Medium (default)"
+        megamenu-lg: "Large"
+        megamenu-xl: "Extra large"
+      default: megamenu-md
