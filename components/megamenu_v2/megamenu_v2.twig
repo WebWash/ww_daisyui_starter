@@ -20,7 +20,7 @@
 #}
 {% set mega =
   html_cva(
-    base: ['megamenu', 'p-2', 'border', 'border-base-300'],
+    base: ['megamenu'],
     variants: {
       width: {
         default: '',
@@ -33,19 +33,46 @@
         'megamenu-md': 'megamenu-md',
         'megamenu-lg': 'megamenu-lg',
         'megamenu-xl': 'megamenu-xl'
+      },
+      mobile: {
+        yes: ['max-lg:megamenu-vertical', 'max-lg:overflow-y-auto', 'max-lg:m-0', 'max-lg:mt-4'],
+        no: ''
       }
     }
   )
 %}
 
+{% set is_mobile = mobile|default(false) ? 'yes' : 'no' %}
+
+{# Extra container classes. Defaults to the standard chrome; pass your own
+   string/array to replace it (e.g. '' for a bare bar inside a navbar).
+   Normalize array/string input before handing it to Cva::apply(). #}
+{% set additional_classes = megamenu_classes|default('p-2 border border-base-300') %}
+{% if additional_classes is iterable %}
+  {% set additional_classes = additional_classes|join(' ') %}
+{% endif %}
+
 {% set mega_classes =
-  mega.apply({
-    width: width|default('wide'),
-    size: size|default('megamenu-md')
-  })
+  mega.apply(
+    {
+      width: width|default('wide'),
+      size: size|default('megamenu-md'),
+      mobile: is_mobile
+    },
+    additional_classes
+  )
 %}
 
 {% set instance_id = id|default('main') %}
+
+{# Mobile popover mode: the whole megamenu becomes a popover (docs pattern
+   "Responsive megamenu"). Below lg it is hidden until an external
+   button[popovertarget="mm2-{id}"] opens it as a vertical menu; on lg+ the
+   `.megamenu { display: flex }` rule keeps the bar visible even with the
+   popover attribute present. #}
+{% if is_mobile == 'yes' %}
+  {% set attributes = attributes.setAttribute('popover', '').setAttribute('id', 'mm2-' ~ instance_id) %}
+{% endif %}
 
 {# Active-trail emphasis for top-level buttons. Deliberately NOT the
    `megamenu-active` class — that is daisyUI's pointer-events:none indicator
@@ -56,6 +83,10 @@
     variants: {
       active: {
         yes: 'font-semibold underline underline-offset-4',
+        no: ''
+      },
+      mobile: {
+        yes: 'max-lg:text-base',
         no: ''
       }
     }
@@ -85,17 +116,113 @@
       active: {
         yes: 'font-semibold underline underline-offset-4',
         no: ''
+      },
+      mobile: {
+        yes: 'max-lg:h-12 max-lg:w-full max-lg:text-lg',
+        no: ''
       }
     }
   )
 %}
 
+{# Popover panel chrome. In mobile mode the panels render inline inside the
+   vertical menu below lg, where daisyUI resets them to transparent and
+   borderless — scope the chrome to lg+ there so these utilities don't
+   override that reset. #}
+{% set panel =
+  html_cva(
+    base: [],
+    variants: {
+      mobile: {
+        yes: ['max-lg:pl-4', 'lg:rounded-box', 'lg:border', 'lg:border-base-300', 'lg:bg-base-100', 'lg:p-2', 'lg:shadow'],
+        no: 'rounded-box border border-base-300 bg-base-100 p-2 shadow'
+      }
+    }
+  )
+%}
+
+{% set panel_classes =
+  panel.apply({
+    mobile: is_mobile
+  })
+%}
+
+{# Link lists inside popovers. In mobile mode go full width with larger
+   daisyUI menu sizing so tap targets are comfortable on small screens. #}
+{% set menu_list =
+  html_cva(
+    base: ['menu', 'w-56', 'p-0'],
+    variants: {
+      mobile: {
+        yes: 'max-lg:menu-lg max-lg:w-full',
+        no: ''
+      }
+    }
+  )
+%}
+
+{% set menu_list_classes =
+  menu_list.apply({
+    mobile: is_mobile
+  })
+%}
+
+{# Wrapper around the column layout. In mobile mode drop the padding and
+   tighten the gap so the vertical list reads flush, without staggered
+   indents. #}
+{% set columns_wrap =
+  html_cva(
+    base: ['flex', 'items-start', 'gap-6', 'p-2', 'max-lg:flex-col'],
+    variants: {
+      mobile: {
+        yes: 'max-lg:w-full max-lg:gap-2 max-lg:p-0',
+        no: ''
+      }
+    }
+  )
+%}
+
+{% set columns_wrap_classes =
+  columns_wrap.apply({
+    mobile: is_mobile
+  })
+%}
+
+{# Column group headings (L2 with children). daisyUI's menu-title padding is
+   wider than the item padding, which reads as a backwards indent in the
+   vertical mobile menu — normalise it so titles sit one step in and their
+   links (see leaf_link's indent variant) sit one step further. #}
+{% set column_title =
+  html_cva(
+    base: ['menu-title'],
+    variants: {
+      mobile: {
+        yes: 'max-lg:px-4',
+        no: ''
+      }
+    }
+  )
+%}
+
+{% set column_title_classes =
+  column_title.apply({
+    mobile: is_mobile
+  })
+%}
+
+{# Leaf links. The indent variant pushes L3 links (links under a column
+   heading) one step deeper than their heading in the vertical mobile menu;
+   flat submenu links stay at heading level. #}
 {% set leaf_link =
   html_cva(
     base: [],
     variants: {
       active: {
         yes: 'menu-active',
+        no: ''
+      },
+      indent: {
+        yes: 'max-lg:pl-8',
         no: ''
       }
     }
@@ -109,6 +236,15 @@
    docs); inline styles because the value is dynamic and Tailwind arbitrary
    classes would be purged. #}
 {% set anchor_name = '--mm2-' ~ instance_id %}
+
+{# Capture the mobile_bottom slot so we can skip its wrapper entirely when
+   no content is passed. Rendered only in mobile mode, below lg, at the end
+   of the vertical menu (e.g. a search form). #}
+{% set mobile_bottom_content %}
+  {% block mobile_bottom %}
+
+  {% endblock %}
+{% endset %}
 
 <div style="anchor-name: {{ anchor_name }}" {{ attributes.addClass(mega_classes) }}>
   {# Sliding indicator under the open/active item — pure daisyUI CSS. Pinned
@@ -126,7 +262,8 @@
         popovertarget="{{ popover_id }}"
         class="{{
         l1_button.apply({
-          active: button_active
+          active: button_active,
+          mobile: is_mobile
         })
         }}"
       >
@@ -142,13 +279,13 @@
         {% endif %}
       {% endfor %}
 
-      <div id="{{ popover_id }}" style="position-anchor: {{ anchor_name }}" class="rounded-box border border-base-300 bg-base-100 p-2 shadow" popover>
+      <div id="{{ popover_id }}" style="position-anchor: {{ anchor_name }}" class="{{ panel_classes }}" popover>
         {% if has_columns %}
-          <div class="flex items-start gap-6 p-2 max-sm:flex-col">
+          <div class="{{ columns_wrap_classes }}">
             {% for column in item.below %}
-              <ul class="menu w-56 p-0">
+              <ul class="{{ menu_list_classes }}">
                 {% if column.below is not empty %}
-                  <li class="menu-title">{{ column.title }}</li>
+                  <li class="{{ column_title_classes }}">{{ column.title }}</li>
                   {% for child in column.below %}
                     {% set leaf_active = child.in_active_trail ? 'yes' : 'no' %}
                     <li>
@@ -156,7 +293,8 @@
                         href="{{ child.url }}"
                         class="{{
                         leaf_link.apply({
-                          active: leaf_active
+                          active: leaf_active,
+                          indent: is_mobile
                         })
                         }}"
                       >
@@ -171,7 +309,8 @@
                       href="{{ column.url }}"
                       class="{{
                       leaf_link.apply({
-                        active: leaf_active
+                        active: leaf_active,
+                        indent: 'no'
                       })
                       }}"
                     >
@@ -183,7 +322,7 @@
             {% endfor %}
           </div>
         {% else %}
-          <ul class="menu w-56 p-0">
+          <ul class="{{ menu_list_classes }}">
             {% for child in item.below %}
               {% set leaf_active = child.in_active_trail ? 'yes' : 'no' %}
               <li>
@@ -191,7 +330,8 @@
                   href="{{ child.url }}"
                   class="{{
                   leaf_link.apply({
-                    active: leaf_active
+                    active: leaf_active,
+                    indent: 'no'
                   })
                   }}"
                 >
@@ -208,7 +348,8 @@
         href="{{ item.url }}"
         class="{{
         l1_link.apply({
-          active: link_active
+          active: link_active,
+          mobile: is_mobile
         })
         }}"
       >
@@ -216,4 +357,10 @@
       </a>
     {% endif %}
   {% endfor %}
+
+  {% if is_mobile == 'yes' and mobile_bottom_content|trim is not empty %}
+    <div class="mt-2 w-full border-t border-base-300 p-4 lg:hidden">
+      {{ mobile_bottom_content }}
+    </div>
+  {% endif %}
 </div>

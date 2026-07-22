@@ -11,12 +11,257 @@
  * @see \Drupal\ww_daisyui_starter\Hook\ThemeHooks::preprocessPage()
  */
 #}
-{% include 'ww_daisyui_starter:navbar' with {
+{# {% include 'ww_daisyui_starter:navbar' with {
   logo: page.navbar_branding,
   menu: page.primary_menu,
   menu_items: main_menu_items,
   site_name: site_name
-} %}
+} %} #}
+
+{#
+  Temporary hardcoded nav to integrate megamenu_v2 step by step. Uses the
+  same demo tree as /ww-demo/megamenu-v2. Desktop (lg+): horizontal wide
+  megamenu in navbar-center. Mobile (< lg): the bar is hidden and the Menu
+  button in navbar-end opens it as a vertical popover. No JavaScript.
+#}
+{% set nav_items = [
+  {
+    title: 'Home',
+    url: '/',
+    in_active_trail: false,
+    below: []
+  },
+  {
+    title: 'Products',
+    url: '#',
+    in_active_trail: false,
+    below: [
+      {
+        title: 'Platform',
+        url: '#',
+        in_active_trail: false,
+        below: [
+          {
+            title: 'Overview',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Hosting',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Previews',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Backups',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          }
+        ]
+      },
+      {
+        title: 'Developer tools',
+        url: '#',
+        in_active_trail: false,
+        below: [
+          {
+            title: 'CLI',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'API',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Webhooks',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          }
+        ]
+      },
+      {
+        title: 'Integrations',
+        url: '#',
+        in_active_trail: false,
+        below: [
+          {
+            title: 'GitHub',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'GitLab',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Slack',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    title: 'Solutions',
+    url: '#',
+    in_active_trail: false,
+    below: [
+      {
+        title: 'By industry',
+        url: '#',
+        in_active_trail: false,
+        below: [
+          {
+            title: 'Higher education',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Publishing',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Government',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          }
+        ]
+      },
+      {
+        title: 'By team',
+        url: '#',
+        in_active_trail: false,
+        below: [
+          {
+            title: 'Developers',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Agencies',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          },
+          {
+            title: 'Enterprise',
+            url: '#',
+            in_active_trail: false,
+            below: []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    title: 'Resources',
+    url: '#',
+    in_active_trail: false,
+    below: [
+      {
+        title: 'Documentation',
+        url: '#',
+        in_active_trail: false,
+        below: []
+      },
+      {
+        title: 'Blog',
+        url: '#',
+        in_active_trail: false,
+        below: []
+      },
+      {
+        title: 'Changelog',
+        url: '#',
+        in_active_trail: false,
+        below: []
+      }
+    ]
+  },
+  {
+    title: 'Contact',
+    url: '/contact',
+    in_active_trail: false,
+    below: []
+  }
+] %}
+
+<header class="bg-base-100 shadow-sm">
+  <div class="navbar container mx-auto px-4 lg:px-8">
+    <div class="navbar-start">
+      <a href="/" class="btn btn-ghost text-xl font-bold">{{ site_name }}</a>
+    </div>
+
+    <div class="navbar-center">
+      {% embed 'ww_daisyui_starter:megamenu_v2'
+        with {
+          items: nav_items,
+          id: 'nav',
+          width: 'wide',
+          mobile: true,
+          megamenu_classes: 'p-2'
+        } only
+      %}
+        {% block mobile_bottom %}
+          <form action="/search/node" method="get" role="search" class="w-full">
+            <label class="input w-full">
+              {{
+                include(
+                  'ww_daisyui_starter:icon',
+                  {
+                    icon: 'magnifying-glass',
+                    icon_size: 'small'
+                  },
+                  with_context: false
+                )
+              }}
+              <input type="search" name="keys" placeholder="Search" class="grow" />
+            </label>
+          </form>
+        {% endblock %}
+      {% endembed %}
+    </div>
+
+    <div class="navbar-end gap-2">
+      {{ include('ww_daisyui_starter:theme_switcher', {}, with_context: false) }}
+      <button type="button" class="btn btn-square btn-ghost lg:hidden" popovertarget="mm2-nav" aria-label="Open menu">
+        {{
+          include(
+            'ww_daisyui_starter:icon',
+            {
+              icon: 'list',
+              icon_size: 'medium'
+            },
+            with_context: false
+          )
+        }}
+      </button>
+    </div>
+  </div>
+</header>
 
 {% if page.breadcrumb and not is_edge %}
   <div class="container mx-auto px-4 py-3">
