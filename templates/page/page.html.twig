@@ -14,9 +14,8 @@
 {% include 'ww_daisyui_starter:navbar' with {
   logo: page.navbar_branding,
   menu: page.primary_menu,
-  menu_items: main_menu_items,
   site_name: site_name
-} %}
+} only %}
 
 {% if page.breadcrumb and not is_edge %}
   <div class="container mx-auto px-4 py-3">
