@@ -7,11 +7,11 @@ group: Navigation
 # cannot supply, so hide it from the component picker.
 noUi: true
 description: >-
-  Horizontal mega menu built on the daisyUI megamenu pattern. Fed Drupal's
-  processed main-menu link tree, it renders each top-level item with children
-  as a button that opens a popover of column-grouped links (L1 button → L2
-  column headings → L3 links). Childless top-level items render as plain links.
-  Desktop only — mobile navigation is handled by the navbar drawer.
+  Minimal daisyUI megamenu. Pure markup port of the daisyUI megamenu pattern
+  (button[popovertarget] + [popover]) fed Drupal's processed menu link tree.
+  Zero JavaScript: the native Popover API handles open/close, Esc,
+  outside-click and keyboard support. Popovers open on click/Enter, exactly
+  like the daisyUI docs examples.
 props:
   type: object
   properties:
@@ -20,8 +20,8 @@ props:
       title: Menu items
       description: >-
         Drupal's processed menu link tree (the `items` array passed to
-        template_preprocess_menu). Each item has `title`, `url`, `below`,
-        `is_expanded` and `in_active_trail`.
+        template_preprocess_menu). Each item has `title`, `url`, `below`
+        and `in_active_trail`.
     id:
       type: string
       title: Instance id
@@ -29,6 +29,26 @@ props:
         Unique-per-page prefix used to build popover element ids
         (mm-{id}-{index}). Defaults to "main".
       default: main
+    megamenu_classes:
+      type: [string, array]
+      title: Container classes
+      description: >-
+        Extra utility classes for the megamenu container. Defaults to
+        "p-2 border border-base-300"; passing a value replaces that default
+        entirely (use "" for a bare bar, e.g. inside a navbar that already
+        provides the chrome). Accepts a string or an array of strings.
+        Classes must exist in the compiled CSS - anything not used in theme
+        templates needs a tailwind-classes.txt entry.
+    mobile:
+      type: boolean
+      title: Mobile popover mode
+      description: >-
+        When true, the whole megamenu becomes a popover itself (id
+        mm-{id}) that is hidden below the lg breakpoint until opened by an
+        external button with popovertarget="mm-{id}", where it renders as
+        a vertical menu (max-lg:megamenu-vertical). On lg+ screens it
+        renders as the normal horizontal bar. Still zero JavaScript.
+      default: false
     width:
       type: string
       title: Width
@@ -59,3 +79,10 @@ props:
         megamenu-lg: "Large"
         megamenu-xl: "Extra large"
       default: megamenu-md
+slots:
+  mobile_bottom:
+    title: Mobile bottom content
+    description: >-
+      Extra content rendered at the end of the vertical mobile menu, below
+      the lg breakpoint, only when `mobile` is true (e.g. a search form or
+      call-to-action buttons). Hidden on desktop.

@@ -5,7 +5,11 @@ status: stable
 # (system_branding_block, system_menu_block) that the Canvas editor
 # cannot supply, so hide it from the component picker.
 noUi: true
-description: Site header built on the daisyUI navbar pattern. Slots accept the branding (logo) and main menu render arrays; placeholder markup renders when slots are empty.
+description: >-
+  Site header built on the daisyUI navbar pattern. The menu slot renders the
+  placed main-menu block, which menu--main.html.twig always renders as the
+  megamenu component; the hamburger button here opens that megamenu's
+  vertical popover (id "mm-main") on small screens.
 props:
   type: object
   properties:
@@ -14,17 +18,12 @@ props:
       title: Site name
       description: Used as the logo fallback text when the logo slot is empty.
       default: ""
-    menu_items:
-      type: array
-      title: Main menu items
-      description: >-
-        Processed main-menu link tree (from preprocess_page). When present, the
-        desktop navbar centre renders the megamenu component from this tree;
-        the mobile drawer keeps rendering the `menu` slot's vertical block.
 slots:
   logo:
     title: Logo
     description: Branding render array (typically the system_branding_block).
   menu:
     title: Main menu
-    description: Main navigation render array (typically a system_menu_block).
+    description: >-
+      Main navigation render array (typically the system_menu_block placed in
+      the primary_menu region, with "Expand all menu links" enabled).
