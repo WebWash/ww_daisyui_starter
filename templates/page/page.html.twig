@@ -6,16 +6,26 @@
  * Available variables:
  * - is_edge: TRUE when the page should render edge-to-edge (no container/padding).
  *   Currently set for Canvas-rendered pages and any /ww-demo/* styleguide route.
- * - site_name: The site name from system.site config.
  *
  * @see \Drupal\ww_daisyui_starter\Hook\ThemeHooks::preprocessPage()
  */
 #}
-{% include 'ww_daisyui_starter:navbar' with {
-  logo: page.navbar_branding,
-  menu: page.primary_menu,
-  site_name: site_name
-} only %}
+<header class="bg-base-100 shadow-sm">
+  <div class="container mx-auto px-4 lg:px-8">
+    {% embed 'ww_daisyui_starter:navbar'
+      with {
+        navbar_start: page.navbar_start,
+        navbar_center: page.navbar_center,
+        navbar_end: page.navbar_end
+      } only
+    %}
+      {% block navbar_end %}
+        {{ navbar_end }}
+        {{ include('ww_daisyui_starter:theme_switcher', {}, with_context: false) }}
+      {% endblock %}
+    {% endembed %}
+  </div>
+</header>
 
 {% if page.breadcrumb and not is_edge %}
   <div class="container mx-auto px-4 py-3">

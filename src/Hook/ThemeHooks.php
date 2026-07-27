@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\ww_daisyui_starter\Hook;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -15,7 +14,6 @@ final class ThemeHooks {
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
-    private readonly ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
@@ -27,7 +25,6 @@ final class ThemeHooks {
     $variables['is_edge'] = $route_name === 'entity.canvas_page.canonical'
       || str_starts_with((string) $route_name, 'canvas.api.layout')
       || str_starts_with((string) $route_name, 'ww_styleguide.');
-    $variables['site_name'] = $this->configFactory->get('system.site')->get('name');
   }
 
   /**
