@@ -1,29 +1,21 @@
 "$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Navbar
 status: stable
-# Theme-only component: slots expect Drupal block render arrays
-# (system_branding_block, system_menu_block) that the Canvas editor
-# cannot supply, so hide it from the component picker.
 noUi: true
-description: >-
-  Site header built on the daisyUI navbar pattern. The menu slot renders the
-  placed main-menu block, which menu--main.html.twig always renders as the
-  megamenu component; the hamburger button here opens that megamenu's
-  vertical popover (id "mm-main") on small screens.
-props:
-  type: object
-  properties:
-    site_name:
-      type: string
-      title: Site name
-      description: Used as the logo fallback text when the logo slot is empty.
-      default: ""
+description: Site header built on the daisyUI navbar pattern.
 slots:
-  logo:
-    title: Logo
-    description: Branding render array (typically the system_branding_block).
-  menu:
-    title: Main menu
+  navbar_start:
+    title: Navbar start
     description: >-
-      Main navigation render array (typically the system_menu_block placed in
-      the primary_menu region, with "Expand all menu links" enabled).
+      Left section (typically the system_branding_block placed in the
+      navbar_start region).
+  navbar_center:
+    title: Navbar center
+    description: >-
+      Center section (typically the system_menu_block placed in the
+      navbar_center region, with "Expand all menu links" enabled).
+  navbar_end:
+    title: Navbar end
+    description: >-
+      Right section (blocks placed in the navbar_end region). The megamenu
+      hamburger button is always rendered after this slot's content.
