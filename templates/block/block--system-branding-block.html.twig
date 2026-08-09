@@ -1,4 +1,4 @@
-{% extends "block.html.twig" %}
+{% extends 'block.html.twig' %}
 {#
 /**
  * @file
@@ -22,13 +22,9 @@
 #}
 {% block content %}
   {% if site_logo_inline %}
-    <a href="{{ path('<front>') }}" rel="home" aria-label="{{ 'Home'|t }}" class="branding block">
-      {{ site_logo_inline }}
-    </a>
+    <a href="{{ path('<front>') }}" rel="home" aria-label="{{ 'Home'|t }}" class="branding block">{{ site_logo_inline }}</a>
   {% elseif site_logo %}
-    <a href="{{ path('<front>') }}" rel="home" class="branding block">
-      <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" fetchpriority="high" />
-    </a>
+    <a href="{{ path('<front>') }}" rel="home" class="branding block"><img src="{{ site_logo }}" alt="{{ 'Home'|t }}" fetchpriority="high" /></a>
   {% endif %}
   {% if site_name %}
     <a href="{{ path('<front>') }}" rel="home">{{ site_name }}</a>

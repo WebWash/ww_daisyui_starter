@@ -1,17 +1,17 @@
 "$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Footer
 status: stable
-description: Footer component based on daisyUI. Uses slots for branding, link columns, social icons, and a bottom copyright row.
+description: Footer component based on daisyUI. Three equal columns (start, middle, end) above an optional bottom row.
 slots:
-  branding:
-    title: Branding
-    description: Logo, site name, tagline. Rendered inside an <aside>.
-  links:
-    title: Links
-    description: One or more <nav> blocks of footer links.
-  social:
-    title: Social
-    description: Social icon links.
+  start:
+    title: Start
+    description: First column. Typically branding — logo, site name, tagline.
+  middle:
+    title: Middle
+    description: Second column. Typically footer link columns.
+  end:
+    title: End
+    description: Third column. Typically social icon links.
   bottom:
     title: Bottom
     description: Bottom copyright / utility row, rendered below the main footer.

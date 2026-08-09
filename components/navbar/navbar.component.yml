@@ -1,21 +1,53 @@
 "$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Navbar
 status: stable
-noUi: true
 description: Site header built on the daisyUI navbar pattern.
 slots:
   navbar_start:
     title: Navbar start
     description: >-
-      Left section (typically the system_branding_block placed in the
-      navbar_start region).
+      Left section (typically site branding).
   navbar_center:
     title: Navbar center
     description: >-
-      Center section (typically the system_menu_block placed in the
-      navbar_center region, with "Expand all menu links" enabled).
+      Center section (typically the main menu, with "Expand all menu links"
+      enabled).
   navbar_end:
     title: Navbar end
     description: >-
-      Right section (blocks placed in the navbar_end region). The megamenu
-      hamburger button is always rendered after this slot's content.
+      Right section. The megamenu hamburger button is always rendered after
+      this slot's content.
+props:
+  type: object
+  properties:
+    color_palette:
+      title: Color palette
+      description: |
+        daisyUI palette to apply to the navbar.
+      type: string
+      enum:
+        - base-100
+        - base-200
+        - base-300
+        - neutral
+        - primary
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
+      "meta:enum":
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
+        neutral: Neutral
+        primary: Primary
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
+      examples:
+        - base-100

@@ -7,13 +7,8 @@ core_version_requirement: ^11
 libraries:
   - ww_daisyui_starter/global
 regions:
-  navbar_start: "Navbar start"
-  navbar_center: "Navbar center"
-  navbar_end: "Navbar end"
+  navbar: "Navbar"
   breadcrumb: "Breadcrumb"
   pre_content: "Pre-content"
   content: "Content"
-  footer_branding: "Footer branding"
-  footer: "Footer (links)"
-  footer_social: "Footer social"
-  footer_bottom: "Footer bottom"
+  footer: "Footer"

@@ -27,8 +27,7 @@ final class ThemeHooks {
   public function preprocessPage(array &$variables): void {
     $route_name = $this->routeMatch->getRouteName();
     $variables['is_edge'] = $route_name === 'entity.canvas_page.canonical'
-      || str_starts_with((string) $route_name, 'canvas.api.layout')
-      || str_starts_with((string) $route_name, 'ww_styleguide.');
+      || str_starts_with((string) $route_name, 'canvas.api.layout');
   }
 
   /**

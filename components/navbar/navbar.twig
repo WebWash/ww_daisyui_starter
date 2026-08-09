@@ -1,4 +1,31 @@
-<div {{ attributes.addClass('navbar') }}>
+{% set navbar_cva =
+  html_cva(
+    base: ['navbar'],
+    variants: {
+      colorPalette: {
+        'base-100': 'bg-base-100 text-base-content',
+        'base-200': 'bg-base-200 text-base-content',
+        'base-300': 'bg-base-300 text-base-content',
+        neutral: 'bg-neutral text-neutral-content',
+        primary: 'bg-primary text-primary-content',
+        secondary: 'bg-secondary text-secondary-content',
+        accent: 'bg-accent text-accent-content',
+        info: 'bg-info text-info-content',
+        success: 'bg-success text-success-content',
+        warning: 'bg-warning text-warning-content',
+        error: 'bg-error text-error-content'
+      }
+    }
+  )
+%}
+
+{% set navbar_classes =
+  navbar_cva.apply({
+    colorPalette: color_palette|default('base-100')
+  })
+%}
+
+<div {{ attributes.addClass(navbar_classes) }}>
   <div class="navbar-start">
     {% block navbar_start %}
       {{ navbar_start }}

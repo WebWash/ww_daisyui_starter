@@ -13,8 +13,7 @@
         info: 'bg-info text-info-content',
         success: 'bg-success text-success-content',
         warning: 'bg-warning text-warning-content',
-        error: 'bg-error text-error-content',
-        none: '',
+        error: 'bg-error text-error-content'
       },
       marginBlockStart: {
         '0': 'mt-0',
@@ -24,7 +23,7 @@
         '48': 'mt-8 md:mt-10 xl:mt-12',
         '64': 'mt-10 md:mt-13 xl:mt-16',
         '96': 'mt-16 md:mt-20 xl:mt-24',
-        '128': 'mt-20 md:mt-24 xl:mt-32',
+        '128': 'mt-20 md:mt-24 xl:mt-32'
       },
       marginBlockEnd: {
         '0': 'mb-0',
@@ -34,7 +33,7 @@
         '48': 'mb-8 md:mb-10 xl:mb-12',
         '64': 'mb-10 md:mb-13 xl:mb-16',
         '96': 'mb-16 md:mb-20 xl:mb-24',
-        '128': 'mb-20 md:mb-24 xl:mb-32',
+        '128': 'mb-20 md:mb-24 xl:mb-32'
       },
       paddingBlockStart: {
         '0': 'pt-0',
@@ -44,7 +43,7 @@
         '48': 'pt-8 md:pt-10 xl:pt-12',
         '64': 'pt-10 md:pt-13 xl:pt-16',
         '96': 'pt-16 md:pt-20 xl:pt-24',
-        '128': 'pt-20 md:pt-24 xl:pt-32',
+        '128': 'pt-20 md:pt-24 xl:pt-32'
       },
       paddingBlockEnd: {
         '0': 'pb-0',
@@ -54,8 +53,8 @@
         '48': 'pb-8 md:pb-10 xl:pb-12',
         '64': 'pb-10 md:pb-13 xl:pb-16',
         '96': 'pb-16 md:pb-20 xl:pb-24',
-        '128': 'pb-20 md:pb-24 xl:pb-32',
-      },
+        '128': 'pb-20 md:pb-24 xl:pb-32'
+      }
     }
   )
 %}
@@ -66,56 +65,73 @@
     marginBlockStart: margin_block_start|default('0'),
     marginBlockEnd: margin_block_end|default('0'),
     paddingBlockStart: padding_block_start|default('32'),
-    paddingBlockEnd: padding_block_end|default('32'),
+    paddingBlockEnd: padding_block_end|default('32')
   })
 %}
 
-{% set top_classes = [
-  'footer',
-  'container',
-  'mx-auto',
-  'px-4',
-  'grid',
-  'grid-cols-1',
-  'gap-8',
-  'md:grid-cols-3',
-] %}
+{% set top_classes = ['footer', 'container', 'mx-auto', 'px-4', 'grid', 'grid-cols-1', 'gap-8', 'md:grid-cols-4'] %}
 
 {% set is_preview = canvas_is_preview ?? false %}
 
 {% set cell_variants =
   html_cva(
-    base: '',
+    base: 'w-full',
     variants: {
       preview: {
         yes: 'min-w-40 [&>*]:w-full [&>*]:min-h-12',
         no: ''
+      },
+      position: {
+        start: 'md:col-span-1',
+        middle: 'md:col-span-2',
+        end: 'md:col-span-1'
       }
     }
   )
 %}
 
-{% set cell_classes = cell_variants.apply({ preview: is_preview ? 'yes' : 'no' }) %}
+{% set preview_variant = is_preview ? 'yes' : 'no' %}
 
-{% set has_top = branding or links or social or is_preview %}
+{% set start_cell_classes =
+  cell_variants.apply({
+    preview: preview_variant,
+    position: 'start'
+  })
+%}
+
+{% set middle_cell_classes =
+  cell_variants.apply({
+    preview: preview_variant,
+    position: 'middle'
+  })
+%}
+
+{% set end_cell_classes =
+  cell_variants.apply({
+    preview: preview_variant,
+    position: 'end'
+  })
+%}
+
+{% set has_top = start or middle or end or is_preview %}
 
 <footer {{ attributes.addClass(footer_classes) }}>
   {% if has_top %}
     <div class="{{ top_classes|join(' ') }}">
-      {% if branding or is_preview %}
-        <aside class="{{ cell_classes }}">
-          {{ branding }}
-        </aside>
+      {% if start or is_preview %}
+        <div class="{{ start_cell_classes }}">
+          {{ start }}
+        </div>
       {% endif %}
-      {% if links or is_preview %}
-        <nav class="{{ cell_classes }}">
-          {{ links }}
-        </nav>
+      {% if middle or is_preview %}
+        <div class="{{ middle_cell_classes }}">
+          {{ middle }}
+        </div>
       {% endif %}
-      {% if social or is_preview %}
-        <nav class="{{ cell_classes }}">
-          {{ social }}
-        </nav>
+      {% if end or is_preview %}
+        <div class="{{ end_cell_classes }}">
+          {{ end }}
+        </div>
       {% endif %}
     </div>
   {% endif %}
