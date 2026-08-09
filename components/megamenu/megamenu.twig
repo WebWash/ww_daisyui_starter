@@ -20,7 +20,12 @@
 #}
 {% set mega =
   html_cva(
-    base: ['megamenu'],
+    base: [
+      'megamenu',
+      'bg-[var(--navbar-surface,var(--color-base-100))]',
+      'text-[var(--navbar-surface-content,var(--color-base-content))]',
+      '[&>.megamenu-active]:bg-current/10'
+    ],
     variants: {
       width: {
         default: '',
@@ -79,7 +84,7 @@
    span and must not land on a button. #}
 {% set l1_button =
   html_cva(
-    base: [],
+    base: ['text-current', 'hover:bg-current/10', 'focus-visible:outline-current'],
     variants: {
       active: {
         yes: 'font-semibold underline underline-offset-4',
@@ -95,8 +100,8 @@
 
 {# Top-level plain link (childless item): match the button metrics so the bar
    reads uniformly, and mirror the buttons' hover/focus feedback — hover fill
-   matches the sliding indicator (base-content at 10%), focus ring matches
-   daisyUI's button focus-visible outline. #}
+   matches the sliding indicator (current foreground at 10%), while the focus
+   ring uses the same palette-aware foreground. #}
 {% set l1_link =
   html_cva(
     base: [
@@ -107,9 +112,10 @@
       'text-sm',
       'rounded-field',
       'transition-colors',
-      'hover:bg-base-content/10',
+      'text-current',
+      'hover:bg-current/10',
       'focus-visible:outline-2',
-      'focus-visible:outline-base-content',
+      'focus-visible:outline-current',
       'focus-visible:outline-offset-2'
     ],
     variants: {
@@ -125,17 +131,21 @@
   )
 %}
 
-{# Popover panel chrome. In mobile mode the panels render inline inside the
-   vertical menu below lg, where daisyUI resets them to transparent and
-   borderless — scope the chrome to lg+ there so these utilities don't
-   override that reset. #}
+{# Popover panel chrome. The Navbar's semantic surface variables keep desktop
+   top-layer popovers and inline mobile panels on the same selected palette. #}
 {% set panel =
   html_cva(
-    base: [],
+    base: [
+      'border',
+      'border-current/15',
+      'bg-[var(--navbar-surface,var(--color-base-100))]',
+      'text-[var(--navbar-surface-content,var(--color-base-content))]',
+      'shadow'
+    ],
     variants: {
       mobile: {
-        yes: ['max-lg:pl-4', 'lg:rounded-box', 'lg:border', 'lg:border-base-300', 'lg:bg-base-100', 'lg:p-2', 'lg:shadow'],
-        no: 'rounded-box border border-base-300 bg-base-100 p-2 shadow'
+        yes: ['max-lg:pl-4', 'lg:rounded-box', 'lg:p-2'],
+        no: 'rounded-box p-2'
       }
     }
   )
@@ -151,7 +161,16 @@
    daisyUI menu sizing so tap targets are comfortable on small screens. #}
 {% set menu_list =
   html_cva(
-    base: ['menu', 'w-56', 'p-0'],
+    base: [
+      'menu',
+      'w-56',
+      'p-0',
+      '[&_a]:text-current',
+      '[&_a:hover]:bg-current/10',
+      '[&_a:focus-visible]:outline-current',
+      '[&_.menu-active]:bg-current/15',
+      '[&_.menu-active]:text-current'
+    ],
     variants: {
       mobile: {
         yes: 'max-lg:menu-lg max-lg:w-full',
@@ -359,7 +378,7 @@
   {% endfor %}
 
   {% if is_mobile == 'yes' and mobile_bottom_content|trim is not empty %}
-    <div class="mt-2 w-full border-t border-base-300 p-4 lg:hidden">
+    <div class="mt-2 w-full border-t border-current/15 p-4 lg:hidden">
       {{ mobile_bottom_content }}
     </div>
   {% endif %}

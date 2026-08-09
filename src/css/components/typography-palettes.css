@@ -34,20 +34,24 @@
 /* Variable redirect: daisyUI's component CSS reads --color-base-* directly,
    so redefining them here makes thead, table borders, divider lines, etc.
    adapt automatically. */
-.bg-primary,
-.bg-secondary,
-.bg-accent,
-.bg-neutral,
-.bg-base-300 {
+:is(.bg-primary, .bg-secondary, .bg-accent, .bg-neutral, .bg-info, .bg-success, .bg-warning, .bg-error) {
   --color-base-content: currentColor;
   --color-base-100: rgb(from currentColor r g b / 0.05);
   --color-base-200: rgb(from currentColor r g b / 0.1);
   --color-base-300: rgb(from currentColor r g b / 0.15);
 }
 
+/* Keep the wrapper's own Base 300 token intact while adapting lighter
+   nested base surfaces to its foreground colour. */
+.bg-base-300 {
+  --color-base-content: currentColor;
+  --color-base-100: rgb(from currentColor r g b / 0.05);
+  --color-base-200: rgb(from currentColor r g b / 0.1);
+}
+
 /* Explicit overrides for utilities that don't go through --color-base-*
    (links use --color-primary; kbd has its own bg/border declarations). */
-:is(.bg-primary, .bg-secondary, .bg-accent, .bg-neutral, .bg-base-300) {
+:is(.bg-primary, .bg-secondary, .bg-accent, .bg-neutral, .bg-info, .bg-success, .bg-warning, .bg-error, .bg-base-300) {
   /* Links: switch from `link-primary` (which collides with bg-primary and
      reads harshly on bg-secondary/accent) to a currentColor underline that
      always pairs with the surrounding text colour. */

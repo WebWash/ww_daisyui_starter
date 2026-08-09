@@ -20,6 +20,21 @@ slots:
 props:
   type: object
   properties:
+    content_width:
+      title: Content width
+      description: >-
+        Controls the width of the navbar content. The selected color always
+        spans the full viewport.
+      type: string
+      enum:
+        - contained
+        - full
+      "meta:enum":
+        contained: Contained
+        full: Full width
+      default: contained
+      examples:
+        - contained
     color_palette:
       title: Color palette
       description: |

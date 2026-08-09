@@ -25,7 +25,7 @@
 %}
   {% block mobile_bottom %}
     <form action="/search/node" method="get" role="search" class="w-full">
-      <label class="input w-full">
+      <label class="input w-full border-current/20 bg-current/10 text-current focus-within:outline-current">
         {{
           include(
             'ww_daisyui_starter:icon',
@@ -36,7 +36,7 @@
             with_context: false
           )
         }}
-        <input type="search" name="keys" placeholder="Search" class="grow" />
+        <input type="search" name="keys" placeholder="Search" class="grow placeholder:text-current/60" />
       </label>
     </form>
   {% endblock %}
