@@ -137,10 +137,8 @@
   {% endif %}
 
   {% if bottom %}
-    <div class="{{ has_top ? 'border-t border-base-content/10' }}">
-      <div class="container mx-auto footer px-4 py-4 {{ has_top ? 'mt-6' }}">
-        {{ bottom }}
-      </div>
+    <div class="container mx-auto footer px-4 py-4 {{ has_top ? 'mt-6 border-t border-current/10' }}">
+      {{ bottom }}
     </div>
   {% endif %}
 </footer>
