@@ -1,9 +1,6 @@
 "$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
 name: Footer
 status: stable
-# Theme-only component: branding/links/social/bottom slots expect
-# Drupal block render arrays that the Canvas editor cannot supply.
-noUi: true
 description: Footer component based on daisyUI. Uses slots for branding, link columns, social icons, and a bottom copyright row.
 slots:
   branding:
@@ -21,57 +18,126 @@ slots:
 props:
   type: object
   properties:
-    # Renamed from `variant` because Drupal core's ComponentElement render
-    # element auto-injects an empty-string `#variant` into `props['variant']`
-    # whenever a caller omits it (see ComponentElement::preRenderComponent
-    # and getInfo defaults), which collides with our enum and prevents
-    # removing the empty-string entry that Canvas refuses.
-    style:
-      title: Style
-      description: Defaults to "default" (horizontal columns from sm up) when omitted.
+    color_palette:
+      title: Color palette
+      description: |
+        daisyUI palette to apply to the footer.
       type: string
       enum:
-        - default
-        - center
-      "meta:enum":
-        default: "Default (horizontal columns from sm up)"
-        center: "Center (single centered column)"
-      default: default
-      examples:
-        - default
-    bg_color:
-      title: Background colour
-      description: Background and text colour combination. Defaults to base-200.
-      type: string
-      enum:
-        - default
+        - base-100
         - base-200
         - base-300
         - neutral
         - primary
-        - dark
+        - secondary
+        - accent
+        - info
+        - success
+        - warning
+        - error
       "meta:enum":
-        default: "Default (transparent)"
-        base-200: "Base 200 (default)"
-        base-300: Base 300
+        base-100: "Base 100 (page surface)"
+        base-200: "Base 200 (subtle)"
+        base-300: "Base 300 (sunken)"
         neutral: Neutral
         primary: Primary
-        dark: Dark (gray-900)
+        secondary: Secondary
+        accent: Accent
+        info: Info
+        success: Success
+        warning: Warning
+        error: Error
       examples:
         - base-200
-    padding:
-      title: Padding
-      description: Defaults to p-10.
+    padding_block_start:
       type: string
+      title: "Padding top"
       enum:
-        - p-4
-        - p-6
-        - p-10
-        - p-16
+        - "0"
+        - "8"
+        - "20"
+        - "32"
+        - "48"
+        - "64"
+        - "96"
+        - "128"
       "meta:enum":
-        p-4: Small
-        p-6: Medium
-        p-10: "Large (default)"
-        p-16: "Extra large"
+        "0": "0"
+        "8": "8 (8px)"
+        "20": "20 (20px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
       examples:
-        - p-10
+        - "32"
+    padding_block_end:
+      type: string
+      title: "Padding bottom"
+      enum:
+        - "0"
+        - "8"
+        - "20"
+        - "32"
+        - "48"
+        - "64"
+        - "96"
+        - "128"
+      "meta:enum":
+        "0": "0"
+        "8": "8 (8px)"
+        "20": "20 (20px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
+      examples:
+        - "32"
+    margin_block_start:
+      type: string
+      title: "Margin top"
+      enum:
+        - "0"
+        - "8"
+        - "20"
+        - "32"
+        - "48"
+        - "64"
+        - "96"
+        - "128"
+      "meta:enum":
+        "0": "0"
+        "8": "8 (8px)"
+        "20": "20 (20px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
+      examples:
+        - "0"
+    margin_block_end:
+      type: string
+      title: "Margin bottom"
+      enum:
+        - "0"
+        - "8"
+        - "20"
+        - "32"
+        - "48"
+        - "64"
+        - "96"
+        - "128"
+      "meta:enum":
+        "0": "0"
+        "8": "8 (8px)"
+        "20": "20 (20px)"
+        "32": "32 (24-32px)"
+        "48": "48 (32-48px)"
+        "64": "64 (40-64px)"
+        "96": "96 (64-96px)"
+        "128": "128 (80-128px)"
+      examples:
+        - "0"

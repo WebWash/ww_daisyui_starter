@@ -1,0 +1,15 @@
+/* Site branding (logo) block.
+ *
+ * SVG logos are inlined into the page so `fill="currentColor"` inherits the
+ * surrounding text colour, which keeps the logo legible on both the light
+ * header and the dark footer across every daisyUI theme. Non-SVG logos fall
+ * back to an <img>, so both are sized here.
+ *
+ * @see \Drupal\ww_daisyui_starter\Hook\ThemeHooks::preprocessBlockSystemBranding()
+ */
+.branding {
+  svg,
+  img {
+    @apply h-auto max-h-full w-full;
+  }
+}

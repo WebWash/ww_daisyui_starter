@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\ww_daisyui_starter\Hook;
 
+use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -14,6 +17,7 @@ final class ThemeHooks {
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
+    private readonly FileSystemInterface $fileSystem,
   ) {}
 
   /**
@@ -32,7 +36,54 @@ final class ThemeHooks {
    */
   #[Hook('preprocess_block__system_branding_block')]
   public function preprocessBlockSystemBranding(array &$variables): void {
-    $variables['attributes']['class'][] = 'text-2xl font-bold text-gray-800 w-[200px]';
+    // No text colour here: an inlined SVG logo paints with `currentColor`, so
+    // it inherits from whichever region holds the block (base-content in the
+    // header, the footer's light-on-dark text in the footer).
+    $variables['attributes']['class'][] = 'text-2xl font-bold w-[200px]';
+    $variables['site_logo_inline'] = $this->inlineLogoSvg($variables['site_logo'] ?? '');
+  }
+
+  /**
+   * Reads an SVG logo so it can be inlined.
+   *
+   * The file contents are marked safe and used as-is. Uploading a logo
+   * requires the "administer themes" permission, which already implies
+   * "administer modules" and so amounts to full trust; core and the contrib
+   * themes here inline or serve uploaded SVGs without filtering them too.
+   * Sizing is handled in CSS (src/css/components/branding.css) rather than by
+   * rewriting the markup.
+   *
+   * @param string $url
+   *   The site logo URL, as produced by the branding block.
+   *
+   * @return \Drupal\Component\Render\MarkupInterface|null
+   *   The SVG markup, already marked safe so the template can print it
+   *   without `|raw`, or NULL when the logo is not a local SVG and should be
+   *   rendered with core's <img> fallback instead.
+   */
+  private function inlineLogoSvg(string $url): ?MarkupInterface {
+    if ($url === '') {
+      return NULL;
+    }
+
+    // Strip any query string or fragment before testing the extension, and
+    // ignore off-site logos: only files this site serves can be read here.
+    $path = parse_url($url, PHP_URL_PATH) ?: '';
+    if (strtolower(pathinfo($path, PATHINFO_EXTENSION)) !== 'svg') {
+      return NULL;
+    }
+    if ((parse_url($url, PHP_URL_HOST) ?? '') !== '') {
+      return NULL;
+    }
+
+    $file = $this->fileSystem->realpath(ltrim($path, '/'));
+    if ($file === FALSE || !is_file($file) || !is_readable($file)) {
+      return NULL;
+    }
+
+    $svg = file_get_contents($file);
+
+    return $svg === FALSE || $svg === '' ? NULL : Markup::create($svg);
   }
 
   /**
