@@ -1,7 +1,10 @@
 {# prettier-ignore-start #}
+{# --ww-header-height pins the mobile megamenu panel below the header. It must
+   match the header's real rendered height (currently daisyUI's 4rem navbar
+   min-height) — re-measure if header content ever grows taller. #}
 {% set navbar_cva =
   html_cva(
-    base: ['w-full', 'shadow-sm'],
+    base: ['w-full', 'shadow-sm', '[--ww-header-height:4rem]'],
     variants: {
       colorPalette: {
         'base-100': [
@@ -119,17 +122,34 @@
         {{ navbar_end }}
       {% endblock %}
 
-      <button type="button" class="btn btn-square btn-ghost lg:hidden" popovertarget="mm-main" aria-label="Open menu">
-        {{
-          include(
-            'ww_daisyui_starter:icon',
-            {
-              icon: 'list',
-              icon_size: 'medium'
-            },
-            with_context: false
-          )
-        }}
+      {# Menu toggle. The hamburger ↔ X swap is CSS-only (megamenu.css), so the
+         aria-label must stay state-neutral. Keep popovertarget in sync with
+         the megamenu `id` prop in menu--main.html.twig. #}
+      <button type="button" class="mm-menu-toggle btn btn-square btn-ghost lg:hidden" popovertarget="mm-main" aria-label="Toggle menu">
+        <span class="mm-menu-toggle-open">
+          {{
+            include(
+              'ww_daisyui_starter:icon',
+              {
+                icon: 'list',
+                icon_size: 'medium'
+              },
+              with_context: false
+            )
+          }}
+        </span>
+        <span class="mm-menu-toggle-close">
+          {{
+            include(
+              'ww_daisyui_starter:icon',
+              {
+                icon: 'x',
+                icon_size: 'medium'
+              },
+              with_context: false
+            )
+          }}
+        </span>
       </button>
     </div>
   </div>

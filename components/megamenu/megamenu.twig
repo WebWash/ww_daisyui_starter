@@ -9,11 +9,17 @@
  * on click, Esc, outside-click (light dismiss) and keyboard support for free.
  * daisyUI's CSS handles positioning and the sliding indicator.
  *
- * Mapping:
+ * Mapping (desktop, lg+):
  * - L1 item with children    → <button popovertarget> + popover
  * - L1 item without children → plain <a> link in the bar
  * - L2 item with children    → column heading, its L3 items the links
  * - L2 leaf items only       → single compact dropdown list
+ *
+ * Mapping (mobile, below lg, in mobile mode — docs/mobile-navigation-spec.md):
+ * - Full-height popover panel pinned below the header
+ *   (top: var(--ww-header-height), owned by the navbar component).
+ * - Item with children → recursive <details>/<summary> disclosure row;
+ *   without → plain <a>. Desktop pairs are hidden below lg and vice versa.
  *
  * daisyUI supports at most 10 popovers per megamenu.
  */
@@ -40,7 +46,22 @@
         'megamenu-xl': 'megamenu-xl'
       },
       mobile: {
-        yes: ['max-lg:megamenu-vertical', 'max-lg:overflow-y-auto', 'max-lg:m-0', 'max-lg:mt-4'],
+        yes: [
+          'mm-mobile-panel',
+          'max-lg:[position-area:none]',
+          'max-lg:max-h-none',
+          'max-lg:[max-block-size:none]',
+          'max-lg:megamenu-vertical',
+          'max-lg:overflow-y-auto',
+          'max-lg:overscroll-contain',
+          'max-lg:m-0',
+          'max-lg:fixed',
+          'max-lg:inset-x-0',
+          'max-lg:top-[var(--ww-header-height,4rem)]',
+          'max-lg:h-[calc(100dvh-var(--ww-header-height,4rem))]',
+          'max-lg:w-full',
+          'max-lg:rounded-none'
+        ],
         no: ''
       }
     }
@@ -91,7 +112,7 @@
         no: ''
       },
       mobile: {
-        yes: 'max-lg:text-base',
+        yes: 'max-lg:hidden',
         no: ''
       }
     }
@@ -132,7 +153,10 @@
 %}
 
 {# Popover panel chrome. The Navbar's semantic surface variables keep desktop
-   top-layer popovers and inline mobile panels on the same selected palette. #}
+   top-layer popovers and inline mobile panels on the same selected palette.
+   In mobile mode the panel is desktop-only (hidden below lg) — the mobile
+   submenu is the recursive <details> branch, which drops the bordered-box
+   chrome entirely (spec §5.3, §5.7). #}
 {% set panel =
   html_cva(
     base: [
@@ -144,7 +168,7 @@
     ],
     variants: {
       mobile: {
-        yes: ['max-lg:pl-4', 'lg:rounded-box', 'lg:p-2'],
+        yes: ['max-lg:hidden', 'lg:rounded-box', 'lg:p-2'],
         no: 'rounded-box p-2'
       }
     }
@@ -256,6 +280,115 @@
    classes would be purged. #}
 {% set anchor_name = '--mm-' ~ instance_id %}
 
+{# Recursive mobile renderer: item.below non-empty → <details>/<summary>
+   disclosure (active trail pre-opened server-side), empty → leaf link.
+   Indent classes must stay statically enumerable for Tailwind; chevron and
+   slide behavior live in src/css/components/megamenu.css. #}
+{% macro mobile_item(item, depth) %}
+  {% import _self as mobile_menu %}
+
+  {% set row =
+    html_cva(
+      base: [
+        'flex',
+        'items-center',
+        'h-12',
+        'w-full',
+        'rounded-field',
+        'transition-colors',
+        'text-current',
+        'hover:bg-current/10',
+        'focus-visible:outline-2',
+        'focus-visible:outline-current',
+        'focus-visible:outline-offset-2'
+      ],
+      variants: {
+        depth: {
+          d1: 'px-4 text-lg',
+          d2: 'pl-8 pr-4 text-base',
+          d3: 'pl-12 pr-4 text-base',
+          d4: 'pl-16 pr-4 text-base'
+        },
+        kind: {
+          toggle: ['justify-between', 'cursor-pointer', 'select-none', 'list-none'],
+          leaf: ''
+        },
+        active: {
+          top: 'font-semibold underline underline-offset-4',
+          child: 'menu-active bg-current/15',
+          no: ''
+        }
+      }
+    )
+  %}
+
+  {% set depth_key = 'd4' %}
+  {% if depth <= 1 %}
+    {% set depth_key = 'd1' %}
+  {% elseif depth == 2 %}
+    {% set depth_key = 'd2' %}
+  {% elseif depth == 3 %}
+    {% set depth_key = 'd3' %}
+  {% endif %}
+
+  {% if item.below is not empty %}
+    {% set open_attr = item.in_active_trail ? 'open' : '' %}
+    {% set toggle_active = 'no' %}
+    {% if item.in_active_trail and depth <= 1 %}
+      {% set toggle_active = 'top' %}
+    {% endif %}
+    <details class="mm-disclosure w-full" {{ open_attr }}>
+      <summary
+        class="{{
+        row.apply({
+          depth: depth_key,
+          kind: 'toggle',
+          active: toggle_active
+        })
+        }}"
+      >
+        <span>{{ item.title }}</span>
+        <span class="mm-chevron shrink-0" aria-hidden="true">
+          {{
+            include(
+              'ww_daisyui_starter:icon',
+              {
+                icon: 'caret-down',
+                icon_size: 'extra-small'
+              },
+              with_context: false
+            )
+          }}
+        </span>
+      </summary>
+      <ul class="w-full">
+        {% for child in item.below %}
+          <li>{{ mobile_menu.mobile_item(child, depth + 1) }}</li>
+        {% endfor %}
+      </ul>
+    </details>
+  {% else %}
+    {% set leaf_active = 'no' %}
+    {% if item.in_active_trail %}
+      {% set leaf_active = depth <= 1 ? 'top' : 'child' %}
+    {% endif %}
+    <a
+      href="{{ item.url }}"
+      class="{{
+      row.apply({
+        depth: depth_key,
+        kind: 'leaf',
+        active: leaf_active
+      })
+      }}"
+    >
+      {{ item.title }}
+    </a>
+  {% endif %}
+{% endmacro %}
+
+{% import _self as mobile_menu %}
+
 {# Capture the mobile_bottom slot so we can skip its wrapper entirely when
    no content is passed. Rendered only in mobile mode, below lg, at the end
    of the vertical menu (e.g. a search form). #}
@@ -361,6 +494,13 @@
           </ul>
         {% endif %}
       </div>
+
+      {# Mobile sibling of the desktop button+popover pair, same item data. #}
+      {% if is_mobile == 'yes' %}
+        <div class="w-full lg:hidden">
+          {{ mobile_menu.mobile_item(item, 1) }}
+        </div>
+      {% endif %}
     {% else %}
       {% set link_active = item.in_active_trail ? 'yes' : 'no' %}
       <a
