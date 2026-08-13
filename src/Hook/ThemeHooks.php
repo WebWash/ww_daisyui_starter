@@ -38,7 +38,7 @@ final class ThemeHooks {
     // No text colour here: an inlined SVG logo paints with `currentColor`, so
     // it inherits from whichever region holds the block (base-content in the
     // header, the footer's light-on-dark text in the footer).
-    $variables['attributes']['class'][] = 'text-2xl font-bold w-[200px]';
+    $variables['attributes']['class'][] = 'text-2xl font-bold w-full max-w-[200px]';
     $variables['site_logo_inline'] = $this->inlineLogoSvg($variables['site_logo'] ?? '');
   }
 

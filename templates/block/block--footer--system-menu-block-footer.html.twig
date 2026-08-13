@@ -14,7 +14,19 @@
 
 {% set heading_id = attributes.id ~ ('-menu'|clean_id) %}
 
-{% set columns_classes = ['grid', 'grid-cols-1', 'gap-8', 'sm:grid-cols-2', 'w-full'] %}
+{# Fill the available region with up to four equal columns, then wrap. #}
+{% set responsive_column_classes = {
+  1: ['sm:grid-cols-1', 'lg:grid-cols-1'],
+  2: ['sm:grid-cols-2', 'lg:grid-cols-2'],
+  3: ['sm:grid-cols-2', 'lg:grid-cols-3'],
+  4: ['sm:grid-cols-2', 'lg:grid-cols-4']
+} %}
+{% set column_count = items|length > 4 ? 4 : items|length %}
+{% set columns_classes =
+  ['grid', 'grid-cols-1', 'gap-8', 'w-full']|merge(
+    responsive_column_classes[column_count]|default([])
+  )
+%}
 
 {% set column_title_classes = ['footer-title'] %}
 
@@ -24,7 +36,7 @@
   {% set title_attributes = title_attributes.addClass('visually-hidden') %}
 {% endif %}
 
-<div {{ attributes|without('role', 'aria-labelledby') }}>
+<div {{ attributes|without('role', 'aria-labelledby').addClass('w-full') }}>
   {{ title_prefix }}
   <h2 {{ title_attributes.setAttribute('id', heading_id) }}>{{ configuration.label }}</h2>
   {{ title_suffix }}
