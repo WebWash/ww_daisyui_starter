@@ -10,22 +10,9 @@
  * @see \Drupal\ww_daisyui_starter\Hook\ThemeHooks::preprocessPage()
  */
 #}
-<header class="bg-base-100 shadow-sm">
-  <div class="container mx-auto px-4 lg:px-8">
-    {% embed 'ww_daisyui_starter:navbar'
-      with {
-        navbar_start: page.navbar_start,
-        navbar_center: page.navbar_center,
-        navbar_end: page.navbar_end
-      } only
-    %}
-      {% block navbar_end %}
-        {{ navbar_end }}
-        {{ include('ww_daisyui_starter:theme_switcher', {}, with_context: false) }}
-      {% endblock %}
-    {% endembed %}
-  </div>
-</header>
+{% if page.navbar %}
+  {{ page.navbar }}
+{% endif %}
 
 {% if page.breadcrumb and not is_edge %}
   <div class="container mx-auto px-4 py-3">
@@ -53,18 +40,6 @@
   </section>
 </main>
 
-{% if page.footer_branding or page.footer or page.footer_social or page.footer_bottom %}
-  {{
-    include(
-      'ww_daisyui_starter:footer',
-      {
-        branding: page.footer_branding,
-        links: page.footer,
-        social: page.footer_social,
-        bottom: page.footer_bottom,
-        bg_color: 'dark'
-      },
-      with_context: false
-    )
-  }}
+{% if page.footer %}
+  {{ page.footer }}
 {% endif %}

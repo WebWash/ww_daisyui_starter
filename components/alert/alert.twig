@@ -1,0 +1,113 @@
+{% set resolved_color = color|default('alert-info') %}
+{% set responsive_variant = responsive|default(false) ? 'yes' : 'no' %}
+{% set is_preview = canvas_is_preview ?? false %}
+
+{% set alert =
+  html_cva(
+    base: 'alert',
+    variants: {
+      color: {
+        'alert-info': 'alert-info',
+        'alert-success': 'alert-success',
+        'alert-warning': 'alert-warning',
+        'alert-error': 'alert-error'
+      },
+      style: {
+        default: '',
+        'alert-outline': 'alert-outline',
+        'alert-dash': 'alert-dash',
+        'alert-soft': 'alert-soft'
+      },
+      responsive: {
+        yes: 'alert-vertical sm:alert-horizontal',
+        no: ''
+      }
+    }
+  )
+%}
+
+{% set alert_classes =
+  alert.apply({
+    color: resolved_color,
+    style: style|default('default'),
+    responsive: responsive_variant
+  })
+%}
+
+{% set alert_actions_variants =
+  html_cva(
+    base: 'order-last',
+    variants: {
+      responsive: {
+        yes: 'justify-self-center sm:justify-self-end',
+        no: 'justify-self-end'
+      },
+      preview: {
+        yes: 'flex min-w-40 justify-end',
+        no: ''
+      }
+    }
+  )
+%}
+
+{% set alert_actions_classes =
+  alert_actions_variants.apply({
+    responsive: responsive_variant,
+    preview: is_preview ? 'yes' : 'no'
+  })
+%}
+
+{% set default_icons = {
+  'alert-info': 'info',
+  'alert-success': 'check-circle',
+  'alert-warning': 'warning',
+  'alert-error': 'x-circle'
+} %}
+{% set resolved_icon = icon|default(default_icons[resolved_color] ?? 'info') %}
+{% set resolved_title_level = title_level|default('h3') %}
+
+{% set alert_actions_content %}
+  {% block alert_actions %}
+
+  {% endblock %}
+{% endset %}
+
+<div role="alert" {{ attributes.addClass(alert_classes) }}>
+  {% if not hide_icon %}
+    {{
+      include(
+        'ww_daisyui_starter:icon',
+        {
+          icon: resolved_icon,
+          icon_size: 'small'
+        },
+        with_context: false
+      )
+    }}
+  {% endif %}
+  {% if title %}
+    <div>
+      {% if resolved_title_level == 'h2' %}
+        <h2 class="text-base leading-tight font-bold">{{ title }}</h2>
+      {% elseif resolved_title_level == 'h4' %}
+        <h4 class="text-base leading-tight font-bold">{{ title }}</h4>
+      {% elseif resolved_title_level == 'h5' %}
+        <h5 class="text-base leading-tight font-bold">{{ title }}</h5>
+      {% elseif resolved_title_level == 'h6' %}
+        <h6 class="text-base leading-tight font-bold">{{ title }}</h6>
+      {% else %}
+        <h3 class="text-base leading-tight font-bold">{{ title }}</h3>
+      {% endif %}
+      <div class="text-sm">
+        {{ message }}
+      </div>
+    </div>
+  {% else %}
+    <span>{{ message }}</span>
+  {% endif %}
+  {% if is_preview or alert_actions_content|trim is not empty %}
+    <div class="{{ alert_actions_classes }}">
+      {{ alert_actions_content }}
+    </div>
+  {% endif %}
+</div>

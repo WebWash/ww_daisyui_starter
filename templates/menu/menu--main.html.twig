@@ -14,30 +14,16 @@
  * popovertarget in sync with the `id` prop here.
  */
 #}
-{% embed 'ww_daisyui_starter:megamenu'
-  with {
-    items: items,
-    id: 'main',
-    width: 'wide',
-    mobile: true,
-    megamenu_classes: 'p-2'
-  } only
-%}
-  {% block mobile_bottom %}
-    <form action="/search/node" method="get" role="search" class="w-full">
-      <label class="input w-full">
-        {{
-          include(
-            'ww_daisyui_starter:icon',
-            {
-              icon: 'magnifying-glass',
-              icon_size: 'small'
-            },
-            with_context: false
-          )
-        }}
-        <input type="search" name="keys" placeholder="Search" class="grow" />
-      </label>
-    </form>
-  {% endblock %}
-{% endembed %}
+{{
+  include(
+    'ww_daisyui_starter:megamenu',
+    {
+      items: items,
+      id: 'main',
+      width: 'wide',
+      mobile: true,
+      megamenu_classes: 'p-2'
+    },
+    with_context: false
+  )
+}}

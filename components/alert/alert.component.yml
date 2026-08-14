@@ -1,0 +1,93 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
+name: Alert
+status: stable
+group: Feedback
+description: Alert component based on daisyUI. Displays a highlighted message with a status icon, in the same visual language as the theme's status messages.
+props:
+  type: object
+  required:
+    - message
+  properties:
+    message:
+      title: Message
+      type: string
+      examples:
+        - Your changes have been saved.
+    title:
+      title: Title
+      description: Optional bold title shown above the message.
+      type: string
+      examples:
+        - Saved
+    title_level:
+      title: Title level
+      description: Heading level used for the optional title. Defaults to h3.
+      type: string
+      enum:
+        - h2
+        - h3
+        - h4
+        - h5
+        - h6
+      "meta:enum":
+        h2: "Heading 2"
+        h3: "Heading 3 (default)"
+        h4: "Heading 4"
+        h5: "Heading 5"
+        h6: "Heading 6"
+      default: h3
+      examples:
+        - h3
+    color:
+      title: Color
+      description: Defaults to alert-info when omitted.
+      type: string
+      enum:
+        - alert-info
+        - alert-success
+        - alert-warning
+        - alert-error
+      "meta:enum":
+        alert-info: "Info (default)"
+        alert-success: Success
+        alert-warning: Warning
+        alert-error: Error
+      examples:
+        - alert-info
+    style:
+      title: Style
+      description: Defaults to "default" (solid) when omitted.
+      type: string
+      enum:
+        - default
+        - alert-outline
+        - alert-dash
+        - alert-soft
+      "meta:enum":
+        default: "Default (solid)"
+        alert-outline: Outline
+        alert-dash: Dashed
+        alert-soft: Soft
+      default: default
+      examples:
+        - default
+    responsive:
+      title: Responsive layout
+      description: Stack the alert vertically on small screens and switch to a horizontal layout from the sm breakpoint.
+      type: boolean
+      default: false
+    icon:
+      title: Icon
+      description: 'The ID of an icon from the <a href="https://phosphoricons.com" target="_blank">Phosphor Icons</a> library.'
+      type: string
+      examples:
+        - bell
+    hide_icon:
+      title: Hide icon
+      description: Render the alert without a status icon.
+      type: boolean
+      default: false
+slots:
+  alert_actions:
+    title: Alert actions
+    description: Optional content rendered at the end of the alert (e.g. a button or badge).

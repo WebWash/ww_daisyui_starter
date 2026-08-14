@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Social menu block: icon-only links laid out in a row.
+ *
+ * Styles live in src/css/components/menu.css.
+ */
+#}
+{% set heading_id = attributes.id ~ ('-menu'|clean_id) %}
+
+{# Class follows the menu name (`socials`), taken from the block's derivative. #}
+{% set menu_name = derivative_plugin_id|clean_class %}
+
+{% set nav_attributes = attributes|without('role', 'aria-labelledby') %}
+{% set nav_attributes = nav_attributes.addClass('menu--' ~ menu_name) %}
+
+<nav aria-labelledby="{{ heading_id }}" {{ nav_attributes }}>
+  {# Label. If not displayed, we still provide it for screen readers. #}
+  {# {% if not configuration.label_display %}
+    {% set title_attributes = title_attributes.addClass('visually-hidden') %}
+  {% endif %} #}
+  {{ title_prefix }}
+  <h6 {{ title_attributes.setAttribute('id', heading_id).addClass('footer-title') }}>{{ configuration.label }}</h6>
+  {{ title_suffix }}
+
+  {# Menu. #}
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</nav>

@@ -1,0 +1,62 @@
+/* Mobile megamenu behaviors (docs/mobile-navigation-spec.md, zero-JS):
+ * <details> disclosure styling/animation and the hamburger ↔ X swap.
+ *
+ * Panel geometry is NOT here: daisyUI anchors the open panel from
+ * `utilities.daisyui.*` sub-layers, which beat this `components` layer, so
+ * the neutralizing overrides live as utilities on the element in
+ * megamenu.twig (max-lg:[position-area:none] etc.). */
+@layer components {
+  .mm-disclosure > summary {
+    list-style: none;
+  }
+
+  .mm-disclosure > summary::marker {
+    display: none;
+  }
+
+  .mm-disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mm-disclosure > summary .mm-chevron {
+    transition: rotate 175ms ease;
+  }
+
+  .mm-disclosure[open] > summary .mm-chevron {
+    rotate: 180deg;
+  }
+
+  /* Slide open/close; browsers without ::details-content toggle instantly. */
+  .mm-disclosure::details-content {
+    interpolate-size: allow-keywords;
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size 175ms ease,
+      content-visibility 175ms ease allow-discrete;
+  }
+
+  .mm-disclosure[open]::details-content {
+    block-size: auto;
+  }
+
+  /* Hamburger ↔ X swap while the menu popover is open. */
+  .mm-menu-toggle .mm-menu-toggle-close {
+    display: none;
+  }
+
+  body:has(#mm-main:popover-open) .mm-menu-toggle .mm-menu-toggle-open {
+    display: none;
+  }
+
+  body:has(#mm-main:popover-open) .mm-menu-toggle .mm-menu-toggle-close {
+    display: inline-flex;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mm-disclosure > summary .mm-chevron,
+    .mm-disclosure::details-content {
+      transition: none;
+    }
+  }
+}

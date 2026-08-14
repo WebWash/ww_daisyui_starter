@@ -1,0 +1,33 @@
+{% extends 'block.html.twig' %}
+{#
+/**
+ * @file
+ * Branding block override that inlines SVG logos.
+ *
+ * An <img> loads the logo as a separate document, so `fill="currentColor"`
+ * inside it has no parent to inherit from and falls back to black. Inlining
+ * the markup lets the logo take its colour from the surrounding text, which
+ * is what keeps it legible on both the light header and the dark footer
+ * across every daisyUI theme.
+ *
+ * Available variables:
+ * - site_logo: Logo for site as defined in Appearance or theme settings.
+ * - site_logo_inline: Safe-marked SVG markup when the logo is a local SVG,
+ *   otherwise NULL. Set in ThemeHooks::preprocessBlockSystemBranding().
+ * - site_name: Name for site as defined in Site information settings.
+ * - site_slogan: Slogan for site as defined in Site information settings.
+ *
+ * @see \Drupal\ww_daisyui_starter\Hook\ThemeHooks::preprocessBlockSystemBranding()
+ */
+#}
+{% block content %}
+  {% if site_logo_inline %}
+    <a href="{{ path('<front>') }}" rel="home" aria-label="{{ 'Home'|t }}" class="branding block">{{ site_logo_inline }}</a>
+  {% elseif site_logo %}
+    <a href="{{ path('<front>') }}" rel="home" class="branding block"><img src="{{ site_logo }}" alt="{{ 'Home'|t }}" fetchpriority="high" /></a>
+  {% endif %}
+  {% if site_name %}
+    <a href="{{ path('<front>') }}" rel="home">{{ site_name }}</a>
+  {% endif %}
+  {{ site_slogan }}
+{% endblock %}
