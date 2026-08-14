@@ -2,12 +2,7 @@
 name: Hero
 status: stable
 group: Content
-description: |
-  Hero based on daisyUI. Heading and supporting copy are supplied as
-  props (rich-text via the content prop); editors compose the actions
-  by dropping Button SDCs into the actions slot. Image is supplied as
-  a prop and is used as a side panel for side / side-reverse layouts
-  and as the background for the overlay layout.
+description: A hero with text, actions, and an optional image.
 props:
   type: object
   properties:
@@ -33,6 +28,22 @@ props:
         overlay: "Image background with overlay"
       examples:
         - side
+    overlay_opacity:
+      title: Overlay opacity
+      description: Controls the background image overlay. Leave unset for none.
+      type: string
+      enum:
+        - "25"
+        - "50"
+        - "75"
+        - "100"
+      "meta:enum":
+        "25": "Light (25%)"
+        "50": "Medium (50%)"
+        "75": "Strong (75%)"
+        "100": "Solid (100%)"
+      examples:
+        - "50"
     align:
       title: Alignment
       type: string

@@ -1,6 +1,14 @@
 {% set layout_val = layout|default('text_only') %}
 {% set align_val  = align|default('left') %}
 {% set has_overlay = layout_val == 'overlay' and image.src %}
+{% set overlay_opacity_values = {
+  '0': '0',
+  '25': '0.25',
+  '50': '0.5',
+  '75': '0.75',
+  '100': '1',
+} %}
+{% set overlay_opacity_val = overlay_opacity_values[overlay_opacity|default('0')] ?? overlay_opacity_values['0'] %}
 
 {% set hero = html_cva(
   base: ['hero'],
@@ -132,7 +140,7 @@
 
 {% if has_overlay %}
   <div {{ attributes.addClass(hero_classes|split(' ')).setAttribute('style', 'background-image: url(' ~ image.src ~ ')') }}>
-    <div class="hero-overlay"></div>
+    <div class="hero-overlay" style="background-color: var(--color-neutral); opacity: {{ overlay_opacity_val }}"></div>
 {% else %}
   <div {{ attributes.addClass(hero_classes|split(' ')) }}>
 {% endif %}
