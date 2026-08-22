@@ -52,6 +52,7 @@
           'max-lg:max-h-none',
           'max-lg:[max-block-size:none]',
           'max-lg:megamenu-vertical',
+          'max-lg:gap-1',
           'max-lg:overflow-y-auto',
           'max-lg:overscroll-contain',
           'max-lg:m-0',
@@ -69,6 +70,12 @@
 %}
 
 {% set is_mobile = mobile|default(false) ? 'yes' : 'no' %}
+{% set width_mode = width|default('wide') %}
+
+{# Orientation threshold for flat submenus: this many direct links (or more)
+   switches the desktop panel from one column to two. Omitting the prop
+   selects 5, it does not force vertical. #}
+{% set horizontal_threshold = horizontal_threshold|default(5) %}
 
 {# Extra container classes. Defaults to the standard chrome; pass your own
    string/array to replace it (e.g. '' for a bare bar inside a navbar).
@@ -81,7 +88,7 @@
 {% set mega_classes =
   mega.apply(
     {
-      width: width|default('wide'),
+      width: width_mode,
       size: size|default('megamenu-md'),
       mobile: is_mobile
     },
@@ -181,17 +188,25 @@
   })
 %}
 
-{# Link lists inside popovers. In mobile mode go full width with larger
-   daisyUI menu sizing so tap targets are comfortable on small screens. #}
+{# Link lists inside popovers. `gap-1` keeps ~4px between adjacent row
+   backgrounds so hover/active rectangles never abut. The focus ring is
+   spelled out (width, color, offset) rather than left to daisyUI, which
+   otherwise suppresses it inside `.menu`. In mobile mode go full width with
+   larger daisyUI menu sizing so tap targets are comfortable on small
+   screens. #}
 {% set menu_list =
   html_cva(
     base: [
       'menu',
       'w-56',
+      'gap-1',
       'p-0',
       '[&_a]:text-current',
       '[&_a:hover]:bg-current/10',
+      '[&_a:focus-visible]:outline-solid',
+      '[&_a:focus-visible]:outline-2',
       '[&_a:focus-visible]:outline-current',
+      '[&_a:focus-visible]:outline-offset-2',
       '[&_.menu-active]:bg-current/15',
       '[&_.menu-active]:text-current'
     ],
@@ -253,12 +268,14 @@
   })
 %}
 
-{# Leaf links. The indent variant pushes L3 links (links under a column
-   heading) one step deeper than their heading in the vertical mobile menu;
-   flat submenu links stay at heading level. #}
+{# Leaf links. Padding is set here rather than inherited from daisyUI's
+   `px-3 py-1.5` default so the row height stays deterministic. The indent
+   variant pushes L3 links (links under a column heading) one step deeper
+   than their heading in the vertical mobile menu; flat submenu links stay at
+   heading level. #}
 {% set leaf_link =
   html_cva(
-    base: [],
+    base: ['px-3', 'py-2'],
     variants: {
       active: {
         yes: 'menu-active',
@@ -277,8 +294,57 @@
    popovers to the LAST container in the DOM. Scope the anchor per instance
    (same trick as the `[anchor-name:--megamenu-x]` examples in the daisyUI
    docs); inline styles because the value is dynamic and Tailwind arbitrary
-   classes would be purged. #}
+   classes would be purged.
+
+   Only stretched panels need that container anchor. At `default` width the
+   panel is content-sized and must follow its own trigger, so we emit neither
+   style and let the popover invoker act as daisyUI's implicit anchor.
+   Both values are resolved here so no control structure sits in a tag. #}
 {% set anchor_name = '--mm-' ~ instance_id %}
+{% set uses_container_anchor = width_mode == 'wide' or width_mode == 'full' %}
+{% set container_anchor_attr =
+  create_attribute(
+    uses_container_anchor
+      ? {
+        style: 'anchor-name: ' ~ anchor_name
+      }
+      : {}
+  )
+%}
+{% set panel_anchor_attr =
+  create_attribute(
+    uses_container_anchor
+      ? {
+        style: 'position-anchor: ' ~ anchor_name
+      }
+      : {}
+  )
+%}
+
+{# One flat submenu column. Shared by the vertical panel and by both halves
+   of the horizontal panel so the leaf-link markup exists in exactly one
+   place. Macros do not see the template scope, so the list classes and the
+   `leaf_link` CVA object are passed in. #}
+{% macro flat_list(children, list_classes, link_cva) %}
+  <ul class="{{ list_classes }}">
+    {% for child in children %}
+      {% set leaf_active = child.in_active_trail ? 'yes' : 'no' %}
+      <li>
+        <a
+          href="{{ child.url }}"
+          class="{{
+          link_cva.apply({
+            active: leaf_active,
+            indent: 'no'
+          })
+          }}"
+        >
+          {{ child.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
 
 {# Recursive mobile renderer: item.below non-empty → <details>/<summary>
    disclosure (active trail pre-opened server-side), empty → leaf link.
@@ -361,7 +427,9 @@
           }}
         </span>
       </summary>
-      <ul class="w-full">
+      {# `flex flex-col gap-1` separates sibling rows at every nested depth;
+         the gap lives on the container, never as margins on the links. #}
+      <ul class="flex w-full flex-col gap-1">
         {% for child in item.below %}
           <li>{{ mobile_menu.mobile_item(child, depth + 1) }}</li>
         {% endfor %}
@@ -388,6 +456,7 @@
 {% endmacro %}
 
 {% import _self as mobile_menu %}
+{% import _self as mega_menu %}
 
 {# Capture the mobile_bottom slot so we can skip its wrapper entirely when
    no content is passed. Rendered only in mobile mode, below lg, at the end
@@ -398,7 +467,7 @@
   {% endblock %}
 {% endset %}
 
-<div style="anchor-name: {{ anchor_name }}" {{ attributes.addClass(mega_classes) }}>
+<div {{ container_anchor_attr }} {{ attributes.addClass(mega_classes) }}>
   {# Sliding indicator under the open/active item — pure daisyUI CSS. Pinned
      behind the interactive items (z-0) so its resting position never
      intercepts pointer events. #}
@@ -431,7 +500,7 @@
         {% endif %}
       {% endfor %}
 
-      <div id="{{ popover_id }}" style="position-anchor: {{ anchor_name }}" class="{{ panel_classes }}" popover>
+      <div id="{{ popover_id }}" {{ panel_anchor_attr }} class="{{ panel_classes }}" popover>
         {% if has_columns %}
           <div class="{{ columns_wrap_classes }}">
             {% for column in item.below %}
@@ -474,24 +543,19 @@
             {% endfor %}
           </div>
         {% else %}
-          <ul class="{{ menu_list_classes }}">
-            {% for child in item.below %}
-              {% set leaf_active = child.in_active_trail ? 'yes' : 'no' %}
-              <li>
-                <a
-                  href="{{ child.url }}"
-                  class="{{
-                  leaf_link.apply({
-                    active: leaf_active,
-                    indent: 'no'
-                  })
-                  }}"
-                >
-                  {{ child.title }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
+          {# Auto-orientation: from `horizontal_threshold` links up, the flat
+             list splits into two content-sized columns filled down-then-
+             across, so Tab order still matches the visual reading order.
+             Below the threshold it stays a single column. #}
+          {% if (item.below|length) >= horizontal_threshold %}
+            {% set split_at = ((item.below|length) / 2)|round(0, 'ceil') %}
+            <div class="flex items-start gap-4">
+              {{ mega_menu.flat_list(item.below|slice(0, split_at), menu_list_classes, leaf_link) }}
+              {{ mega_menu.flat_list(item.below|slice(split_at), menu_list_classes, leaf_link) }}
+            </div>
+          {% else %}
+            {{ mega_menu.flat_list(item.below, menu_list_classes, leaf_link) }}
+          {% endif %}
         {% endif %}
       </div>
 
