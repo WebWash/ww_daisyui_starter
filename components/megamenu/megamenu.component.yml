@@ -62,6 +62,15 @@ props:
         wide: "Wide (megamenu-wide)"
         full: "Full (megamenu-full)"
       default: wide
+    horizontal_threshold:
+      type: integer
+      title: Horizontal threshold
+      description: >-
+        Flat submenus with at least this many links render as a two-column
+        horizontal panel on desktop; fewer render as a single vertical column.
+        Only applies when every child is a plain link.
+      default: 5
+      minimum: 2
     size:
       type: string
       title: Size
