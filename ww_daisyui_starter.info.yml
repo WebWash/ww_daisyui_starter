@@ -2,7 +2,7 @@ name: WebWash DaisyUI Starter
 type: theme
 base theme: false
 description: A flexible theme with a responsive, mobile-first layout.
-version: 0.1.0
+version: 0.1.2
 core_version_requirement: ^11
 libraries:
   - ww_daisyui_starter/global
