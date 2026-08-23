@@ -1,0 +1,25 @@
+/* Site logo light/dark swap.
+ *
+ * `light-dark()` is rewritten by Lightning CSS at build time, so this file must
+ * stay reachable from src/css/style.css — served raw it would not work.
+ *
+ * The --logo-* variables let the `scheme` prop force one version, for logos on
+ * a coloured palette (bg-neutral etc) that does not change `color-scheme`.
+ */
+.site-logo__img--light {
+  display: var(--logo-light, light-dark(block, none));
+}
+
+.site-logo__img--dark {
+  display: var(--logo-dark, light-dark(none, block));
+}
+
+.site-logo--scheme-light {
+  --logo-light: block;
+  --logo-dark: none;
+}
+
+.site-logo--scheme-dark {
+  --logo-light: none;
+  --logo-dark: block;
+}

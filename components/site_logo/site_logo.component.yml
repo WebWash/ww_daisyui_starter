@@ -1,0 +1,57 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json"
+name: Site logo
+status: stable
+group: Branding
+description: Site logo with separate light and dark versions. Accepts SVG or raster images.
+props:
+  type: object
+  properties:
+    logo_light:
+      title: Light logo
+      description: Shown on light themes, and used everywhere when no dark logo is set.
+      "$ref": "json-schema-definitions://canvas.module/image"
+    logo_dark:
+      title: Dark logo
+      description: Shown on dark themes. Falls back to the light logo when empty.
+      "$ref": "json-schema-definitions://canvas.module/image"
+    max_width:
+      title: Maximum width
+      description: Maximum width in pixels. Defaults to 200.
+      type: integer
+      minimum: 1
+      maximum: 2000
+      examples:
+        - 200
+    url:
+      title: Link URL
+      description: Wraps the logo in a link. Leave empty for no link.
+      type: string
+      examples:
+        - /
+    scheme:
+      title: Colour scheme
+      type: string
+      enum:
+        - auto
+        - light
+        - dark
+      "meta:enum":
+        auto: "Auto (follow theme)"
+        light: "Always light logo"
+        dark: "Always dark logo"
+      examples:
+        - auto
+    alignment:
+      title: Alignment
+      description: Horizontal alignment. Defaults to start.
+      type: string
+      enum:
+        - start
+        - center
+        - end
+      "meta:enum":
+        start: Start
+        center: Center
+        end: End
+      examples:
+        - start
