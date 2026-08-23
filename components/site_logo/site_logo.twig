@@ -1,0 +1,92 @@
+{# Both logos render; CSS picks one. See src/css/components/site-logo.css. #}
+{% set has_light_logo = logo_light.src is defined and logo_light.src is not empty %}
+{% set has_dark_logo = logo_dark.src is defined and logo_dark.src is not empty %}
+{% set logo_max_width = max_width|default(200) %}
+
+{% set wrapper =
+  html_cva(
+    base: ['site-logo', 'flex', 'w-full'],
+    variants: {
+      alignment: {
+        start: 'justify-start',
+        center: 'justify-center',
+        end: 'justify-end'
+      },
+      scheme: {
+        auto: '',
+        light: 'site-logo--scheme-light',
+        dark: 'site-logo--scheme-dark'
+      }
+    }
+  )
+%}
+
+{% set wrapper_classes =
+  wrapper.apply({
+    alignment: alignment|default('start'),
+    scheme: scheme|default('auto')
+  })
+%}
+
+{% set image_cva =
+  html_cva(
+    base: ['site-logo__img', 'h-auto', 'w-full'],
+    variants: {
+      role: {
+        single: '',
+        light: 'site-logo__img--light',
+        dark: 'site-logo__img--dark'
+      }
+    }
+  )
+%}
+
+{% set light_classes =
+  image_cva.apply({
+    role: has_dark_logo ? 'light' : 'single'
+  })
+%}
+
+{% set dark_classes =
+  image_cva.apply({
+    role: 'dark'
+  })
+%}
+
+{% set logo_style = 'max-width: ' ~ logo_max_width ~ 'px' %}
+
+{# SVG media reports 0, which would emit width="0". #}
+{% set light_dimensions = '' %}
+{% if (logo_light.width|default(0)) > 0 and (logo_light.height|default(0)) > 0 %}
+  {% set light_dimensions = 'width="' ~ logo_light.width ~ '" height="' ~ logo_light.height ~ '"' %}
+{% endif %}
+
+{% set dark_dimensions = '' %}
+{% if (logo_dark.width|default(0)) > 0 and (logo_dark.height|default(0)) > 0 %}
+  {% set dark_dimensions = 'width="' ~ logo_dark.width ~ '" height="' ~ logo_dark.height ~ '"' %}
+{% endif %}
+
+{% set logo_images %}
+  {% if has_light_logo %}
+    <img
+      src="{{ logo_light.src }}"
+      alt="{{ logo_light.alt|default('') }}"
+      class="{{ light_classes }}"
+      style="{{ logo_style }}"
+      {{ light_dimensions|raw }}
+    />
+  {% endif %}
+  {% if has_dark_logo %}
+    <img src="{{ logo_dark.src }}" alt="" class="{{ dark_classes }}" style="{{ logo_style }}" {{ dark_dimensions|raw }} />
+  {% endif %}
+{% endset %}
+
+{% if url is not empty %}
+  <div {{ attributes.addClass(wrapper_classes|split(' ')) }}>
+    <a href="{{ url }}" class="inline-flex w-full" style="{{ logo_style }}">{{ logo_images }}</a>
+  </div>
+{% else %}
+  <div {{ attributes.addClass(wrapper_classes|split(' ')) }}>
+    {{ logo_images }}
+  </div>
+{% endif %}
