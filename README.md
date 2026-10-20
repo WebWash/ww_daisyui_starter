@@ -11,7 +11,7 @@ A modern Drupal theme built with Tailwind CSS v4 and Single Directory Components
 - daisyUI v5
 - Vite (build tool)
 - Single Directory Components (SDC)
-- Node.js v22.14.0
+- Node.js (version in `.nvmrc`)
 
 ## Requirements
 
@@ -38,7 +38,7 @@ Drupal 12, so upgrading to Drupal 11.4+ is the recommended path.
 
 ### Prerequisites
 
-This theme requires Node.js v22.14.0. If you use nvm (Node Version Manager), the correct version will be automatically selected.
+The required Node.js version is set in the `.nvmrc` file. If you use nvm (Node Version Manager), run `nvm use` to switch to it.
 
 ### Installation
 
