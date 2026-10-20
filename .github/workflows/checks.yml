@@ -1,0 +1,59 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Both checks are informational. Neither is a required status check, so a
+# failure shows red on the PR but never blocks merging.
+jobs:
+  format:
+    name: Format check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Uses the pnpm version from the packageManager field in package.json.
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run format:check
+
+  # Fails when any package has a newer version.
+  outdated:
+    name: Outdated packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: pnpm outdated
+        run: |
+          if pnpm outdated > outdated.txt; then
+            echo "All packages are up to date." >> "$GITHUB_STEP_SUMMARY"
+          else
+            cat outdated.txt
+            {
+              echo "## Outdated packages"
+              echo '```'
+              cat outdated.txt
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::Some packages are out of date. See the job summary."
+            exit 1
+          fi

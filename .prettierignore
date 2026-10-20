@@ -6,6 +6,7 @@ node_modules/
 
 # Lock file.
 package-lock.json
+pnpm-lock.yaml
 
 # Drupal coding standards indent JSON differently.
 composer.json
@@ -26,3 +27,7 @@ components/heading/heading.twig
 components/hero/hero.twig
 components/section/section.twig
 templates/menu/menu--main.html.twig
+
+# `none` is a reserved word in Twig. Prettier unquotes the `'none'` CVA key
+# and then cannot parse its own output, so skip this template.
+components/group/group.twig

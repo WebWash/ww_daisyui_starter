@@ -6,7 +6,8 @@
     variants: {
       flexDirection: {
         column: 'flex-col',
-        row: 'flex-row',
+        row: 'flex-row flex-wrap',
+        'row-md': 'flex-col md:flex-row md:flex-wrap',
         'column-reverse': 'flex-col-reverse',
         'row-reverse': 'flex-row-reverse',
       },
@@ -44,7 +45,7 @@
         success: 'bg-success text-success-content',
         warning: 'bg-warning text-warning-content',
         error: 'bg-error text-error-content',
-        none: '',
+        'none': '',
       },
       marginBlockStart: {
         '0': 'mt-0',

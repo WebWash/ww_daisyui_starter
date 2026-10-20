@@ -15,12 +15,17 @@ props:
     flex_direction:
       type: string
       title: Item direction
+      description: |
+        Horizontal items wrap to a new line when they run out of room.
+        "Horizontal, stack on mobile" shows items in a column on phones.
       enum:
         - column
         - row
+        - row-md
       meta:enum:
         column: Vertical
         row: Horizontal
+        row-md: Horizontal, stack on mobile
       default: "column"
       examples:
         - "column"
