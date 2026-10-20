@@ -9,7 +9,23 @@ props:
     image:
       title: Image
       description: Optional image. Used as the side panel for the side / side-reverse layouts and as the background for the overlay layout.
-      "$ref": "json-schema-definitions://canvas.module/image"
+      type: object
+      required:
+        - src
+      properties:
+        src:
+          type: string
+          format: uri-reference
+          contentMediaType: image/*
+          x-allowed-schemes:
+            - http
+            - https
+        alt:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
       examples:
         - src: https://picsum.photos/seed/hero/1600/900
           alt: Decorative hero image

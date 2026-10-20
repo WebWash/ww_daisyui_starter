@@ -9,11 +9,43 @@ props:
     logo_light:
       title: Light logo
       description: Shown on light themes, and used everywhere when no dark logo is set.
-      "$ref": "json-schema-definitions://canvas.module/image"
+      type: object
+      required:
+        - src
+      properties:
+        src:
+          type: string
+          format: uri-reference
+          contentMediaType: image/*
+          x-allowed-schemes:
+            - http
+            - https
+        alt:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
     logo_dark:
       title: Dark logo
       description: Shown on dark themes. Falls back to the light logo when empty.
-      "$ref": "json-schema-definitions://canvas.module/image"
+      type: object
+      required:
+        - src
+      properties:
+        src:
+          type: string
+          format: uri-reference
+          contentMediaType: image/*
+          x-allowed-schemes:
+            - http
+            - https
+        alt:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
     max_width:
       title: Maximum width
       description: Maximum width in pixels. Defaults to 200.

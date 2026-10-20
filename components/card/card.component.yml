@@ -38,7 +38,23 @@ props:
     image:
       title: Image
       description: Optional image rendered above the card body (or as the background for the image-full layout).
-      "$ref": "json-schema-definitions://canvas.module/image"
+      type: object
+      required:
+        - src
+      properties:
+        src:
+          type: string
+          format: uri-reference
+          contentMediaType: image/*
+          x-allowed-schemes:
+            - http
+            - https
+        alt:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
       examples:
         - src: https://picsum.photos/seed/card/640/360
           alt: Decorative image
