@@ -58,6 +58,7 @@ props:
       title: Link URL
       description: Wraps the logo in a link. Leave empty for no link.
       type: string
+      format: uri-reference
       examples:
         - /
     scheme:
