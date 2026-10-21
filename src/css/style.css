@@ -58,6 +58,16 @@
   }
 }
 
+/* No transitions until the first frame has painted. `ww-preload` is added and
+   removed by the inline <head> script in ThemeHooks::pageAttachmentsAlter().
+   Without this, Chrome animates cards and buttons inside container-query
+   containers from their default styles on page load. */
+.ww-preload *,
+.ww-preload *::before,
+.ww-preload *::after {
+  transition: none !important;
+}
+
 @import "./components/branding.css";
 @import "./components/forms.css";
 @import "./components/webform.css";

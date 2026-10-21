@@ -116,10 +116,25 @@ final class ThemeHooks {
    * Applies a saved daisyUI theme from localStorage before first paint to
    * avoid a flash of the default theme. (Themes can't implement
    * hook_page_attachments - only the _alter variant.)
+   *
+   * Also adds a `ww-preload` class to <html> that disables CSS transitions
+   * until the first frame has painted. Chrome styles elements inside
+   * container-query containers (e.g. sections) in two passes, and would
+   * otherwise animate cards and buttons from their default styles on load.
+   * @see src/css/style.css
    */
   #[Hook('page_attachments_alter')]
   public function pageAttachmentsAlter(array &$attachments): void {
-    $script = "(function(){try{var t=localStorage.getItem('ww-theme');if(t){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();";
+    $script = <<<'JS'
+      (function(){
+        var root=document.documentElement;
+        root.classList.add('ww-preload');
+        document.addEventListener('DOMContentLoaded',function(){
+          requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.remove('ww-preload');});});
+        });
+        try{var t=localStorage.getItem('ww-theme');if(t){root.setAttribute('data-theme',t);}}catch(e){}
+      })();
+      JS;
     $attachments['#attached']['html_head'][] = [
       [
         '#tag' => 'script',
